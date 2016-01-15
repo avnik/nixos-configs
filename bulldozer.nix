@@ -6,63 +6,31 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+    [ 
+      ./common/common.nix
+      ./roles/emacs.nix
+      ./roles/X11.nix
+      ./roles/desktop.nix
+      ./roles/console.nix
+      ./users.nix
     ];
 
-  nix = {
-    useChroot = true;
-    readOnlyStore = true;
-    buildCores = 4;    # -j4 for subsequent make calls
-    maxJobs = 2;       # Parallel nix builds
-    binaryCaches = [
-      "http://cache.nixos.org/"
-      "http://hydra.nixos.org/"
-      "http://hydra.cryp.to/"
-    ];
-    trustedBinaryCaches = [
-      "http://hydra.cryp.to/"
-    ];
-    extraOptions = ''
-        gc-keep-outputs = true
-        gc-keep-derivations = true
-        auto-optimise-store = true
-        binary-caches-parallel-connections = 10
-    '';
-  };
   nixpkgs.config = {
-     allowUnfree = true;
-     pulseaudio = true;
-     firefox = {
-        enableAdobeFlash = true;
-     };
-     packageOverrides = pkgs: rec {
-#        # Avoid failure on rebuild
-#        # https://gist.github.com/avnik/647bc1cb68f3c0f16f9e
-#    	gcc49 = pkgs.wrapCC (pkgs.lib.overrideDerivation pkgs.gcc49.cc (oldAttrs:  {
-#	    	enableParallelBuilding = false;
-#	    } // oldAttrs));
-
-        # Attempt to remove ceph (if I can't avoid samba)
-        samba = pkgs.samba_light;
-        smbclient = pkgs.samba_light;
-     };
+     allowBroken = true;  # Until ansible will be fixed
   };
 
-  # Use the gummiboot efi boot loader.
-  boot.loader.gummiboot.enable = true;
-  boot.loader.gummiboot.timeout = 10;
-  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.loader.grub.device = "/dev/disk/by-label/NIXOS";
+  boot.loader.grub.device = "nodev";
   boot.loader.grub.version = 2;
-  boot.loader.grub.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
   boot.kernelParams = ["reboot=w,a" "radeon.dpm=1" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
   #boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_4_0;
+  boot.kernelPackages = pkgs.linuxPackages_4_3;
   boot.kernelModules = [ "r8169" ];
-  boot.blacklistedKernelModules = [ "snd_pcsp" ];
   boot.initrd.availableKernelModules = ["btrfs"];
+  boot.tmpOnTmpfs = true;
   services.klogd.enable = false;
 
   powerManagement.cpuFreqGovernor = "ondemand";
@@ -77,22 +45,21 @@
   networking.nameservers  = [ "172.16.228.1" ];
   networking.firewall.enable = false;
 
-  hardware.enableKSM = true;
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.systemWide = true;
-#  hardware.pulseaudio.configFile = "/home/avn/.pulse/default.pa";
+  hardware = {
+      opengl = {
+          driSupport32Bit = true;
+          s3tcSupport = true;
+      };
+      enableKSM = true;
+      pulseaudio = {
+          enable = true;
+          systemWide = true;
+      };
+  };
 
   hardware.cpu.amd.updateMicrocode = true;
  
   # networking.wireless.enable = true;  # Enables wireless.
-
-  # Select internationalisation properties.
-  i18n = {
-     consoleFont = "lat9w-16";
-     consoleKeyMap = "us";
-     defaultLocale = "en_US.UTF-8";
-     supportedLocales = ["en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" "ru_RU.KOI8-R"];
-  };
 
   fileSystems = {
     "/efi"={
@@ -139,31 +106,37 @@
     };
   };
 
-fonts = {
-    enableFontDir = true;
-#    enableGhostscriptFont = true;
-    fonts = with pkgs; [
-      	dejavu_fonts
-        liberation_ttf
-        terminus_font
-         xorg.fontcronyxcyrillic
-         xorg.fontmisccyrillic
-         xorg.fontalias
-         ubuntu_font_family
-         inconsolata
-         corefonts
-      ];
-};
+  # List services that you want to enable:
 #services.xfs.enable = true;
-services.virtualboxHost.enable = true;
+virtualisation.virtualbox.host.enable = true;
+virtualisation.docker.enable = true;
+virtualisation.docker.storageDriver = "btrfs";
 #services.thermald.enable = true;
 
-  services.ntp = {
-    enable = true;
-    servers = [ "server.local" "0.pool.ntp.org" "1.pool.ntp.org" "2.pool.ntp.org" ];
+  services.postfix = {
+      enable = true;
+      hostname = "bulldozer";
+      domain = "avnik.info";
+      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info"];
+      rootAlias = "avn";
+      postmasterAlias = "avn";
+      origin = "bulldozer.avnik.info";
+      relayHost = "frog.home";
+      extraConfig = ''
+smtpd_milters = unix:/run/rmilter/rmilter.sock
+# or for TCP socket
+# # smtpd_milters = inet:localhost:9900
+milter_protocol = 6
+milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
+# skip mail without checks if milter will die
+milter_default_action = accept
+      '';
   };
 
-  # List services that you want to enable:
+  services.rspamd.enable = true;
+
+  services.syslog-ng.enable = true;
+
   services.nfs.server = {
      enable = true;
      exports = ''
@@ -177,67 +150,45 @@ services.virtualboxHost.enable = true;
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  services.xserver.layout = "us";
-  services.xserver.videoDrivers = [ "ati" ];
-  services.xserver.exportConfiguration = true;
-
-  # services.xserver.xkbOptions = "eurosign:e";
-
-  # Enable the KDE Desktop Environment.
-  # services.xserver.displayManager.kdm.enable = true;
-  # services.xserver.desktopManager.kde4.enable = true;
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
 
   environment = {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
-      psmisc
-      wget
-      elinks
-      pandoc gnumake zathura
-      file lsof zip unzip
-      vim
-      zsh
-      fvwm 
-      grub2
-      mpv mpg123
-      screen
+      pandoc gnumake
+      neovim
+      svtplay-dl
       rtorrent
-      rxvt_unicode
-      aumix
-      qastools
       irssi
-      gitFull mercurial nix-prefetch-scripts
+      mercurial nix-prefetch-scripts darcs
       gitAndTools.git-imerge gitAndTools.gitflow gitAndTools.git-remote-hg
-      gitAndTools.gitRemoteGcrypt gitAndTools.hub
+      gitAndTools.gitRemoteGcrypt gitAndTools.hub gist
       nox
       vagrant ansible
-      chromium
-      pkgs.firefoxWrapper
-      xlibs.xkbcomp
       lm_sensors
-      pavucontrol
       imagemagick
-      emacs
-      vcsh mr fasd
-      xorg.xdpyinfo xorg.xdriinfo glxinfo xorg.xev xorg.xgamma autocutsel
-      manpages pthreadmanpages posix_man_pages stdmanpages iana_etc
+      vcsh mr fasd rcm renameutils
+      manpages posix_man_pages stdmanpages iana_etc
       perl pythonFull ruby bundix
-      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras
-      mumble
+      mumble teamspeak_client pidgin-with-plugins
+      mutt-kz procmail notmuch maildrop
+      pass
+      texlive.combined.scheme-full
+      rethinkdb
+      go
+      ghc cabal-install stack cabal2nix
+      racket
   ];
 
+#      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras
+#
+#      haskellPackages.cabal-install haskellPackages.cabal-meta
+#      (haskellPackages.ghcWithPackages (self: with self; [
+#        lens
+#      ]))
   sessionVariables =
-      { NIX_PATH =
-          [ 
-            "nixpkgs=/home/avn/nixos/nixpkgs"
-            "nixos=/home/avn/nixos/nixpkgs/nixos"
-            "nixos-config=/etc/nixos/configuration.nix"
-          ];
+      { 
       };
 
 
@@ -245,22 +196,4 @@ services.virtualboxHost.enable = true;
 	  "hosts".source = ./verbatim/hosts;
     };
   };
-  users.extraUsers.avn = {
-    isNormalUser = true;
-    uid = 1000;
-    extraGroups = ["audio" "pulse" "video" "wheel"];
-    shell = "/run/current-system/sw/bin/zsh";
-  };
-  users.extraUsers.olga = {
-   isNormalUser = true;
-   uid = 1001;
-  };
-  security = {
-    sudo = {
-      extraConfig = ''
-Defaults:root,%wheel env_keep+=NIX_PATH
-      '';
-    };
-  };
-  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
 }
