@@ -1,0 +1,32 @@
+{ config, pkgs, ... }:
+
+{
+
+  imports = [
+    ../common/fonts.nix
+  ];
+
+  # Enable the X11 windowing system.
+  services.xserver = {
+    enable = true;
+    layout = "us";
+    videoDrivers = [ "ati" ];
+    exportConfiguration = true;
+  # Glamor still buggy on my Radeon HD6670
+  # useGlamor = true;
+
+  };
+  #services.xserver.windowManager.qtile.enable = true;
+  services.xserver.displayManager.slim.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    fvwm qtile
+    rxvt_unicode
+    xlibs.xkbcomp
+    xorg.xlsatoms xorg.xkill
+    xorg.xdpyinfo xorg.xdriinfo glxinfo xorg.xev xorg.xgamma xorg.xmodmap xorg.xwininfo autocutsel
+    xlibs.xkbcomp
+    wmctrl xdotool
+  ];
+
+}
