@@ -15,13 +15,16 @@
 #       } // oldAttrs));
 
         # Attempt to remove ceph (if I can't avoid samba)
-        samba = pkgs.samba_light;
-        smbclient = pkgs.samba_light;
+        #samba = pkgs.samba_light;
+        #smbclient = pkgs.samba_light;
         texLive = pkgs.texLive.override {
             preferLocalBuild = true;
         };
         pidgin-with-plugins =  pkgs.pidgin-with-plugins.override {
             plugins = [ pkgs.purple-plugin-pack pkgs.toxprpl pkgs.pidginotr pkgs.skype4pidgin pkgs.pidginwindowmerge ];
+        };
+        deadbeef-with-plugins = pkgs.deadbeef-with-plugins.override {
+            plugins = [ pkgs.deadbeef-mpris2-plugin ];
         };
      };
   };
