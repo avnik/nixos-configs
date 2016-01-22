@@ -30,7 +30,6 @@
   boot.kernelPackages = pkgs.linuxPackages_4_3;
   boot.kernelModules = [ "r8169" ];
   boot.initrd.availableKernelModules = ["btrfs"];
-  boot.tmpOnTmpfs = true;
   services.klogd.enable = false;
 
   powerManagement.cpuFreqGovernor = "ondemand";
@@ -117,25 +116,19 @@ virtualisation.docker.storageDriver = "btrfs";
       enable = true;
       hostname = "bulldozer";
       domain = "avnik.info";
-      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info"];
+      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "master"];
       rootAlias = "avn";
       postmasterAlias = "avn";
       origin = "bulldozer.avnik.info";
       relayHost = "frog.home";
-      extraConfig = ''
-smtpd_milters = unix:/run/rmilter/rmilter.sock
-# or for TCP socket
-# # smtpd_milters = inet:localhost:9900
-milter_protocol = 6
-milter_mail_macros = i {mail_addr} {client_addr} {client_name} {auth_authen}
-# skip mail without checks if milter will die
-milter_default_action = accept
-      '';
   };
 
   services.rspamd.enable = true;
+  services.rmilter.postfix.enable = true;
 
   services.syslog-ng.enable = true;
+
+  services.nix-serve.enable = true;
 
   services.nfs.server = {
      enable = true;
@@ -150,8 +143,6 @@ milter_default_action = accept
   # Enable CUPS to print documents.
   services.printing.enable = false;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-
   environment = {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -161,7 +152,7 @@ milter_default_action = accept
       svtplay-dl
       rtorrent
       irssi
-      mercurial nix-prefetch-scripts darcs
+      mercurial nix-prefetch-scripts
       gitAndTools.git-imerge gitAndTools.gitflow gitAndTools.git-remote-hg
       gitAndTools.gitRemoteGcrypt gitAndTools.hub gist
       nox

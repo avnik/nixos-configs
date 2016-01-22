@@ -5,6 +5,7 @@
      ./nixpkgs.nix
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
+  boot.tmpOnTmpfs = true;
 
   # Select internationalisation properties.
   i18n = {

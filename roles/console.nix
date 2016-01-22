@@ -6,5 +6,6 @@
       rsync
       file lsof zip unzip wget
       gitFull
+      vim
     ];
 }
