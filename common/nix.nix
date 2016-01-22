@@ -4,7 +4,7 @@
     useChroot = true;
     readOnlyStore = true;
     buildCores = 4;    # -j4 for subsequent make calls
-    maxJobs = 2;       # Parallel nix builds
+#    maxJobs = 2;       # Parallel nix builds
     binaryCaches = [
       "http://hydra.nixos.org/"
       "http://cache.nixos.org/"

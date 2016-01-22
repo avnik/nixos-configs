@@ -6,6 +6,8 @@
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
 
+  hardware.enableKSM = true;
+
   # Select internationalisation properties.
   i18n = {
      consoleFont = "lat9w-16";
@@ -37,5 +39,4 @@ Defaults:root,%wheel env_keep+=NIX_PATH
       '';
     };
   };
-  systemd.services.pulseaudio.restartIfChanged = false;
 }
