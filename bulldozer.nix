@@ -12,6 +12,7 @@
       ./roles/X11.nix
       ./roles/desktop.nix
       ./roles/console.nix
+      ./roles/gaming.nix
       ./users.nix
     ];
 
@@ -160,7 +161,7 @@ virtualisation.docker.storageDriver = "btrfs";
       lm_sensors
       imagemagick
       vcsh mr fasd rcm renameutils
-      manpages posix_man_pages stdmanpages iana_etc
+      manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
       mumble teamspeak_client pidgin-with-plugins
       mutt-kz procmail notmuch maildrop
@@ -170,6 +171,8 @@ virtualisation.docker.storageDriver = "btrfs";
       go
       ghc cabal-install stack cabal2nix
       racket
+      calibre
+      npm2nix nix-repl
   ];
 
 #      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras

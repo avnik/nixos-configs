@@ -9,30 +9,32 @@
     [ # Include the results of the hardware scan.
       ./users.nix
       ./common/common.nix
-      ./common/efi.nix
       ./roles/console.nix
       ./roles/desktop.nix
       ./roles/X11.nix
       ./roles/emacs.nix
     ];
 
+  # Don't use the gummiboot efi boot loader.
+  boot.loader.gummiboot.enable = false;
+  boot.loader.efi.canTouchEfiVariables = false;
+  boot.loader.grub = {
+    enable = true;
+    device = "/dev/sda";
+    version = 2;
+    efiSupport = false;
+  };
+
   boot.initrd.luks = {
     cryptoModules = [ "aes_x86_64" "xts" "ecb" "cbc" "sha256_generic" "sha512_generic"];
     devices = [ {
       name="cryptolvm";
-      device = "/dev/sda3";
+      device = "/dev/sda5";
       preLVM = true;
     } ];
   };
 
-  fileSystems = {
-      "/mnt/raid" = {
-          device = "bulldozer:/mnt/raid";
-          fsType = "nfs";
-      };
-  };
-
-  networking.hostName = "boomer"; # Define your hostname.
+  networking.hostName = "raptor"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Set your time zone.
@@ -41,11 +43,7 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    vim
-    libreoffice
-    deadbeef-with-plugins
-    abcde
-   ];
+  ];
 
   # List services that you want to enable:
 
@@ -65,5 +63,4 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "15.09";
-  users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "wheel" "pulse"];
 }

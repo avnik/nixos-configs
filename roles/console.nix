@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
     environment.systemPackages = with pkgs; [
+      vim
       screen tmux elinks
       pythonFull
       rsync
