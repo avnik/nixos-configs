@@ -3,6 +3,7 @@
   nixpkgs.config = {
      allowUnfree = true;
      pulseaudio = true;
+     avahi.qt4Support = false;
      mpv = {
          cacaSupport = false;
          SDL2Support = true; # FIXME: require fix in nixpkgs/toplevel/all-packages
@@ -21,7 +22,7 @@
             preferLocalBuild = true;
         };
         pidgin-with-plugins =  pkgs.pidgin-with-plugins.override {
-            plugins = [ pkgs.purple-plugin-pack pkgs.toxprpl pkgs.pidginotr pkgs.skype4pidgin pkgs.pidginwindowmerge ];
+            plugins = [ pkgs.purple-plugin-pack pkgs.toxprpl pkgs.pidginotr pkgs.pidgin-skypeweb pkgs.pidginwindowmerge ];
         };
         deadbeef-with-plugins = pkgs.deadbeef-with-plugins.override {
             plugins = [ pkgs.deadbeef-mpris2-plugin ];

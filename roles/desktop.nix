@@ -20,7 +20,7 @@
     chromium
     pkgs.firefoxWrapper
     skype
-    gimp
+    gimp-with-plugins
     pavucontrol
     qastools
     aumix

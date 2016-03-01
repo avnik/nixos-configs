@@ -28,10 +28,9 @@
   boot.loader.grub.efiSupport = true;
   boot.kernelParams = ["reboot=w,a" "radeon.dpm=1" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
   #boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_4_3;
+  boot.kernelPackages = pkgs.linuxPackages_4_4;
   boot.kernelModules = [ "r8169" ];
   boot.initrd.availableKernelModules = ["btrfs"];
-  services.klogd.enable = false;
 
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
@@ -68,11 +67,11 @@
     };
     "/home"={
         device="/dev/vg0/home";
-	fsType="ext4";
+        fsType="ext4";
     };
     "/mnt/data"={
         device="/dev/vg0/data";
-	fsType="btrfs";
+        fsType="btrfs";
     };
     "/mnt/raid"={
         device="/dev/vg0/raid";
@@ -80,7 +79,7 @@
     };
     "/mnt/games"={
         device="/dev/vg0/games";
-	fsType="xfs";
+        fsType="xfs";
     };
     "/mnt/systems"={
         device="/dev/vg0/systems";
@@ -93,7 +92,7 @@
     "/mnt/video"={
     	device="/mnt/fast/video";
 	    fsType="none";
-    	options="bind";
+    	options=["bind"];
     };
     "/mnt/debian"={
         device="/dev/vg0/root";
@@ -102,18 +101,27 @@
     "/etc/nixos/nixpkgs"={
     	device="/home/avn/nixos/nixpkgs";
 	    fsType="none";
-    	options="bind";
+    	options=["bind"];
+    };
+    "/var/lib/rkt"={
+        device="/mnt/systems/rkt";
+        fsType="none";
+        options=["bind"];
     };
   };
 
   # List services that you want to enable:
-#services.xfs.enable = true;
-virtualisation.virtualbox.host.enable = true;
-virtualisation.docker.enable = true;
-virtualisation.docker.storageDriver = "btrfs";
-#services.thermald.enable = true;
+virtualisation = {
+    virtualbox.host.enable = true;
+    docker = {
+        enable = true;
+        storageDriver = "btrfs";
+    };
+    rkt.enable = true;
+};
 
-  services.postfix = {
+services = {
+  postfix = {
       enable = true;
       hostname = "bulldozer";
       domain = "avnik.info";
@@ -124,20 +132,26 @@ virtualisation.docker.storageDriver = "btrfs";
       relayHost = "frog.home";
   };
 
-  services.rspamd.enable = true;
-  services.rmilter.postfix.enable = true;
+  rspamd.enable = true;
+  rmilter.postfix.enable = true;
 
-  services.syslog-ng.enable = true;
+  syslog-ng.enable = true;
+  klogd.enable = false;
 
-  services.nix-serve.enable = true;
+  nix-serve = {
+    enable = true;
+    secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
+  };
 
-  services.nfs.server = {
+  nfs.server = {
      enable = true;
      exports = ''
 /mnt/raid   boomer(rw,no_subtree_check)
 /mnt/video   boomer(rw,no_subtree_check)
 '';
   };
+};
+
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
@@ -163,16 +177,16 @@ virtualisation.docker.storageDriver = "btrfs";
       vcsh mr fasd rcm renameutils
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
-      mumble teamspeak_client pidgin-with-plugins
+      mumble_git teamspeak_client pidgin-with-plugins
       mutt-kz procmail notmuch maildrop
       pass
       texlive.combined.scheme-full
-      rethinkdb
+#      rethinkdb
       go
       ghc cabal-install stack cabal2nix
-      racket
       calibre
       npm2nix nix-repl
+      rkt acbuild
   ];
 
 #      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras
