@@ -30,8 +30,13 @@
           device = "bulldozer:/mnt/raid";
           fsType = "nfs";
       };
+      "/mnt/video" = {
+          device = "bulldozer:/mnt/video";
+          fsType = "nfs";
+      };
   };
 
+  nix.binaryCaches = [ "http://bulldozer.home" ];
   networking.hostName = "boomer"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -45,6 +50,7 @@
     libreoffice
     deadbeef-with-plugins
     abcde
+    xfce.thunar
    ];
 
   # List services that you want to enable:
