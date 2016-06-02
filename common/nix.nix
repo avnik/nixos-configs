@@ -8,7 +8,7 @@
     binaryCaches = lib.optionals (config.networking.hostName != "bulldozer") ["http://bulldozer.home:5000/"] ++ [
 #      "http://hydra.nixos.org/"
       "http://cache.nixos.org/"
-      "http://hydra.cryp.to/"
+#      "http://hydra.cryp.to/"
     ];
     binaryCachePublicKeys =  lib.optionals (config.networking.hostName != "bulldozer") [
       "bulldozer.home-1:qpQBqYBCJdEfJv36voiz3Z0MAGxqTPwhCXgzWN9HOIE="

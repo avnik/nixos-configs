@@ -4,7 +4,7 @@ let emacs = pkgs.emacsWithPackages (with pkgs.emacsPackages; with pkgs.emacsPack
     button-lock
     evil
     evil-leader
-    ghc-mod
+#    ghc-mod
     haskell-mode
     git-timemachine
     git-auto-commit-mode

@@ -14,6 +14,7 @@
       ./roles/console.nix
       ./roles/gaming.nix
       ./users.nix
+      ./envs/golang.nix
     ];
 
   nixpkgs.config = {
@@ -28,7 +29,7 @@
   boot.loader.grub.efiSupport = true;
   boot.kernelParams = ["reboot=w,a" "radeon.dpm=1" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
   #boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_4_4;
+  boot.kernelPackages = pkgs.linuxPackages_4_5;
   boot.kernelModules = [ "r8169" ];
   boot.initrd.availableKernelModules = ["btrfs"];
 
@@ -75,7 +76,7 @@
     };
     "/mnt/raid"={
         device="/dev/vg0/raid";
-	fsType="xfs";
+        fsType="xfs";
     };
     "/mnt/games"={
         device="/dev/vg0/games";
@@ -104,9 +105,8 @@
     	options=["bind"];
     };
     "/var/lib/rkt"={
-        device="/mnt/systems/rkt";
-        fsType="none";
-        options=["bind"];
+        device="/dev/vg0/rkt";
+        fsType="xfs";
     };
   };
 
@@ -117,7 +117,7 @@ virtualisation = {
         enable = true;
         storageDriver = "btrfs";
     };
-    rkt.enable = true;
+#    rkt.enable = true;
 };
 
 services = {
@@ -182,11 +182,11 @@ services = {
       pass
       texlive.combined.scheme-full
 #      rethinkdb
-      go
+      go_1_6 go16Packages.glide.bin
       ghc cabal-install stack cabal2nix
-      calibre
+#      calibre
       npm2nix nix-repl
-      rkt acbuild
+#      rkt acbuild
   ];
 
 #      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras
