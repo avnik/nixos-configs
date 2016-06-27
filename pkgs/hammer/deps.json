@@ -1,0 +1,91 @@
+[
+  {
+    "goPackagePath": "github.com/anmitsu/go-shlex",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/anmitsu/go-shlex",
+      "rev": "53a3d8a8a362cca54fd6825caf2216aa6d8139fc",
+      "sha256": "0sdlafzkwq4yc4crvw952cgmfzz7y4bi5cm17jsa6dyr5widnyrc"
+    }
+  },
+  {
+    "goPackagePath": "github.com/spf13/cobra",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/spf13/cobra",
+      "rev": "bc81c21bd0d8be5ba2d6630a505d79d4467566e7",
+      "sha256": "1sp8gl25cjx0yibh6q1i8d5rbxpwaal3z8vz372wfmbz002say8r"
+    }
+  },
+  {
+    "goPackagePath": "github.com/spf13/pflag",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/spf13/pflag",
+      "rev": "367864438f1b1a3c7db4da06a2f55b144e6784e0",
+      "sha256": "03c6654hv4v1fj79i5sri3p9q2afqgicka4nicb6fr4kcfkkgbfp"
+    }
+  },
+  {
+    "goPackagePath": "github.com/spf13/viper",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/spf13/viper",
+      "rev": "c1ccc378a054ea8d4e38d8c67f6938d4760b53dd",
+      "sha256": "0lpdzalqhqp9pwsg63inkxwjji7m0pp42ryw1499bqbjp97hriq0"
+    }
+  },
+  {
+    "goPackagePath": "github.com/magiconair/properties",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/magiconair/properties",
+      "rev": "c265cfa48dda6474e208715ca93e987829f572f8",
+      "sha256": "1ab9ywwsrdq5mvrcwl7m3276y1q4dfwinbv88vgpqwcqai9wkpp3"
+    }
+  },
+  {
+    "goPackagePath": "github.com/spf13/jwalterweatherman",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/spf13/jwalterweatherman",
+      "rev": "33c24e77fb80341fe7130ee7c594256ff08ccc46",
+      "sha256": "1knvzspqzc2bh58q16zggzc8gcabjp5gr7zk4k7nx5ij4092cg0z"
+    }
+  },
+  {
+    "goPackagePath": "github.com/spf13/cast",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/spf13/cast",
+      "rev": "27b586b42e29bec072fe7379259cc719e1289da6",
+      "sha256": "1y73pfxdvm1bfpghwsfxj8gl4miv6fpzi9azxcknp6rcjn1gmq0x"
+    }
+  },
+  {
+    "goPackagePath": "github.com/fsnotify/fsnotify",
+    "fetch": {
+      "type": "git",
+      "url": "https://github.com/fsnotify/fsnotify",
+      "rev": "30411dbcefb7a1da7e84f75530ad3abe4011b4f8",
+      "sha256": "0kbpvyi6p9942k0vmcw5z13mja47f7hq7nqd332pn2zydss6kddm"
+    }
+  },
+  {
+      "include": "../../libs.json",
+      "packages": [
+          "github.com/Sirupsen/logrus",
+          "gopkg.in/yaml.v2",
+          "github.com/spf13/cobra",
+          "github.com/spf13/viper",
+          "github.com/spf13/pflag",
+          "golang.org/x/net",
+          "golang.org/x/sys",
+		  "github.com/BurntSushi/toml",
+		  "github.com/fsnotify/fsnotify",
+		  "github.com/mitchellh/mapstructure",
+		  "github.com/hashicorp/go-multierror",
+		  "github.com/hashicorp/hcl"
+      ]
+  }
+]

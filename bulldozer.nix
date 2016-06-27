@@ -15,6 +15,8 @@
       ./roles/gaming.nix
       ./users.nix
       ./envs/golang.nix
+      ./envs/wine.nix
+      ./envs/haskell.nix
     ];
 
   nixpkgs.config = {
@@ -27,9 +29,9 @@
   boot.loader.grub.version = 2;
   boot.loader.grub.enable = true;
   boot.loader.grub.efiSupport = true;
-  boot.kernelParams = ["reboot=w,a" "radeon.dpm=1" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
+  boot.kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
   #boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_4_5;
+  boot.kernelPackages = pkgs.linuxPackages_4_6;
   boot.kernelModules = [ "r8169" ];
   boot.initrd.availableKernelModules = ["btrfs"];
 
@@ -117,7 +119,7 @@ virtualisation = {
         enable = true;
         storageDriver = "btrfs";
     };
-#    rkt.enable = true;
+    rkt.enable = true;
 };
 
 services = {
@@ -125,11 +127,12 @@ services = {
       enable = true;
       hostname = "bulldozer";
       domain = "avnik.info";
-      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "master"];
+      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "master" "bulldozer"];
       rootAlias = "avn";
       postmasterAlias = "avn";
       origin = "bulldozer.avnik.info";
       relayHost = "frog.home";
+      networks = [ "172.16.228.0/24" ];
   };
 
   rspamd.enable = true;
@@ -178,23 +181,13 @@ services = {
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
       mumble_git teamspeak_client pidgin-with-plugins
-      mutt-kz procmail notmuch maildrop
+      neomutt procmail notmuch maildrop
       pass
       texlive.combined.scheme-full
-#      rethinkdb
-      go_1_6 go16Packages.glide.bin
-      ghc cabal-install stack cabal2nix
-#      calibre
       npm2nix nix-repl
-#      rkt acbuild
+      rkt acbuild
+      gnome3.vinagre
   ];
-
-#      haskellngPackages.xmonad haskellngPackages.xmonad-contrib haskellngPackages.xmonad-extras
-#
-#      haskellPackages.cabal-install haskellPackages.cabal-meta
-#      (haskellPackages.ghcWithPackages (self: with self; [
-#        lens
-#      ]))
   sessionVariables =
       { 
       };

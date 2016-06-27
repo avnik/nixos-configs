@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   nix = {
-    useChroot = true;
+    useSandbox = true;
     readOnlyStore = true;
     buildCores = 4;    # -j4 for subsequent make calls
 #    maxJobs = 2;       # Parallel nix builds
