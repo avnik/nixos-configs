@@ -14,6 +14,7 @@
       ./roles/desktop.nix
       ./roles/X11.nix
       ./roles/emacs.nix
+      ./roles/gaming.nix
     ];
 
   boot.initrd.luks = {
@@ -24,6 +25,8 @@
       preLVM = true;
     } ];
   };
+
+  boot.kernelPackages = pkgs.linuxPackages_4_4;
 
   fileSystems = {
       "/mnt/raid" = {
@@ -36,9 +39,12 @@
       };
   };
 
-  nix.binaryCaches = [ "http://bulldozer.home" ];
   networking.hostName = "boomer"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  networking.networkmanager.enable = true;
+  networking.wireless.networks = {
+    "free" = {};
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
