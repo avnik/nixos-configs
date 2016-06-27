@@ -17,6 +17,7 @@
   };
 
   environment.systemPackages = with pkgs; [
+    alock
     chromium
     pkgs.firefoxWrapper
     skype
