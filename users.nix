@@ -4,7 +4,7 @@
   users.extraUsers.avn = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = ["audio" "docker" "pulse" "video" "wheel"];
+    extraGroups = ["audio" "docker" "pulse" "video" "wheel" "vboxusers"];
     shell = "/run/current-system/sw/bin/zsh";
   };
   users.extraUsers.olga = {

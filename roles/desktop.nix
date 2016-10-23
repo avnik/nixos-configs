@@ -19,9 +19,10 @@
   environment.systemPackages = with pkgs; [
     alock
     chromium
-    pkgs.firefoxWrapper
+    firefox
     skype
     gimp-with-plugins
+    maim
     pavucontrol
     qastools
     aumix

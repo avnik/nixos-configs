@@ -13,6 +13,7 @@
       ./roles/desktop.nix
       ./roles/console.nix
       ./roles/gaming.nix
+#      ./roles/printing.nix
       ./users.nix
       ./envs/golang.nix
       ./envs/wine.nix
@@ -23,18 +24,23 @@
      allowBroken = true;  # Until ansible will be fixed
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/efi";
-  boot.loader.grub.device = "nodev";
-  boot.loader.grub.version = 2;
-  boot.loader.grub.enable = true;
-  boot.loader.grub.efiSupport = true;
-  boot.kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
-  #boot.kernelPackages = pkgs.linuxPackages;
-  boot.kernelPackages = pkgs.linuxPackages_4_6;
-  boot.kernelModules = [ "r8169" ];
-  boot.initrd.availableKernelModules = ["btrfs"];
-
+  boot = {
+      loader.efi = {
+          canTouchEfiVariables = true;
+          efiSysMountPoint = "/efi";
+      };
+      loader.grub = {
+          device = "nodev";
+          version = 2;
+          enable = true;
+          efiSupport = true;
+      };
+      kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
+      kernelPackages = pkgs.linuxPackages_latest;
+      kernelModules = [ "r8169" ];
+      initrd.availableKernelModules = ["btrfs"];
+      supportedFilesystems = [ "zfs" ];
+  };
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
 
@@ -57,11 +63,10 @@
           enable = true;
           systemWide = true;
       };
+      cpu.amd.updateMicrocode = true;
   };
 
-  hardware.cpu.amd.updateMicrocode = true;
  
-  # networking.wireless.enable = true;  # Enables wireless.
 
   fileSystems = {
     "/efi"={
@@ -159,7 +164,7 @@ services = {
   services.openssh.enable = true;
 
   # Enable CUPS to print documents.
-  services.printing.enable = false;
+  services.printing.enable = true;
 
   environment = {
   # List packages installed in system profile. To search by name, run:
@@ -172,7 +177,7 @@ services = {
       irssi
       mercurial nix-prefetch-scripts
       gitAndTools.git-imerge gitAndTools.gitflow gitAndTools.git-remote-hg
-      gitAndTools.gitRemoteGcrypt gitAndTools.hub gist
+      gitAndTools.gitRemoteGcrypt gitAndTools.hub gist gitAndTools.topGit
       nox
       vagrant ansible
       lm_sensors
@@ -187,6 +192,9 @@ services = {
       npm2nix nix-repl
       rkt acbuild
       gnome3.vinagre
+      cabal-install cabal2nix
+      docker-gc pythonPackages.docker_compose
+      drone.bin
   ];
   sessionVariables =
       { 

@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
-let haskell_ = pkgs.ghcWithHoogle (haskellPackages: with haskellPackages; [
+let haskell_ = pkgs.haskellPackages.ghcWithPackages (haskellPackages: with haskellPackages; [
         QuickCheck hspec mtl lens arrows
         cabal-install stack cabal2nix
     ]);
-    haskellEnv = with pkgs; own.myShellFun {
+    haskellEnv = with pkgs; myEnvFun {
       name = "haskell";
       buildInputs = [ stdenv haskell_ ];
       extraCmds = ''
@@ -14,5 +14,5 @@ let haskell_ = pkgs.ghcWithHoogle (haskellPackages: with haskellPackages; [
   };
 in
 {
-    environment.systemPackages = [ haskellEnv];
+    environment.systemPackages = [ haskellEnv ];
 }

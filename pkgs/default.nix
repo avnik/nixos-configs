@@ -15,6 +15,7 @@ myShellFunc = { name, buildInputs ? [], extraCmds ? ""}: pkgs.myEnvFun {
 own = rec {
     myShellFun = myShellFunc;
     hammer = (callPackage ./hammer {}).bin;
+#    pynstagram = callPackage ./pynstagram {};
 };
 in
 pkgs // {
