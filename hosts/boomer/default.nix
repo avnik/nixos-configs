@@ -6,16 +6,17 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
-      ./users.nix
-      ./common/common.nix
-      ./common/efi.nix
-      ./roles/console.nix
-      ./roles/desktop.nix
-      ./roles/X11.nix
-      ./roles/emacs.nix
-      ./roles/gaming.nix
-      ./roles/printing.nix
+    [
+      ./hardware-configuration.nix # Include the results of the hardware scan.
+      ../../users.nix
+      ../../common/common.nix
+      ../../common/efi.nix
+      ../../roles/console.nix
+      ../../roles/desktop.nix
+      ../../roles/X11.nix
+      ../../roles/emacs.nix
+      ../../roles/gaming.nix
+      ../../roles/printing.nix
     ];
 
   boot.initrd.luks = {
@@ -50,7 +51,7 @@
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
 
-  hardware.pulseaudio.configFile = ./hosts/boomer/verbatim/system.pa;
+  hardware.pulseaudio.configFile = ./verbatim/system.pa;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
