@@ -1,4 +1,5 @@
 { config, lib, pkgs, ... }:
+with lib;
 {
   nix = {
     useSandbox = true;
@@ -34,5 +35,10 @@
     ];
   };
 
-  systemd.services.nix-daemon.environment.TMPDIR = "/var/tmp";
+  systemd.services.nix-daemon = {
+      environment.TMPDIR = "/var/buildroot";
+      preStart = ''
+        mkdir -p /var/buildroot
+      '';
+  };
 }

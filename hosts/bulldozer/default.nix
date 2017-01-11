@@ -2,22 +2,26 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
+
+with lib;
 
 {
   imports =
     [ 
-      ./common/common.nix
-      ./roles/emacs.nix
-      ./roles/X11.nix
-      ./roles/desktop.nix
-      ./roles/console.nix
-      ./roles/gaming.nix
-#      ./roles/printing.nix
-      ./users.nix
-      ./envs/golang.nix
-      ./envs/wine.nix
-      ./envs/haskell.nix
+      ../../common/common.nix
+      ../../roles/emacs.nix
+      ../../roles/X11.nix
+      ../../roles/desktop.nix
+      ../../roles/console.nix
+      ../../roles/gaming.nix
+      ../../roles/taskwarrior.nix
+      ../../users.nix
+      ../../envs/golang.nix
+      ../../envs/haskell.nix
+      ../../envs/ocaml.nix
+      ../../envs/wine.nix
+      ./mail.nix
     ];
 
   nixpkgs.config = {
@@ -35,11 +39,12 @@
           enable = true;
           efiSupport = true;
       };
-      kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1"];
+      kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1" "zfs.zfs_arc_max=2147483648" ];
       kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
       initrd.availableKernelModules = ["btrfs"];
       supportedFilesystems = [ "zfs" ];
+      zfs.enableUnstable = true;
   };
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
@@ -86,8 +91,8 @@
         fsType="xfs";
     };
     "/mnt/games"={
-        device="/dev/vg0/games";
-        fsType="xfs";
+        device="tank/games";
+        fsType="zfs";
     };
     "/mnt/systems"={
         device="/dev/vg0/systems";
@@ -111,38 +116,27 @@
 	    fsType="none";
     	options=["bind"];
     };
-    "/var/lib/rkt"={
-        device="/dev/vg0/rkt";
-        fsType="xfs";
+    "/mnt/maildir"={
+        device="tank/maildir";
+        fsType="zfs";
+    };
+    "/var/buildroot"={
+        device="tank/buildroot";
+        fsType="zfs";
     };
   };
 
   # List services that you want to enable:
-virtualisation = {
+  virtualisation = {
     virtualbox.host.enable = true;
     docker = {
         enable = true;
         storageDriver = "btrfs";
     };
     rkt.enable = true;
-};
-
-services = {
-  postfix = {
-      enable = true;
-      hostname = "bulldozer";
-      domain = "avnik.info";
-      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "master" "bulldozer"];
-      rootAlias = "avn";
-      postmasterAlias = "avn";
-      origin = "bulldozer.avnik.info";
-      relayHost = "frog.home";
-      networks = [ "172.16.228.0/24" ];
   };
 
-  rspamd.enable = true;
-  rmilter.postfix.enable = true;
-
+services = {
   syslog-ng.enable = true;
   klogd.enable = false;
 
@@ -156,9 +150,9 @@ services = {
      exports = ''
 /mnt/raid   boomer(rw,no_subtree_check)
 /mnt/video   boomer(rw,no_subtree_check)
-'';
+       '';
+    };
   };
-};
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -186,15 +180,16 @@ services = {
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
       mumble_git teamspeak_client pidgin-with-plugins
-      neomutt procmail notmuch maildrop
       pass
       texlive.combined.scheme-full
-      npm2nix nix-repl
+      # npm2nix
+      nix-repl
       rkt acbuild
       gnome3.vinagre
       cabal-install cabal2nix
       docker-gc pythonPackages.docker_compose
-      drone.bin
+#      drone.bin
+      own.binutils-stuff
   ];
   sessionVariables =
       { 
@@ -202,7 +197,7 @@ services = {
 
 
     etc = {
-	  "hosts".source = ./verbatim/hosts;
+	  "hosts".source = ../../verbatim/hosts;
     };
   };
 }
