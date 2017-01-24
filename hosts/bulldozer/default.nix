@@ -21,31 +21,16 @@ with lib;
       ../../envs/haskell.nix
       ../../envs/ocaml.nix
       ../../envs/wine.nix
+      ./boot.nix
+      ./fs.nix
       ./mail.nix
+      ./taskd.nix
     ];
 
   nixpkgs.config = {
      allowBroken = true;  # Until ansible will be fixed
   };
 
-  boot = {
-      loader.efi = {
-          canTouchEfiVariables = true;
-          efiSysMountPoint = "/efi";
-      };
-      loader.grub = {
-          device = "nodev";
-          version = 2;
-          enable = true;
-          efiSupport = true;
-      };
-      kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1" "zfs.zfs_arc_max=2147483648" ];
-      kernelPackages = pkgs.linuxPackages_latest;
-      kernelModules = [ "r8169" ];
-      initrd.availableKernelModules = ["btrfs"];
-      supportedFilesystems = [ "zfs" ];
-      zfs.enableUnstable = true;
-  };
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
 
@@ -71,70 +56,15 @@ with lib;
       cpu.amd.updateMicrocode = true;
   };
 
- 
-
-  fileSystems = {
-    "/efi"={
-       device="/dev/sda1";
-       fsType="vfat";
-    };
-    "/home"={
-        device="/dev/vg0/home";
-        fsType="ext4";
-    };
-    "/mnt/data"={
-        device="/dev/vg0/data";
-        fsType="btrfs";
-    };
-    "/mnt/raid"={
-        device="/dev/vg0/raid";
-        fsType="xfs";
-    };
-    "/mnt/games"={
-        device="tank/games";
-        fsType="zfs";
-    };
-    "/mnt/systems"={
-        device="/dev/vg0/systems";
-        fsType="btrfs";
-    };
-    "/mnt/fast"={
-        device="/dev/vg0/video";
-        fsType="xfs";
-    };
-    "/mnt/video"={
-    	device="/mnt/fast/video";
-	    fsType="none";
-    	options=["bind"];
-    };
-    "/mnt/debian"={
-        device="/dev/vg0/root";
-	    fsType="ext4";
-    };
-    "/etc/nixos/nixpkgs"={
-    	device="/home/avn/nixos/nixpkgs";
-	    fsType="none";
-    	options=["bind"];
-    };
-    "/mnt/maildir"={
-        device="tank/maildir";
-        fsType="zfs";
-    };
-    "/var/buildroot"={
-        device="tank/buildroot";
-        fsType="zfs";
-    };
-  };
-
-  # List services that you want to enable:
-  virtualisation = {
+# List services that you want to enable:
+virtualisation = {
     virtualbox.host.enable = true;
-    docker = {
-        enable = true;
-        storageDriver = "btrfs";
-    };
-    rkt.enable = true;
-  };
+#    docker = {
+#        enable = true;
+#        storageDriver = "btrfs";
+#    };
+#    rkt.enable = true;
+};
 
 services = {
   syslog-ng.enable = true;

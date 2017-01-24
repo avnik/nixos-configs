@@ -22,6 +22,7 @@
     firefox
     skype
     gimp-with-plugins
+    libreoffice
     maim
     pavucontrol
     qastools
