@@ -3,12 +3,12 @@
 {
     nixpkgs.overlays = [
         (self: super:  {
-            vim = super.vim_configurable.customize {
+            configuredVim = super.vim_configurable.customize {
+                name = "vim";
                 vimrcConfig.customRC = ''
                           syntax on
                           filetype on
                           set expandtab
-                          set bs=4
                           set tabstop=4
                           set shiftwidth=4
                           set autoindent
@@ -18,6 +18,7 @@
                           set modeline
                           set nocompatible
                           set encoding=utf-8
+                          set ffs=unix,dos,mac 
                           set hlsearch
                           set history=700
                           set t_Co=256
@@ -25,7 +26,7 @@
                           set ruler
                           set nojoinspaces
                           set shiftround
-
+                          set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>                                                                              
                           " Visual mode pressing * or # searches for the current selection
                           " Super useful! From an idea by Michael Naumann
                           vnoremap <silent> * :call VisualSelection('f')<CR>
@@ -34,13 +35,28 @@
                 vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
                 vimrcConfig.vam.pluginDictionaries = [
                   { name = "vim-addon-nix"; }
-                  { name = "vim-xkbwitch"; }
-                  { name = "vim-signify"; }
+                  { names =  [ 
+                    "airline"
+                    "ctrlp"
+                    "easy-align"
+                    "quickfixstatus"
+                    "rainbow_parentheses"
+                    "syntastic"
+                    "vim-autoformat"
+                    "vim-xkbswitch"
+                    "vim-signify"
+                    "undotree" 
+                    ]; }
                 ];
             };
+            configuredVi = super.runCommand "binutils-stuff" { } ''
+                #!${super.stdenv.shell}
+                mkdir -p $out/bin
+                ln -s ${self.configuredVim.out}/bin/vim $out/bin
+                '';
         })
     ];
     environment.systemPackages = with pkgs; [
-      vim
+      configuredVim
     ];
 }

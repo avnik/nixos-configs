@@ -21,7 +21,27 @@ with lib;
             { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
         ];
       };
-      kernelParams = ["reboot=w,a" "radeon.dpm=0" "radeon.audio=1"  "cgroup_enable=memory" "swapaccount=1" "zfs.zfs_arc_max=2147483648" "elevator=noop" ];
+      kernelParams = [
+        "reboot=w,a"
+        "radeon.dpm=0"
+        "radeon.audio=1"
+        "cgroup_enable=memory"
+        "swapaccount=1"
+
+        # ZFS stuff
+        "elevator=cfq" # noop works bad for me
+        "zfs.zfs_arc_max=2147483648"
+        "zfs.zfs_vdev_cache_bshift=18"
+        "zfs.zfs_vdev_cache_max=16386"
+        "zfs.zfs_vdev_async_read_max_active=12"
+        "zfs.zfs_vdev_async_read_min_active=12"
+        "zfs.zfs_vdev_async_write_max_active=12"
+        "zfs.zfs_vdev_async_write_min_active=12"
+        "zfs.zfs_vdev_sync_read_max_active=12"
+        "zfs.zfs_vdev_sync_read_min_active=12"
+        "zfs.zfs_vdev_sync_write_max_active=12"
+        "zfs.zfs_vdev_sync_write_min_active=12"
+      ];
       kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
   };

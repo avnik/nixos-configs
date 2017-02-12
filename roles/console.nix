@@ -14,8 +14,10 @@
       screen tmux elinks
       pythonFull
       rsync
-      psmisc # for killall
+      psmisc  # for killall
       sysstat # for iostat
+      bup     # for backup tool
+      shared_mime_info
       file lsof zip unzip unrar wget p7zip
       libxslt.bin # for xsltproc
       gitAndTools.gitFull git-crecord git-up

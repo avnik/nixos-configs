@@ -67,13 +67,15 @@ virtualisation = {
 };
 
 services = {
-  syslog-ng.enable = true;
+#  syslog-ng.enable = true;
   klogd.enable = false;
 
   nix-serve = {
     enable = true;
     secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
   };
+
+  smartd.enable = true;
 
   nfs.server = {
      enable = true;
@@ -98,13 +100,12 @@ services = {
       neovim
       svtplay-dl
       rtorrent
-      irssi
       mercurial nix-prefetch-scripts
       gitAndTools.git-imerge gitAndTools.gitflow gitAndTools.git-remote-hg
       gitAndTools.gitRemoteGcrypt gitAndTools.hub gist gitAndTools.topGit
       nox
       vagrant ansible
-      lm_sensors
+      lm_sensors smartmontools hdparm fio
       imagemagick
       vcsh mr fasd rcm renameutils
       manpages posix_man_pages iana_etc

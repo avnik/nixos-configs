@@ -14,8 +14,8 @@ in
       zfs.enableUnstable = true;
   };
   fileSystems = {
-    "/boot/efi1" = { device = "/dev/sda1"; fsType = "vfat"; };
-    "/boot/efi2" = { device = "/dev/sdb1"; fsType = "vfat"; };
+    "/boot/sda/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
+    "/boot/sdb/efi" = { device = "/dev/sdb1"; fsType = "vfat"; };
     "/home"={
         device="tank/home";
         fsType="zfs";

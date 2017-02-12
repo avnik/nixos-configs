@@ -24,7 +24,7 @@ with lib;
     extraOptions = ''
         gc-keep-outputs = true
         gc-keep-derivations = true
-        auto-optimise-store = true
+        auto-optimise-store = false
         binary-caches-parallel-connections = 10
     '';
     nixPath = [
