@@ -16,6 +16,7 @@ with lib;
         version = 2;
         enable = true;
         efiSupport = true;
+        copyKernels = true; /* grub unable to read kernels from /nix/store on zfs, too much hardlinks */
         mirroredBoots = [
             { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
             { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
@@ -27,12 +28,16 @@ with lib;
         "radeon.audio=1"
         "cgroup_enable=memory"
         "swapaccount=1"
+        "libata.force=noncq"
 
         # ZFS stuff
         "elevator=cfq" # noop works bad for me
-        "zfs.zfs_arc_max=2147483648"
+        "zfs.zfs_arc_max=4294967296"
+#        "zfs.zfs_arc_max=2147483648"
         "zfs.zfs_vdev_cache_bshift=18"
-        "zfs.zfs_vdev_cache_max=16386"
+        "zfs.l2arc_feed_again=0"
+        "zfs.zfs_compressed_arc_enable=0"
+#        "zfs.zfs_vdev_cache_max=16386"
         "zfs.zfs_vdev_async_read_max_active=12"
         "zfs.zfs_vdev_async_read_min_active=12"
         "zfs.zfs_vdev_async_write_max_active=12"
@@ -41,6 +46,7 @@ with lib;
         "zfs.zfs_vdev_sync_read_min_active=12"
         "zfs.zfs_vdev_sync_write_max_active=12"
         "zfs.zfs_vdev_sync_write_min_active=12"
+        "zfs.zfs_dbgmsg_enable=1"
       ];
       kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];

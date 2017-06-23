@@ -2,7 +2,8 @@
 
 let haskell_ = pkgs.haskellPackages.ghcWithPackages (haskellPackages: with haskellPackages; [
         QuickCheck hspec mtl lens arrows
-        cabal-install cabal2nix #stack
+        cabal-install cabal2nix
+        purescript pkgs.psc-package
     ]);
     haskellEnv = with pkgs; myEnvFun {
       name = "haskell";

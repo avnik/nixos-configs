@@ -16,6 +16,7 @@
       rsync
       psmisc  # for killall
       sysstat # for iostat
+      iotop
       bup     # for backup tool
       shared_mime_info
       file lsof zip unzip unrar wget p7zip

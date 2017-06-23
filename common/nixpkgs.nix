@@ -3,6 +3,7 @@
   nixpkgs.config = {
      allowUnfree = true;
      pulseaudio = true;
+     checkMeta = false;
      avahi.qt4Support = false;
      mpv = {
          cacaSupport = false;

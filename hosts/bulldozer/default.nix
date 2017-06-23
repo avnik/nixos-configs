@@ -16,6 +16,7 @@ with lib;
       ../../roles/console.nix
       ../../roles/gaming.nix
       ../../roles/taskwarrior.nix
+      ../../roles/steam.nix
       ../../users.nix
       ../../envs/golang.nix
       ../../envs/haskell.nix
@@ -25,6 +26,7 @@ with lib;
       ./fs.nix
       ./mail.nix
       ./taskd.nix
+      ./openvpn.nix
     ];
 
   nixpkgs.config = {
@@ -42,6 +44,9 @@ with lib;
   networking.defaultGateway = "172.16.228.1";
   networking.nameservers  = [ "172.16.228.1" ];
   networking.firewall.enable = false;
+  networking.extraHosts = ''
+    199.199.199.204 twt.tais.com
+  '';
 
   hardware = {
       opengl = {
@@ -52,6 +57,10 @@ with lib;
       pulseaudio = {
           enable = true;
           systemWide = true;
+          daemon.config = {
+            default-fragments = 10;
+            default-fragment-size-msec = 2;
+          };
       };
       cpu.amd.updateMicrocode = true;
   };
@@ -121,6 +130,7 @@ services = {
       docker-gc pythonPackages.docker_compose
 #      drone.bin
       own.binutils-stuff
+      remmina rdesktop
   ];
   sessionVariables =
       { 

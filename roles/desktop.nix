@@ -20,7 +20,6 @@
     alock
     chromium
     firefox
-    skype
     gimp-with-plugins
     libreoffice
     maim sxiv

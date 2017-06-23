@@ -46,8 +46,16 @@ in
         device="tank/buildroot";
         fsType="zfs";
     };
+    "/mnt/media" = {
+        device="tank/media";
+        fsType="zfs";
+    };
+    "/mnt/fast" = {
+        device="/dev/bulldozer-secondary/fast";
+        fsType="ext4";
+    };
   };
   swapDevices = [
-    { device = "/dev/zvol/tank/swap"; }
+    { device = "/dev/bulldozer-secondary/swap"; }
   ];
 }

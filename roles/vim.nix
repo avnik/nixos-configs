@@ -1,6 +1,8 @@
 { config, pkgs, ... }:
 
 {
+    nixpkgs.config.vim.ftNix = false;
+
     nixpkgs.overlays = [
         (self: super:  {
             configuredVim = super.vim_configurable.customize {
@@ -26,6 +28,7 @@
                           set ruler
                           set nojoinspaces
                           set shiftround
+                          set backspace="eol,indent,start"
                           set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>                                                                              
                           " Visual mode pressing * or # searches for the current selection
                           " Super useful! From an idea by Michael Naumann
@@ -39,12 +42,16 @@
                     "airline"
                     "ctrlp"
                     "easy-align"
+                    "ghcmod"
+                    "haskell-vim"
                     "quickfixstatus"
                     "rainbow_parentheses"
                     "syntastic"
                     "vim-autoformat"
-                    "vim-xkbswitch"
+                    "vim-go"
+                    "vim-stylish-haskell"
                     "vim-signify"
+                    "vim-xkbswitch"
                     "undotree" 
                     ]; }
                 ];

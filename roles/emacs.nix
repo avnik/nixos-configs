@@ -142,13 +142,13 @@ let emacs = pkgs.emacsWithPackages (with pkgs.emacsPackages; with pkgs.emacsPack
     go-direx
 
     #HASKELL
-    ghc-mod
+    #ghc-mod
     hamlet-mode
     haskell-mode
     company-cabal
-    company-ghc
-    company-ghci
-    intero
+    #company-ghc
+    #company-ghci
+    #intero
 
     #ELM
     elm-mode

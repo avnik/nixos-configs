@@ -3,10 +3,9 @@
 fonts = {
     enableFontDir = true;
     fontconfig = {
+        useEmbeddedBitmaps = true;
         ultimate = {
             enable = true;
-            useEmbeddedBitmaps = true;
-            renderMonoTTFAsBitmap = true;
         };
     };
 #    enableGhostscriptFont = true;
