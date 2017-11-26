@@ -12,4 +12,10 @@
     uid = 1001;
     shell = "/run/current-system/sw/bin/zsh";
   };
+  users.extraUsers.kris = {
+    isNormalUser = true;
+    uid = 1002;
+    shell = "/run/current-system/sw/bin/zsh";
+    extraGroups = [ "docker" "pulse" "video" ];
+  };
 }
