@@ -32,7 +32,7 @@ let fetchFromDebianScm = {
     "localedata/tl_PH-yesexpr.diff"
     "localedata/fo_FO-date_fmt.diff"
     "localedata/locales_CH.diff"
-    "localedata/locales-fr.diff"
+#    "localedata/locales-fr.diff"
     "localedata/locale-en_DK.diff"
     "localedata/locale-csb_PL.diff"
     "localedata/locale-zh_TW.diff"
