@@ -21,6 +21,10 @@
       shared_mime_info
       file lsof zip unzip unrar wget p7zip
       libxslt.bin # for xsltproc
-      gitAndTools.gitFull git-crecord git-up
+      gitAndTools.gitFull git-crecord
+      whois       # for whois
+      fd          # for super-fast `find`
+      telnet      # for telnet
+      nix-index
     ];
 }

@@ -3,8 +3,12 @@
   environment.systemPackages = with pkgs; [
     dosbox
     lgogdownloader
-    openxcom
-    wesnoth
     minetest
+    opendungeons
+    openxcom
+    rocksndiamonds
+    scummvm
+    stellarium
+    wesnoth
   ];
 }

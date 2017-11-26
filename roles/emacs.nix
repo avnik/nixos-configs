@@ -7,14 +7,12 @@ let emacs = pkgs.emacsWithPackages (with pkgs.emacsPackages; with pkgs.emacsPack
     use-package-chords
 
     #FUN
-    achievements
+#    achievements
     annoying-arrows-mode
 
     #common important stuff
     mmm-mode
-    mouse3
     with-editor
-    doremi doremi-frm doremi-cmd
     fullframe
     super-save
     aggressive-indent
