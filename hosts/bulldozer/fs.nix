@@ -11,7 +11,7 @@ in
   boot = {
       initrd.availableKernelModules = ["btrfs"];
       supportedFilesystems = [ "zfs" ];
-      zfs.enableUnstable = true;
+#      zfs.enableUnstable = true;
   };
   fileSystems = {
     "/boot/sda/efi" = { device = "/dev/sda1"; fsType = "vfat"; };

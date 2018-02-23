@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 {
+  imports = [
+    ../pkgs/default.nix # Custom packages
+  ];
   nixpkgs.config = {
      allowUnfree = true;
      pulseaudio = true;
@@ -10,7 +13,6 @@
          SDL2Support = true; # FIXME: require fix in nixpkgs/toplevel/all-packages
      };
      packageOverrides = pkgs: rec {
-        inherit (import ./../pkgs { inherit pkgs; }) own;
         texLive = pkgs.texLive.override {
             preferLocalBuild = true;
         };

@@ -12,5 +12,5 @@ let ocamlEnvF = ocamlPkgs: with pkgs; myEnvFun {
   ocamlEnv403 = ocamlEnvF pkgs.ocamlPackages_4_03;
 in
 {
-    environment.systemPackages = [ ocamlEnv402 ocamlEnv403 ];
+    environment.systemPackages = [ ocamlEnv403 ];
 }

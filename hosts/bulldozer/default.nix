@@ -17,10 +17,11 @@ with lib;
       ../../roles/gaming.nix
       ../../roles/taskwarrior.nix
       ../../roles/steam.nix
+      ../../roles/haskell.nix
+      ../../roles/mopidy.nix
       ../../users.nix
       ../../envs/golang.nix
-      ../../envs/haskell.nix
-      ../../envs/ocaml.nix
+#      ../../envs/ocaml.nix
       ../../envs/wine.nix
       ./boot.nix
       ./fs.nix
@@ -46,6 +47,9 @@ with lib;
   networking.firewall.enable = false;
   networking.extraHosts = ''
     199.199.199.204 twt.tais.com
+    172.16.228.1 froggy
+    172.16.228.10 printer printer.home
+    172.16.228.9 boomer
   '';
 
   hardware = {
@@ -67,7 +71,7 @@ with lib;
 
 # List services that you want to enable:
 virtualisation = {
-    virtualbox.host.enable = true;
+    virtualbox.host.enable = false;
 #    docker = {
 #        enable = true;
 #        storageDriver = "btrfs";
@@ -90,7 +94,8 @@ services = {
      enable = true;
      exports = ''
 /mnt/raid   boomer(rw,no_subtree_check)
-/mnt/video   boomer(rw,no_subtree_check)
+/mnt/video   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
+/mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
        '';
     };
   };
@@ -119,18 +124,16 @@ services = {
       vcsh mr fasd rcm renameutils
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
-      mumble_git teamspeak_client pidgin-with-plugins
+      #mumble_git teamspeak_client pidgin-with-plugins
       pass
       texlive.combined.scheme-full
-      # npm2nix
       nix-repl
       rkt acbuild
       gnome3.vinagre
-      cabal-install cabal2nix
       docker-gc pythonPackages.docker_compose
-#      drone.bin
-      own.binutils-stuff
+      binutils-stuff
       remmina rdesktop
+      hledger
   ];
   sessionVariables =
       { 
@@ -138,7 +141,7 @@ services = {
 
 
     etc = {
-	  "hosts".source = ../../verbatim/hosts;
+#	  "hosts".source = ../../verbatim/hosts;
     };
   };
 }

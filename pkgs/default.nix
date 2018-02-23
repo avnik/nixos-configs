@@ -1,8 +1,6 @@
-{ pkgs ? (import <nixpkgs> {}) }:
+{ config, pkgs, ... }:
 
-# let's define our own callPackage to avoid typing all dependencies
-let 
-callPackage = pkgs.lib.callPackageWith (pkgs // own);
+let   
 myShellFunc = { name, buildInputs ? [], extraCmds ? ""}: pkgs.myEnvFun {
     inherit name;
     shell = "${pkgs.zsh}/bin/zsh";
@@ -12,8 +10,7 @@ myShellFunc = { name, buildInputs ? [], extraCmds ? ""}: pkgs.myEnvFun {
     '';
 };
 
-own = rec {
-    binutils-stuff = pkgs.runCommand "binutils-stuff" { } ''
+binutils-stuff = pkgs.runCommand "binutils-stuff" { } ''
     #!${pkgs.stdenv.shell}
     mkdir -p $out/bin
     mkdir -p $out/share/man/man1
@@ -22,11 +19,13 @@ own = rec {
     ln -s ${pkgs.binutils.out}/share/man/man1/readelf.1.gz $out/share/man/man1/
     ln -s ${pkgs.binutils.out}/share/man/man1/strings.1.gz $out/share/man/man1/
     '';
-    myShellFun = myShellFunc;
-    hammer = (callPackage ./hammer {}).bin;
-#    pynstagram = callPackage ./pynstagram {};
-};
 in
-pkgs // {
-    inherit own;
+
+{
+   nixpkgs.overlays = [
+        (self: super: {
+            binutils-stuff = binutils-stuff;
+            kerbal = super.callPackage ./kerbal.nix {};
+        })
+   ];
 }
