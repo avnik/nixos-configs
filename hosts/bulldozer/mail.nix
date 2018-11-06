@@ -6,7 +6,7 @@ let maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
   export PATH
   ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
 '';
-  rspamdLocalConfig = pkgs.writeText "rspamd-local.conf" ''
+  rspamdLocalConfig = ''
     classifier "bayes" {
       autolearn = true;
     }
@@ -63,7 +63,6 @@ in
         forward_path =
           /etc/users/$user/forward
           /home/$user/.forward
-        smtpd_milters = unix:/run/rspamd.sock
         milter_default_action = accept  
       '';
       extraAliases = ''
@@ -74,8 +73,9 @@ in
     };
     rspamd = {
       enable = true;
+      postfix.enable = true;
       extraConfig = ''
-        .include(priority=1,duplicate=merge) "${rspamdLocalConfig}"
+        ${rspamdLocalConfig}
       '';
       workers.controller = {
         extraConfig = ''
@@ -86,22 +86,11 @@ in
         '';
       };
       workers.rspamd_proxy = {
-        type = "rspamd_proxy";
         extraConfig = ''
           milter = yes; # Enable milter mode
           timeout = 120s; # Needed for Milter usually
-          upstream "local" {
-            default = yes;
-            self_scan = yes; # Enable self-scan
-          }
           count = 1; # Do not spawn too many processes of this type
         '';
-        bindSockets = [{
-          socket = "/run/rspamd.sock";
-          mode = "0666";
-          owner = "rspamd";
-          group = "rspamd";
-        }];
       };
     };
   };
