@@ -19,6 +19,7 @@ with lib;
       ../../roles/steam.nix
       ../../roles/haskell.nix
       ../../roles/mopidy.nix
+      ../../roles/texlive.nix
       ../../users.nix
       ../../envs/golang.nix
 #      ../../envs/ocaml.nix
@@ -41,12 +42,12 @@ with lib;
   networking.domain = "home";
   networking.search = ["home"];
   networking.hostId = "2f78bb0d";
-  networking.interfaces.enp9s0.ip4 = [ { address = "172.16.228.3"; prefixLength = 24;} ];
+  networking.interfaces.enp9s0.ipv4.addresses = [ { address = "172.16.228.3"; prefixLength = 24;} ];
   networking.defaultGateway = "172.16.228.1";
   networking.nameservers  = [ "172.16.228.1" ];
   networking.firewall.enable = false;
   networking.extraHosts = ''
-    199.199.199.204 twt.tais.com
+    199.199.199.204 twt.tais.com twp.tais.com
     172.16.228.1 froggy
     172.16.228.10 printer printer.home
     172.16.228.9 boomer
@@ -126,14 +127,13 @@ services = {
       perl pythonFull ruby bundix
       #mumble_git teamspeak_client pidgin-with-plugins
       pass
-      texlive.combined.scheme-full
-      nix-repl
       rkt acbuild
       gnome3.vinagre
       docker-gc pythonPackages.docker_compose
       binutils-stuff
       remmina rdesktop
       hledger
+      nix-review
   ];
   sessionVariables =
       { 
@@ -144,4 +144,6 @@ services = {
 #	  "hosts".source = ../../verbatim/hosts;
     };
   };
+
+  system.stateVersion = "15.09";
 }

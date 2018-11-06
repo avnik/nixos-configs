@@ -26,6 +26,8 @@ in
 {
   imports = [ ../envs/haskell.nix ];
   environment.systemPackages = with pkgs.haskellPackages; [
-    cabal2nix stack2nix stylish-haskell
+    cabal2nix
+#    stack2nix
+    stylish-haskell
   ];
 }

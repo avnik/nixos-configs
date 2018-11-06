@@ -16,10 +16,10 @@
       rsync
       psmisc  # for killall
       sysstat # for iostat
-      iotop
+      iotop htop
       bup     # for backup tool
       shared_mime_info
-      file lsof zip unzip unrar wget p7zip
+      file lsof zip unzip unrar wget p7zip xorriso
       libxslt.bin # for xsltproc
       gitAndTools.gitFull git-crecord
       whois       # for whois

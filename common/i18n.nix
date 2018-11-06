@@ -56,13 +56,6 @@ let fetchFromDebianScm = {
   };
 in
 { 
-#  nixpkgs.overlays = [
-#    (self: super:  {
-#         debianGlibcLocales = super.glibcLocales.overrideAttr (oldAttrs : {
-#             patches = oldAttrs.patches ++ patchesFullPath;
-#         });
-#    })
-#  ];
-  i18n.glibcLocales = customLocales;
+#  i18n.glibcLocales = customLocales;
 }
 

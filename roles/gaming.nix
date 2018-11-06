@@ -9,8 +9,8 @@ let dwarf = pkgs.dwarf-fortress.override {
 
 {
   environment.systemPackages = with pkgs; [
-    dwarf-therapist
-    dwarf
+#    dwarf-therapist
+#    dwarf
     dosbox
     kerbal
     lgogdownloader

@@ -2,14 +2,16 @@
 
 let haskell_ = pkgs.haskellPackages.ghcWithPackages (haskellPackages: with haskellPackages; [
         QuickCheck hspec mtl lens arrows
-        Cabal_2_0_1_1 cabal-install stack hlint hpack
-        (pkgs.haskell.lib.doJailbreak purescript) 
+    ]);
+    addons = with pkgs.haskellPackages; [
+#        (pkgs.haskell.lib.doJailbreak (purescript.overrideScope (self: super: { spdx = pkgs.haskell.lib.doJailbreak super.spdx; }))#) 
 #        (pkgs.haskell.lib.doJailbreak pkgs.psc-package)
         pkgs.nodejs pkgs.nodePackages.bower
-    ]);
+        cabal-install stack hlint hpack
+        ];
     haskellEnv = with pkgs; myEnvFun {
       name = "haskell";
-      buildInputs = [ stdenv haskell_ ];
+      buildInputs = [ stdenv haskell_ ] ++ addons;
       extraCmds = ''
         unset SSL_CERT_FILE
         eval "$(egrep ^export "$(type -p ghc)")"

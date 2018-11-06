@@ -25,7 +25,7 @@ in
    nixpkgs.overlays = [
         (self: super: {
             binutils-stuff = binutils-stuff;
-            kerbal = super.callPackage ./kerbal.nix {};
+            kerbal = super.callPackage ./kerbal/default.nix {};
         })
    ];
 }

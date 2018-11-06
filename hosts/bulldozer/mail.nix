@@ -6,6 +6,35 @@ let maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
   export PATH
   ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
 '';
+  rspamdLocalConfig = pkgs.writeText "rspamd-local.conf" ''
+    classifier "bayes" {
+      autolearn = true;
+    }
+#    dkim_signing {
+#      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+#      selector = "default";
+#      allow_username_mismatch = true;
+#    }
+#    arc {
+#      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+#      selector = "default";
+#      allow_username_mismatch = true;
+#    }
+    milter_headers {
+      use = ["authentication-results", "x-spam-status"];
+      authenticated_headers = ["authentication-results"];
+    }
+    replies {
+      action = "no action";
+    }
+    url_reputation {
+      enabled = true;
+    }
+    phishing {
+      openphish_enabled = true;
+      phishtank_enabled = true;
+    }
+'';
 in
 {
   services = {
@@ -34,6 +63,8 @@ in
         forward_path =
           /etc/users/$user/forward
           /home/$user/.forward
+        smtpd_milters = unix:/run/rspamd.sock
+        milter_default_action = accept  
       '';
       extraAliases = ''
         awm: avn
@@ -41,11 +72,38 @@ in
         hans.black: avn
       '';
     };
-    rspamd.enable = true;
-    rmilter.postfix.enable = true;
-    rmilter.rspamd.extraConfig = ''
-      spamd_never_reject = true;
-    '';
+    rspamd = {
+      enable = true;
+      extraConfig = ''
+        .include(priority=1,duplicate=merge) "${rspamdLocalConfig}"
+      '';
+      workers.controller = {
+        extraConfig = ''
+          count = 1;
+          static_dir = "''${WWWDIR}";
+          password = "$2$cifyu958qabanmtjyofmf5981posxie7$dz3taiiumir9ew5ordg8n1ia3eb73y1t55kzc9qsjdq1n8esmqqb";
+          enable_password = "$2$cifyu958qabanmtjyofmf5981posxie7$dz3taiiumir9ew5ordg8n1ia3eb73y1t55kzc9qsjdq1n8esmqqb";
+        '';
+      };
+      workers.rspamd_proxy = {
+        type = "rspamd_proxy";
+        extraConfig = ''
+          milter = yes; # Enable milter mode
+          timeout = 120s; # Needed for Milter usually
+          upstream "local" {
+            default = yes;
+            self_scan = yes; # Enable self-scan
+          }
+          count = 1; # Do not spawn too many processes of this type
+        '';
+        bindSockets = [{
+          socket = "/run/rspamd.sock";
+          mode = "0666";
+          owner = "rspamd";
+          group = "rspamd";
+        }];
+      };
+    };
   };
 
   environment = {

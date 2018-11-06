@@ -27,13 +27,14 @@
     qastools
     aumix
     mpv mplayer mpg123
-    zathura
     irssi weechat
     dex desktop_file_utils
     xsel
     ## windowmanagers, which I want to be built by default
     fvwm awesome qtile
+    zathura apvlv ## for pdfs
   ];
 
+  # I use systemwide pulse on my desktops, so won't have him go away on upgrades
   systemd.services.pulseaudio.restartIfChanged = false;
 }
