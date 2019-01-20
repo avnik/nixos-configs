@@ -46,7 +46,7 @@ with lib;
 #        "zfs.zfs_vdev_sync_write_min_active=12"
 #        "zfs.zfs_dbgmsg_enable=0"
       ];
-      kernelPackages = pkgs.linuxPackages_4_18;
+      kernelPackages = pkgs.linuxPackages_4_19;
       #kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
   };

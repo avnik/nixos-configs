@@ -18,11 +18,10 @@ with lib;
       ../../roles/taskwarrior.nix
       ../../roles/steam.nix
       ../../roles/haskell.nix
-      ../../roles/mopidy.nix
       ../../roles/texlive.nix
       ../../users.nix
       ../../envs/golang.nix
-#      ../../envs/ocaml.nix
+      ../../envs/rust.nix
       ../../envs/wine.nix
       ./boot.nix
       ./fs.nix
@@ -127,13 +126,14 @@ services = {
       perl pythonFull ruby bundix
       #mumble_git teamspeak_client pidgin-with-plugins
       pass
-      rkt acbuild
+      rkt
       gnome3.vinagre
-      docker-gc pythonPackages.docker_compose
+      docker-gc docker-compose
       binutils-stuff
       remmina rdesktop
       hledger
       nix-review
+      perf-tools
   ];
   sessionVariables =
       { 

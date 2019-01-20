@@ -57,7 +57,14 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     request
     dumb-jump
     pcre2el
+    undo-tree
     # end ex-space deps
+
+    # doom dependencies
+    async
+    persistent-soft
+    quelpa
+    #
 
     # look and ...
     alert
@@ -66,6 +73,7 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     which-key
 
     #...and feel
+    no-littering
     sackspace
     smex
     ace-window
@@ -76,19 +84,21 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
 
     # EVIL
     evil
-    evil-leader
-    evil-ledger
-    evil-org
+    evil-args
+    evil-anzu
     evil-collection
-    evil-smartparens
     evil-commentary
-    evil-nerd-commenter
-    evil-multiedit
-    evil-numbers
+    evil-embrace
+    evil-indent-plus
     evil-indent-textobject
+    evil-ledger
+    evil-multiedit
+    evil-nerd-commenter
+    evil-numbers
+    evil-org
+    evil-smartparens
     evil-surround
     general
-    doom
 
     #FUN
 #    achievements
@@ -157,9 +167,9 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     ##
     button-lock
     company
+    company-emoji
     company-nixos-options
     rainbow-delimiters
-    undo-tree
     smartparens
 
     #THEMING
@@ -175,11 +185,7 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     git-gutter
     magit
     magit-annex
-#    magit-find-file
-#    magit-topgit
     magit-gitflow
-#    magit-gh-pulls
-#    magit-filenotify
     github-issues
     gitlab
 
@@ -188,25 +194,29 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
 
     # ORG
     org-plus-contrib
-    org-gnome
-    org-password-manager
+
+    # ORG plugins
     org-attach-screenshot
     org-autolist
+    org-bullets
     org-capture-pop-frame
+    org-caldav
+    org-clock-convenience
+    org-download
+    org-gnome
+    org-fancy-priorities
+    org-journal
+    org-kanban
+    org-mime
+    org-password-manager
+    org-pomodoro
     org-projectile
     org-projectile-helm
     org-redmine
     org-time-budgets
+    org-super-agenda
     org-vcard
     orgit
-    yankpad
-    org-bullets
-    org-caldav
-    org-clock-convenience
-    org-fancy-priorities
-    org-journal
-    org-kanban
-    org-super-agenda
 
     #auto complete
     auto-complete
@@ -221,6 +231,8 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     project-persist-drawer
     ppd-sr-speedbar
 
+    # SAURON! (More evil powers)
+    sauron
 
     #DOCKER
     dockerfile-mode

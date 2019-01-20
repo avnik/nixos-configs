@@ -56,6 +56,7 @@ in
     };
   };
   swapDevices = [
-    { device = "/dev/bulldozer-secondary/swap"; }
+    { device = "/dev/bulldozer-secondary/swap"; priority = 1; }
+    { label = "ssd-swap"; priority = 100; }
   ];
 }

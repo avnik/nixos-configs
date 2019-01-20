@@ -80,5 +80,5 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "15.09";
-  users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "wheel" "pulse"];
+  users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "render" "wheel" "pulse"];
 }

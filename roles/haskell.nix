@@ -3,6 +3,7 @@
 let 
   overrideSrc = pkgs.haskell.lib.overrideSrc;
   addBuildDepends = pkgs.haskell.lib.addBuildDepends;
+  doJailbreak = pkgs.haskell.lib.doJailbreak;
   stack = overrideSrc (addBuildDepends (pkgs.haskellPackages.stack.overrideScope (self: super: { Cabal = self.Cabal_2_0_0_2; }))
         [ pkgs.haskellPackages.bindings-uname pkgs.haskellPackages.unliftio ] 
       ) {
@@ -28,6 +29,6 @@ in
   environment.systemPackages = with pkgs.haskellPackages; [
     cabal2nix
 #    stack2nix
-    stylish-haskell
+    (doJailbreak stylish-haskell)
   ];
 }

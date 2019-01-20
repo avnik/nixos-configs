@@ -32,7 +32,8 @@
     xsel
     ## windowmanagers, which I want to be built by default
     fvwm awesome qtile
-    zathura apvlv ## for pdfs
+    zathura ## for pdfs
+    #apvlv ## for pdfs
   ];
 
   # I use systemwide pulse on my desktops, so won't have him go away on upgrades
