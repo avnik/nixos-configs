@@ -39,19 +39,19 @@
                 vimrcConfig.vam.pluginDictionaries = [
                   { name = "vim-addon-nix"; }
                   { names =  [ 
-                    "airline"
+                    #"airline"
                     "ctrlp"
                     "easy-align"
-                    "ghcmod"
+#                    "ghcmod"
                     "haskell-vim"
                     "quickfixstatus"
                     "rainbow_parentheses"
                     "syntastic"
                     "vim-autoformat"
                     "vim-go"
-                    "vim-stylish-haskell"
+#                    "vim-stylish-haskell"
                     "vim-signify"
-                    "vim-xkbswitch"
+                    #"vim-xkbswitch"
                     "undotree" 
                     ]; }
                 ];

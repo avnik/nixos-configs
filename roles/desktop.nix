@@ -27,7 +27,6 @@
     qastools
     aumix
     mpv mplayer mpg123
-    irssi weechat
     dex desktop_file_utils
     xsel
     ## windowmanagers, which I want to be built by default

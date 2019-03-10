@@ -14,9 +14,9 @@ let dwarf = pkgs.dwarf-fortress.override {
     dosbox
     kerbal
     lgogdownloader
-    minetest
+    minetestclient_5
     opendungeons
-    openxcom
+    openxcom-extended
     rocksndiamonds
     scummvm
     stellarium

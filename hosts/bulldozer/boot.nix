@@ -36,17 +36,9 @@ with lib;
         "zfs.zfs_vdev_cache_bshift=18"
         "zfs.l2arc_feed_again=0"
         "zfs.zfs_compressed_arc_enable=1"
-#        "zfs.zfs_vdev_async_read_max_active=12"
-#        "zfs.zfs_vdev_async_read_min_active=12"
-#        "zfs.zfs_vdev_async_write_max_active=12"
-#        "zfs.zfs_vdev_async_write_min_active=12"
-#        "zfs.zfs_vdev_sync_read_max_active=12"
-#        "zfs.zfs_vdev_sync_read_min_active=12"
-#        "zfs.zfs_vdev_sync_write_max_active=12"
-#        "zfs.zfs_vdev_sync_write_min_active=12"
 #        "zfs.zfs_dbgmsg_enable=0"
       ];
-      kernelPackages = pkgs.linuxPackages_4_19;
+      kernelPackages = pkgs.linuxPackages_4_20;
       #kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
   };

@@ -1,34 +1,40 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 let 
   overrideSrc = pkgs.haskell.lib.overrideSrc;
   addBuildDepends = pkgs.haskell.lib.addBuildDepends;
   doJailbreak = pkgs.haskell.lib.doJailbreak;
-  stack = overrideSrc (addBuildDepends (pkgs.haskellPackages.stack.overrideScope (self: super: { Cabal = self.Cabal_2_0_0_2; }))
-        [ pkgs.haskellPackages.bindings-uname pkgs.haskellPackages.unliftio ] 
-      ) {
-    src = pkgs.fetchFromGitHub {
-      owner = "commercialhaskell";
-      repo = "stack";
-      rev = "aa5003a153504f54051e42a844a0c1c3d7f82163";
-      sha256 = "1plpdxlmfk3i0s89nwi24mbn9wnmaxwjcyrria4l2r1cnz656rz5";
+in let
+    haskell = pkgs.haskell // {
+    packages = pkgs.haskell.packages // {
+      ghc863 = pkgs.haskell.packages.ghc863.override (oldArgs: {
+        overrides = lib.composeExtensions (oldArgs.overrides or (_: _: {}))
+          (self: super: {
+
+            brittany = doJailbreak (self.callCabal2nix "brittany"
+              (pkgs.fetchFromGitHub {
+                owner  = "lspitzner";
+                repo   = "brittany";
+                rev    = "6c187da8f8166d595f36d6aaf419370283b3d1e9";
+                sha256 = "0nmnxprbwws3w1sh63p80qj09rkrgn9888g7iim5p8611qyhdgky";
+                }) {});
+
+            multistate = doJailbreak super.multistate;
+            stylish-haskell = doJailbreak super.stylish-haskell;
+
+          });
+      });
     };
   };
-  stack2nix_ = overrideSrc (addBuildDepends pkgs.stack2nix [ stack ]) {
-    src = pkgs.fetchFromGitHub {
-      owner = "input-output-hk";
-      repo = "stack2nix";
-      rev = "ed710c37b126f9766002db72f23886f5e7023969";
-      sha256 = "16lvbkbfh0yh3qdm304p2bydnp6pnxg2iksji3z7krwwwfx82iqf";
-    };
-  };
+  haskellPackages = haskell.packages.ghc863;
 in
 
 {
   imports = [ ../envs/haskell.nix ];
-  environment.systemPackages = with pkgs.haskellPackages; [
+  environment.systemPackages = with haskellPackages; [
+    brittany
     cabal2nix
 #    stack2nix
-    (doJailbreak stylish-haskell)
+    stylish-haskell
   ];
 }

@@ -26,6 +26,7 @@ in
         (self: super: {
             binutils-stuff = binutils-stuff;
             kerbal = super.callPackage ./kerbal/default.nix {};
+            openxcom-extended = super.callPackage ./openxcom/extended.nix {};
         })
    ];
 }

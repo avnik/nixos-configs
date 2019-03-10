@@ -10,6 +10,8 @@ with lib;
   imports =
     [ 
       ../../common/common.nix
+      ../../roles/camera.nix
+      ../../roles/chats.nix
       ../../roles/emacs.nix
       ../../roles/X11.nix
       ../../roles/desktop.nix
@@ -19,6 +21,7 @@ with lib;
       ../../roles/steam.nix
       ../../roles/haskell.nix
       ../../roles/texlive.nix
+      ../../class/customers/central.nix
       ../../users.nix
       ../../envs/golang.nix
       ../../envs/rust.nix
@@ -134,6 +137,7 @@ services = {
       hledger
       nix-review
       perf-tools
+      cheat
   ];
   sessionVariables =
       { 
@@ -145,5 +149,5 @@ services = {
     };
   };
 
-  system.stateVersion = "15.09";
+  system.stateVersion = "19.03";
 }

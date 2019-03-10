@@ -22,7 +22,9 @@ with lib;
         gc-keep-derivations = true
         auto-optimise-store = true 
         binary-caches-parallel-connections = 10
+        keep-failed = true
     '';
+    daemonNiceLevel = 15;
     nixPath = [
         "nixpkgs=/etc/nixos/nixpkgs"
         "nixos=/etc/nixpkgs/nixos"
