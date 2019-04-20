@@ -26,10 +26,10 @@ let
 in
 let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     # configuration stuff
-    bind-key
-    bind-map
-    use-package
-    use-package-chords
+#    bind-key
+#    bind-map
+#    use-package
+#    use-package-chords
 
     # outer space stuff (unbundled libraries)
     help-fns
@@ -37,140 +37,140 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     hybrid-mode
     holy-mode
     evilified-mode
-    spacemacs-whitespace-cleanup
-    spacemacs-evil-unimpaired
-    space-doc
-    spacemacs-info
-    centered-cursor
-    zoom-frm
+#    spacemacs-whitespace-cleanup
+#    spacemacs-evil-unimpaired
+#    space-doc
+#    spacemacs-info
+#    centered-cursor
+#    zoom-frm
 
-    spacemacs-theme # this one always was unbundled
+#    spacemacs-theme # this one always was unbundled
     # outer space ends here
 
     # some ex-spacemacs deps (core/libs)
-    ido-vertical-mode
-    ht
-    page-break-lines
-    delight
-    hydra
-    async
-    request
-    dumb-jump
-    pcre2el
-    undo-tree
-    # end ex-space deps
+#    ido-vertical-mode
+#    ht
+#    page-break-lines
+#    delight
+#    hydra
+#    async
+#    request
+#    dumb-jump
+#    pcre2el
+#    undo-tree
+#    # end ex-space deps
 
     # doom dependencies
-    async
-    persistent-soft
-    quelpa
+#    async
+#    persistent-soft
+#    quelpa
     #
 
     # look and ...
-    alert
-    all-the-icons
-    spaceline
-    which-key
+#    alert
+#    all-the-icons
+#    spaceline
+#    which-key
 
     #...and feel
-    no-littering
-    sackspace
-    smex
-    ace-window
-    super-save
+#    no-littering
+#    sackspace
+#    smex
+#    ace-window
+#    super-save
 
-    mwim    # borrowed from spacemacs better defaults
-    unfill  # ^^
+#    mwim    # borrowed from spacemacs better defaults
+#    unfill  # ^^
 
     # EVIL
-    evil
-    evil-args
-    evil-anzu
-    evil-collection
-    evil-commentary
-    evil-embrace
-    evil-indent-plus
-    evil-indent-textobject
-    evil-ledger
-    evil-multiedit
-    evil-nerd-commenter
-    evil-numbers
-    evil-org
-    evil-smartparens
-    evil-surround
-    general
+#    evil
+#    evil-args
+#    evil-anzu
+#    evil-collection
+#    evil-commentary
+#    evil-embrace
+#    evil-indent-plus
+#    evil-indent-textobject
+#    evil-ledger
+#    evil-multiedit
+#    evil-nerd-commenter
+#    evil-numbers
+#    evil-org
+#    evil-smartparens
+#    evil-surround
+#    general
 
     #FUN
 #    achievements
-    annoying-arrows-mode
+#    annoying-arrows-mode
 
     #common important stuff
-    mmm-mode
-    with-editor
-    fullframe
-    super-save
-    aggressive-indent
-    golden-ratio
-    m-buffer
-    iflipb
-    edit-server
+#    mmm-mode
+#    with-editor
+#    fullframe
+#    super-save
+#    aggressive-indent
+#    golden-ratio
+#    m-buffer
+#    iflipb
+#    edit-server
 
 
     #HELM
-    helm
-    helm-descbinds
-    helm-describe-modes
-    helm-cmd-t
-    helm-swoop
+#    helm
+#    helm-descbinds
+#    helm-describe-modes
+#    helm-cmd-t
+#    helm-swoop
     
     ## Swiper
-    ivy
-    counsel
-    swiper
-    ivy-todo
+#    ivy
+#    counsel
+#    swiper
+#    ivy-todo
 
 
 
-    yasnippet
-    yankpad
+#    yasnippet
+#    yankpad
 
     #NOTMUCH
-    notmuch
-    notmuch-labeler
-    helm-notmuch
+#    notmuch
+#    notmuch-labeler
+#    helm-notmuch
 
     #elfeed
-    elfeed
+#    elfeed
 
     #MISC modes
-    markdown-mode
-    ssh-config-mode
-    gitattributes-mode
-    gitconfig-mode
-    gitignore-mode
-    nix-mode
-    fvwm-mode
-    yaml-mode
-    ansible
-    jinja2-mode 
-    web-mode
-    multi-web-mode
-    js2-mode
-    auto-indent-mode
-    editorconfig-custom-majormode
-    editorconfig
-    rainbow-mode
-    rainbow-delimiters
-    csv-mode
-    ledger-mode
+#    markdown-mode
+#    ssh-config-mode
+#    gitattributes-mode
+#    gitconfig-mode
+#    gitignore-mode
+#    nix-mode
+#    fvwm-mode
+#    yaml-mode
+#    ansible
+#    jinja2-mode 
+#    web-mode
+#    multi-web-mode
+#    js2-mode
+#    auto-indent-mode
+#    editorconfig-custom-majormode
+#    editorconfig
+#    rainbow-mode
+#    rainbow-delimiters
+#    csv-mode
+#    ledger-mode
 
     ##
-    button-lock
-    company
-    company-emoji
-    company-nixos-options
-    rainbow-delimiters
-    smartparens
+#    button-lock
+#    company
+#    company-emoji
+#    company-nixos-options
+#    rainbow-delimiters
+#    smartparens
 
     #THEMING
     color-theme
@@ -180,83 +180,83 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
     abyss-theme
 
     # GIT
-    git-timemachine
-    git-auto-commit-mode
-    git-gutter
-    magit
-    magit-annex
-    magit-gitflow
-    github-issues
-    gitlab
+#    git-timemachine
+#    git-auto-commit-mode
+#    git-gutter
+#    magit
+#    magit-annex
+#    magit-gitflow
+#    github-issues
+#    gitlab
 
     #FLY
-    flyspell-lazy
+#    flyspell-lazy
 
     # ORG
-    org-plus-contrib
+#    org-plus-contrib
 
     # ORG plugins
-    org-attach-screenshot
-    org-autolist
-    org-bullets
-    org-capture-pop-frame
-    org-caldav
-    org-clock-convenience
-    org-download
-    org-gnome
-    org-fancy-priorities
-    org-journal
-    org-kanban
-    org-mime
-    org-password-manager
-    org-pomodoro
-    org-projectile
-    org-projectile-helm
-    org-redmine
-    org-time-budgets
-    org-super-agenda
-    org-vcard
-    orgit
+#    org-attach-screenshot
+#    org-autolist
+#    org-bullets
+#    org-capture-pop-frame
+#    org-caldav
+#    org-clock-convenience
+#    org-download
+#    org-gnome
+#    org-fancy-priorities
+#    org-journal
+#    org-kanban
+#    org-mime
+#    org-password-manager
+#    org-pomodoro
+#    org-projectile
+#    org-projectile-helm
+#    org-redmine
+#    org-time-budgets
+#    org-super-agenda
+#    org-vcard
+#    orgit
 
     #auto complete
-    auto-complete
-    ac-helm
+#    auto-complete
+#    ac-helm
 
     # Projectile
-    projectile
-    perspective
-    helm-projectile
-    persp-projectile
-    projectile-direnv
-    project-persist-drawer
-    ppd-sr-speedbar
+#    projectile
+#    perspective
+#    helm-projectile
+#    persp-projectile
+#    projectile-direnv
+#    project-persist-drawer
+#    ppd-sr-speedbar
 
     # SAURON! (More evil powers)
-    sauron
+#    sauron
 
     #DOCKER
-    dockerfile-mode
-    docker-tramp
+#    dockerfile-mode
+#    docker-tramp
 
     #GO
-    go-mode
-    go-stacktracer
-    go-gopath
-    go-snippets
-    go-direx
+#    go-mode
+#    go-stacktracer
+#    go-gopath
+#    go-snippets
+#    go-direx
 
     #HASKELL
     #ghc-mod
-    hamlet-mode
-    haskell-mode
-    company-cabal
+#    hamlet-mode
+#    haskell-mode
+#    company-cabal
     #company-ghc
     #company-ghci
     #intero
 
     #LUA
-    flymake-lua
-    lua-mode
+#    flymake-lua
+#    lua-mode
 ]);
 in {
     environment.systemPackages = [

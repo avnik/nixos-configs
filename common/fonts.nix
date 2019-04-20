@@ -19,6 +19,9 @@ fonts = {
         ubuntu_font_family
         inconsolata
         inconsolata-lgc
+        fira-mono
+        fira-code
+        iosevka
         corefonts
         vistafonts
         proggyfonts
