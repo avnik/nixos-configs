@@ -75,10 +75,14 @@ with lib;
 # List services that you want to enable:
 virtualisation = {
     virtualbox.host.enable = false;
-#    docker = {
-#        enable = true;
-#        storageDriver = "btrfs";
-#    };
+    docker = {
+        enable = true;
+        storageDriver = "zfs";
+        autoPrune = {
+          enable = true;
+          dates = "daily";
+        };
+    };
 #    rkt.enable = true;
 };
 
@@ -137,7 +141,8 @@ services = {
       hledger
       nix-review
       perf-tools
-      cheat
+      awscli
+      circleci-cli
   ];
   sessionVariables =
       { 

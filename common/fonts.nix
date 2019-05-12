@@ -21,7 +21,8 @@ fonts = {
         inconsolata-lgc
         fira-mono
         fira-code
-        iosevka
+        go-font
+        anonymousPro
         corefonts
         vistafonts
         proggyfonts

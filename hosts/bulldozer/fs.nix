@@ -20,6 +20,10 @@ in
         device="tank/home";
         fsType="zfs";
     };
+    "/var/lib/docker"={
+      device="tank/docker";
+      fsType="zfs";
+    };
     "/mnt/data"={
         device="tank/data";
         fsType="zfs";
