@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let configF = pkgs.runCommand "system.pa" {} ''
-   cat ${config.hardware.pulseaudio.package}/etc/pulse/system.pa \
+   cat ${config.hardware.pulseaudio.package.daemon}/etc/pulse/system.pa \
      | sed '/module-native-protocol-unix/ s/$/ auth-group=pulse auth-group-enable=1 auth-anonymous=1/' \
      > $out
 '';

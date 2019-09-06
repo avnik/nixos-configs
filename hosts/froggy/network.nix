@@ -1,0 +1,102 @@
+{ config, pkgs, ... }:
+
+let internalAddress = "172.16.228.1";
+in
+
+{
+   networking.hostName = "froggy";
+   networking.interfaces = {
+     enp2s0.useDHCP = true;
+     enp3s0.ipv4.addresses = [ {
+       address = internalAddress;
+       prefixLength = 24;
+     } ];
+     wlp1s0.ipv4.addresses = [ {
+       address = "172.16.229.1";
+       prefixLength = 24;
+     } ];
+   }; 
+   networking.extraHosts = ''
+     172.16.228.3 bulldozer bulldozer.home
+     172.16.228.9 boomer boomer.home
+     172.16.228.10 printer
+   '';
+   networking.firewall = {
+     enable = true;
+     trustedInterfaces = [ "enp3s0" "wlp1s0" ];
+     rejectPackets = true;
+     logRefusedPackets = false;
+     logRefusedConnections = false;
+   };
+   networking.nat = {
+     enable = true;
+     internalInterfaces = [ "enp3s0" "wlp1s0" ];
+     externalInterface = "enp2s0";
+   };
+   services.hostapd = {
+     enable = true;
+     interface = "wlp1s0";
+     ssid = "froggy";
+     wpaPassphrase = "entropia";
+   };
+   services.pdns-recursor = {
+     enable = true;
+     api.address = internalAddress;
+     dns.allowFrom =  [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "127.0.0.0/8" ];
+     exportHosts = true;
+     extraConfig = ''
+       export-etc-hosts-search-suffix = home
+     '';
+   };
+   services.dhcpd4 = {
+     enable = true;
+     interfaces = [ "enp3s0" "wlp1s0" ];
+     extraConfig = ''
+       option domain-name-servers 172.16.228.1;
+       option domain-name "home";
+       subnet 172.16.228.0 netmask 255.255.255.0 {
+         option routers 172.16.228.1;
+         pool {
+           range 172.16.228.129 172.16.228.254;
+           max-lease-time 300;
+           allow unknown-clients;
+         }
+       }
+       subnet 172.16.229.0 netmask 255.255.255.0 {
+         option routers 172.16.229.1;
+         option domain-name-servers 172.16.229.1;
+         pool {
+           range 172.16.229.129 172.16.229.254;
+           max-lease-time 300;
+           allow unknown-clients;
+         }
+       }
+     '';
+     machines = [
+       {
+           hostName = "printer";
+           ethernetAddress = "70:5a:0f:13:90:d2";
+           ipAddress = "172.16.228.10";
+       }
+       {
+           hostName = "boomer";
+           ethernetAddress = "f0:76:1c:d9:b8:06";
+           ipAddress = "172.16.228.9";
+       }
+       {
+           hostName = "mobile-olga";
+           ethernetAddress = "ac:cf:85:89:ac:f0";
+           ipAddress = "172.16.229.3";
+       }
+       {
+           hostName = "mobile-kris";
+           ethernetAddress = "14:33:65:1b:f8:24";
+           ipAddress = "172.16.229.4";
+       }
+     ];
+   };
+   environment.systemPackages = with pkgs; [
+     wireless-tools
+   ];
+
+}
