@@ -5,8 +5,16 @@
 #    config.boot.kernelPackages.v4l2loopback
   ];
 
+  services.uvcvideo.dynctrl = { 
+    enable = true;
+    packages = [ pkgs.tiscamera ];
+  };
+
   environment.systemPackages = with pkgs; [
     v4l_utils
     webcamoid
+    motion
+    uvcdynctrl
+    uvccapture
   ];
 }

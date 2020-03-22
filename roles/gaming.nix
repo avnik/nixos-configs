@@ -18,9 +18,9 @@ let minetestclient_5_custom = pkgs.runCommand "minetest-5" {} ''
 #    dwarf
     dosbox
     kerbal
-    lgogdownloader
-    minetestclient_4
-    minetestclient_5_custom
+#    lgogdownloader
+#    minetestclient_4
+#    minetestclient_5_custom
     opendungeons
     openxcom-extended
     rocksndiamonds

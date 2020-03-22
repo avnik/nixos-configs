@@ -4,9 +4,6 @@ fonts = {
     enableFontDir = true;
     fontconfig = {
         useEmbeddedBitmaps = true;
-        ultimate = {
-            enable = true;
-        };
     };
 #    enableGhostscriptFont = true;
     fonts = with pkgs; [
@@ -19,13 +16,12 @@ fonts = {
         ubuntu_font_family
         inconsolata
         inconsolata-lgc
-        fira-mono
-        fira-code
         go-font
-        anonymousPro
         corefonts
         vistafonts
-        proggyfonts
+        noto-fonts
+        noto-fonts-extra
+        droid-fonts
       ];
 };
 }

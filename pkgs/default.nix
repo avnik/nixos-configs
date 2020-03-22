@@ -25,6 +25,7 @@ in
    nixpkgs.overlays = [
         (self: super: {
             binutils-stuff = binutils-stuff;
+            droid-fonts = super.callPackage ./fonts/droid.nix {};
             kerbal = super.callPackage ./kerbal/default.nix {};
             openxcom-extended = super.callPackage ./openxcom/extended.nix {};
         })

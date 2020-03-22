@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 let
-  customEmacs = pkgs.emacsPackagesNg.overrideScope (super: self: with self; rec {
+  customEmacs = pkgs.emacsPackagesNg.overrideScope' (self: super: with self; rec {
         # use a custom version of emacs (remacs sometimes?)
         # emacs = ...;
         # Customized stuff 
@@ -32,11 +32,11 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
 #    use-package-chords
 
     # outer space stuff (unbundled libraries)
-    help-fns
-    centered-buffer-mode
-    hybrid-mode
-    holy-mode
-    evilified-mode
+#    help-fns
+#    centered-buffer-mode
+#    hybrid-mode
+#    holy-mode
+#    evilified-mode
 #    spacemacs-whitespace-cleanup
 #    spacemacs-evil-unimpaired
 #    space-doc
@@ -173,11 +173,11 @@ let emacs = customEmacs.emacsWithPackages (epkgs: with epkgs; [
 #    smartparens
 
     #THEMING
-    color-theme
-    badwolf-theme
-    graphene-meta-theme
-    dark-mint-theme
-    abyss-theme
+#    color-theme
+#    badwolf-theme
+#    graphene-meta-theme
+#    dark-mint-theme
+#    abyss-theme
 
     # GIT
 #    git-timemachine

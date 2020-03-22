@@ -17,11 +17,11 @@ with lib;
       ../../roles/desktop.nix
       ../../roles/console.nix
       ../../roles/gaming.nix
-      ../../roles/taskwarrior.nix
       ../../roles/steam.nix
       ../../roles/haskell.nix
       ../../roles/texlive.nix
-      ../../class/customers/central.nix
+      ../../roles/nixpkgs-maintainer.nix
+      ../../roles/dev/ftdi.nix
       ../../users.nix
       ../../envs/golang.nix
       ../../envs/rust.nix
@@ -52,6 +52,7 @@ with lib;
     199.199.199.204 twt.tais.com twp.tais.com
     172.16.228.1 froggy
     172.16.228.10 printer printer.home
+    172.16.228.7 raptor 
     172.16.228.9 boomer
   '';
 
@@ -60,7 +61,6 @@ with lib;
           driSupport32Bit = true;
           s3tcSupport = true;
       };
-      enableKSM = true;
       pulseaudio = {
           enable = true;
           systemWide = true;
@@ -89,18 +89,32 @@ virtualisation = {
 services = {
 #  syslog-ng.enable = true;
   klogd.enable = false;
+  logind.extraConfig = ''
+    HandlePowerKey=ignore
+    HandleSuspendKey=ignore
+  '';
 
   nix-serve = {
     enable = true;
     secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
   };
 
+  nginx = {
+    enable = true;
+    virtualHosts."bulldozer.home" = {
+      enableACME = false;
+      forceSSL = false;
+      root = "/home/www";
+    };
+  };
+
+
   smartd.enable = true;
 
   nfs.server = {
      enable = true;
      exports = ''
-/mnt/raid   boomer(rw,no_subtree_check)
+/mnt/raid   boomer(rw,no_subtree_check) raptor(rw,no_subtree_check)
 /mnt/video   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
 /mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
        '';
@@ -117,33 +131,43 @@ services = {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
-      pandoc gnumake
+      gnumake
       neovim
-      svtplay-dl
       rtorrent
-      mercurial nix-prefetch-scripts
-      gitAndTools.git-imerge gitAndTools.gitflow gitAndTools.git-remote-hg
-      gitAndTools.gitRemoteGcrypt gitAndTools.hub gist gitAndTools.topGit
+      mercurial
+      pre-commit gist
       nox
       vagrant ansible
-      lm_sensors smartmontools hdparm fio
+      lm_sensors smartmontools hdparm
       imagemagick
-      vcsh mr fasd rcm renameutils
+      vcsh mr fasd rcm renameutils jump
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
-      #mumble_git teamspeak_client pidgin-with-plugins
       pass
-      rkt
       gnome3.vinagre
-      docker-gc docker-compose
+      docker-compose
       binutils-stuff
       remmina rdesktop
       hledger
       nix-review
+      nixpkgs-fmt
       perf-tools
       awscli
-      circleci-cli
-  ];
+      usbutils
+      conky
+      jq
+      direnv
+      picocom
+      cutecom
+      sshpass
+      dateutils
+      x11docker
+  ] ++ (with pkgs.gitAndTools; [
+      gitflow git-remote-hg git-sizer
+      gitRemoteGcrypt hub topGit delta 
+      git-absorb git-gone git-machete git-octopus git-recent
+      git-quick-stats
+  ]);
   sessionVariables =
       { 
       };

@@ -8,7 +8,7 @@ let
 in let
     haskell = pkgs.haskell // {
     packages = pkgs.haskell.packages // {
-      ghc864 = pkgs.haskell.packages.ghc864.override (oldArgs: {
+      ghc882 = pkgs.haskell.packages.ghc882.override (oldArgs: {
         overrides = lib.composeExtensions (oldArgs.overrides or (_: _: {}))
           (self: super: {
 
@@ -16,8 +16,8 @@ in let
               (pkgs.fetchFromGitHub {
                 owner  = "lspitzner";
                 repo   = "brittany";
-                rev    = "6c187da8f8166d595f36d6aaf419370283b3d1e9";
-                sha256 = "0nmnxprbwws3w1sh63p80qj09rkrgn9888g7iim5p8611qyhdgky";
+                rev    = "42b9ddaf0f6f59b1bdf2932e946aac923538290f";
+                sha256 = "1bs1h0xr1pa7mss6iajis5sgykd6cw655nc38r5dcfd6k26f1rm0";
                 }) {});
 
             multistate = dontCheck (doJailbreak super.multistate);
@@ -27,17 +27,14 @@ in let
       });
     };
   };
-  haskellPackages = haskell.packages.ghc864;
+  haskellPackages = haskell.packages.ghc882;
 in
 
 {
   imports = [ ../envs/haskell.nix ];
   environment.systemPackages = with haskellPackages; [
-    brittany
     stack
-    (dontCheck intero)
     cabal2nix
-#    stack2nix
-    stylish-haskell
+    ormolu
   ];
 }

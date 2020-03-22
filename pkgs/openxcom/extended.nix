@@ -1,4 +1,4 @@
-{stdenv, fetchFromGitHub, cmake, libGLU_combined, zlib, openssl, libyamlcpp, boost
+{stdenv, fetchFromGitHub, cmake, libGL, libGLU, zlib, openssl, libyamlcpp, boost
 , SDL, SDL_image, SDL_mixer, SDL_gfx }:
 
 let version = "1.0.0.2019.01.25"; in
@@ -12,7 +12,7 @@ stdenv.mkDerivation {
   };
 
   nativeBuildInputs = [ cmake ];
-  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost libyamlcpp libGLU_combined openssl zlib ];
+  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost libyamlcpp libGL libGLU openssl zlib ];
 
   postInstall = ''
     mv $out/bin/openxcom $out/bin/openxcom-extended

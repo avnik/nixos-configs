@@ -7,7 +7,8 @@ let haskell_ = pkgs.haskellPackages.ghcWithPackages (haskellPackages: with haske
 #        (pkgs.haskell.lib.doJailbreak (purescript.overrideScope (self: super: { spdx = pkgs.haskell.lib.doJailbreak super.spdx; }))#) 
 #        (pkgs.haskell.lib.doJailbreak pkgs.psc-package)
         pkgs.nodejs pkgs.nodePackages.bower
-        cabal-install stack hlint hpack
+        cabal-install hlint hpack
+        stack
         ];
     haskellEnv = with pkgs; myEnvFun {
       name = "haskell";

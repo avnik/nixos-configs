@@ -27,7 +27,7 @@ writeShellScriptBin "kerbal" ''
 if test -z "$KSP_DIR"; then
   KSP_DIR="$HOME/kerbal_ru"
   if ! test -x "$KSP_DIR/KSP.x86_64"; then
-    KSP_DIR="$HOME/kerbal"
+    KSP_DIR="$HOME/kerbal/game"
     if ! test -x "$KSP_DIR/KSP.x86_64"; then
        echo "Can't find Kerbal!"
        exit 1

@@ -1,26 +1,45 @@
 { config, pkgs, ... }:
 
 let
+  extraCmds = ''
+      export LIBGL_DEBUG=verbose
+      export MESA_DEBUG=1
+      export __GL_SYNC_TO_VBLANK=1
+  '';
   stdenv = pkgs.stdenv;
-  libtxc_dxtn = pkgs.pkgsi686Linux.libtxc_dxtn;
-  mesa = pkgs.pkgsi686Linux.mesa_noglu;
-  glxinfo = pkgs.pkgsi686Linux.glxinfo;
-  wine = pkgs.stdenv.lib.overrideDerivation pkgs.pkgsi686Linux.wineStaging (oldAttrs : {
+  libtxc_dxtn32 = pkgs.pkgsi686Linux.libtxc_dxtn;
+  mesa32 = pkgs.pkgsi686Linux.mesa_noglu;
+  glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
+  wine32 = pkgs.stdenv.lib.overrideDerivation pkgs.pkgsi686Linux.wineStaging (oldAttrs : {
       libtxc_dxtn_Name = pkgs.pkgsi686Linux.libtxc_dxtn;
       patch = [
       ];
   });
-  winetricks = pkgs.winetricks.override { wine = wine; };
+  winetricks32 = pkgs.winetricks.override { wine = wine32; };
+  wine32Env = pkgs.myEnvFun {
+    name = "wine-gaming-32";
+    buildInputs = [ wine32 winetricks32 mesa32 glxinfo32 libtxc_dxtn32];
+    inherit extraCmds;
+  };
+  wineWowStaging = pkgs.wineWowPackages.full.override {
+    wineRelease = "staging";
+    gstreamerSupport = false;
+  };
+  wineWowStable = pkgs.wineWowPackages.full.override {
+    wineRelease = "stable";
+    gstreamerSupport = false;
+  };
+  winetricksStaging = pkgs.winetricks.override { wine = wineWowStaging; };
+  winetricksStable = pkgs.winetricks.override { wine = wineWowStable; };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";
-    buildInputs = [ wine winetricks mesa glxinfo libtxc_dxtn];
-    extraCmds = ''
-      #export LD_LIBRARY_PATH="${mesa}/lib:${libtxc_dxtn}/lib"
-      #export LIBGL_DRIVERS_PATH="${mesa.drivers}/lib/dri"
-      export LIBGL_DEBUG=verbose
-      export MESA_DEBUG=1
-      export __GL_SYNC_TO_VBLANK=1
-    '';
+    buildInputs = with pkgs; [ wineWowStaging winetricksStaging mesa glxinfo libtxc_dxtn cabextract ];
+    inherit extraCmds;
+  };
+  wineEnvStable = pkgs.myEnvFun {
+    name = "wine-stable";
+    buildInputs = with pkgs; [ wineWowStable winetricksStable mesa glxinfo libtxc_dxtn cabextract ];
+    inherit extraCmds;
   };
 in
 {

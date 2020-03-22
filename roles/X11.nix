@@ -16,8 +16,8 @@
   # useGlamor = true;
 
   };
-  #services.xserver.windowManager.qtile.enable = true;
-  services.xserver.displayManager.slim.enable = true;
+
+  services.xserver.displayManager.lightdm.enable = true;
 
   environment.systemPackages = with pkgs; [
     fvwm qtile
