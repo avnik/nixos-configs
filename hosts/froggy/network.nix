@@ -45,9 +45,9 @@ in
      api.address = internalAddress;
      dns.allowFrom =  [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "127.0.0.0/8" ];
      exportHosts = true;
-     extraConfig = ''
-       export-etc-hosts-search-suffix = home
-     '';
+     settings = { 
+       export-etc-hosts-search-suffix = "home";
+     };
    };
    services.dhcpd4 = {
      enable = true;

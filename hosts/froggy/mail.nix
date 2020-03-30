@@ -37,10 +37,6 @@ in
       transport = lib.concatMapStringsSep "\n" (x: "${x} relay:[172.16.228.3]") myDomains;
     };
     rspamd.enable = false;
-    rmilter.postfix.enable = false;
-    rmilter.rspamd.extraConfig = ''
-      spamd_never_reject = true;
-    '';
   };
   networking.firewall.allowedTCPPorts = [ 25 ];
 
