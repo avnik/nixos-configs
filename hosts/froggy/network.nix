@@ -19,6 +19,7 @@ in
    networking.extraHosts = ''
      172.16.228.3 bulldozer bulldozer.home
      172.16.228.9 boomer boomer.home
+     172.16.228.7 raptor raptor.home
      172.16.228.10 printer
    '';
    networking.firewall = {
@@ -84,6 +85,31 @@ in
            ipAddress = "172.16.228.9";
        }
        {
+           hostName = "raptor";
+           ethernetAddress = "00:21:86:9e:8b:74";
+           ipAddress = "172.16.228.7";
+       }
+       {
+           hostName = "macnica-decoder";
+           ethernetAddress = "00:0a:35:00:1e:63";
+           ipAddress = "172.16.228.20";
+       }
+       {
+           hostName = "macnica-encoder";
+           ethernetAddress = "00:0a:35:00:1e:62";
+           ipAddress = "172.16.228.21";
+       }
+       {
+           hostName = "macnica-decoder-media";
+           ethernetAddress = "70:B3:D5:E8:E1:48";
+           ipAddress = "172.16.228.40";
+       }
+       {
+           hostName = "macnica-encoder-media";
+           ethernetAddress = "70:B3:D5:E8:E1:48";
+           ipAddress = "172.16.228.41";
+       }
+       {
            hostName = "mobile-olga";
            ethernetAddress = "ac:cf:85:89:ac:f0";
            ipAddress = "172.16.229.3";
@@ -96,7 +122,7 @@ in
      ];
    };
    environment.systemPackages = with pkgs; [
-     wireless-tools
+     wirelesstools
    ];
 
 }

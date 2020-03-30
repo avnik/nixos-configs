@@ -13,6 +13,7 @@
       ./network.nix
       ./mail.nix
       ./openvpn.nix
+      ../../roles/console.nix
       ../../roles/desktop.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
@@ -41,7 +42,6 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
 
-
   fileSystems = {
       "/mnt/media" = {
           device = "bulldozer:/mnt/media";
@@ -60,14 +60,12 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    claws-mail
-    git
-    vim
-    wget
     xfce.thunar
     geeqie
     evince
     tcpdump
+    vim
+    krita
   ];
 
   # List services that you want to enable:
