@@ -31,11 +31,13 @@ with lib;
       ./mail.nix
       ./taskd.nix
       ./openvpn.nix
+#      ../../modules/extras.nix
     ];
 
   nixpkgs.config = {
      allowBroken = true;  # Until ansible will be fixed
   };
+#  extras.iohkOverlays = true;
 
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";

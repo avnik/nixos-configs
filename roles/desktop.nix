@@ -26,7 +26,8 @@
     pavucontrol
     qastools
     aumix
-    mpv mplayer mpg123
+    mpv mplayer mpg123 youtube-dl
+    mp3splt mp3splt-gtk
     dex desktop_file_utils
     xsel
     ## windowmanagers, which I want to be built by default

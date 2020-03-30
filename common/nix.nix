@@ -14,9 +14,6 @@ with lib;
     ] ++ [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
-    trustedBinaryCaches = [
-      "http://hydra.cryp.to/"
-    ];
     extraOptions = ''
         gc-keep-outputs = true
         gc-keep-derivations = true
@@ -31,12 +28,6 @@ with lib;
         "nixos-config=/etc/nixos/configuration.nix"
         "private=/home/avn/nixos/private"
     ];
-  };
-
-  systemd.services.nix-daemon = {
-      environment.TMPDIR = "/var/buildroot";
-      preStart = ''
-        mkdir -p /var/buildroot
-      '';
+    buildLocation = "/var/buildroot";
   };
 }

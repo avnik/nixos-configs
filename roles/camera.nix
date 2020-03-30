@@ -16,5 +16,6 @@
     motion
     uvcdynctrl
     uvccapture
+    xawtv
   ];
 }
