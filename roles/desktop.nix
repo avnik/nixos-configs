@@ -15,7 +15,6 @@ in
   hardware = {
       opengl = {
           driSupport32Bit = true;
-          s3tcSupport = true;
       };
 
       pulseaudio = {

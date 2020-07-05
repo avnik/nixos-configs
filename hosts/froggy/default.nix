@@ -19,6 +19,7 @@
       ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
+      ../../envs/wine.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -37,10 +38,13 @@
       };
     };
     extraModprobeConfig = ''
-      option iwlwifi 11n_disable=1 wd_disable=1
+      options iwlwifi swcrypto=1 11n_disable=1
+      options iwlmvm power_scheme=1
     '';
-    kernelPackages = pkgs.linuxPackages_latest;
+    kernelPackages = pkgs.linuxPackages;
+    kernelParams = [ "intel_idle.max_cstate=1" "processor.max_cstate=1" "idle=poll" "pcie_aspm=off" ];
   };
+  hardware.cpu.intel.updateMicrocode = true;
 
   fileSystems = {
       "/mnt/media" = {
@@ -61,11 +65,13 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     xfce.thunar
-    geeqie
-    evince
+#    geeqie
     tcpdump
     vim
     krita
+    ethtool
+    lm_sensors
+    multimc
   ];
 
   # List services that you want to enable:
@@ -73,6 +79,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
+  services.openssh.permitRootLogin = "no";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -28,6 +28,6 @@
       fd          # for super-fast `find`
       telnet      # for telnet
       nix-index
-      nix-du
+#      nix-du
     ];
 }

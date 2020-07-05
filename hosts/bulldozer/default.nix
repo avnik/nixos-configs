@@ -61,7 +61,6 @@ with lib;
   hardware = {
       opengl = {
           driSupport32Bit = true;
-          s3tcSupport = true;
       };
       pulseaudio = {
           enable = true;
