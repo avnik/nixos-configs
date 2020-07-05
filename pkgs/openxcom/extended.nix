@@ -1,17 +1,17 @@
 {stdenv, fetchFromGitHub, cmake, libGL, libGLU, zlib, openssl, libyamlcpp, boost
-, SDL, SDL_image, SDL_mixer, SDL_gfx }:
+, SDL, SDL_image, SDL_mixer, SDL_gfx, pkgconfig }:
 
-let version = "1.0.0.2019.01.25"; in
+let version = "1.0.0.2020.04.05"; in
 stdenv.mkDerivation {
   name = "openxcom-extended-${version}";
   src = fetchFromGitHub {
     owner = "MeridianOXC";
     repo = "OpenXcom";
-    rev = "a7d1f6e";
-    sha256 = "12ms69l3pjq3mp7ffsipsc4kf619l6riiw0cgfjcw1brzfv8xnya";
+    rev = "41873c291";
+    sha256 = "1864ymdz1sk6q8agd1a0170xbhz1yxha5ln8q69b380viyf7vhl5";
   };
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [ cmake pkgconfig ];
   buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost libyamlcpp libGL libGLU openssl zlib ];
 
   postInstall = ''

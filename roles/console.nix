@@ -26,8 +26,12 @@
       gitAndTools.gitFull git-crecord git-series
       whois       # for whois
       fd          # for super-fast `find`
+      ripgrep
       telnet      # for telnet
       nix-index
-      nix-du
+#      nix-du
+    ];
+    nixpkgs.config.permittedInsecurePackages = [
+         "p7zip-16.02"
     ];
 }

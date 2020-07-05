@@ -14,5 +14,6 @@
     nix-prefetch-scripts
     nixpkgs-fmt
     nixpkgs-review
+    morph
   ];
 }

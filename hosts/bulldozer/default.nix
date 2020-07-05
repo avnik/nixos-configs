@@ -61,14 +61,16 @@ with lib;
   hardware = {
       opengl = {
           driSupport32Bit = true;
-          s3tcSupport = true;
       };
       pulseaudio = {
           enable = true;
           systemWide = true;
+          configFile = ./verbatim/system.pa;
           daemon.config = {
             default-fragments = 10;
             default-fragment-size-msec = 2;
+            default-sample-format = "s16le";
+            default-sample-rate = 48000;
           };
       };
       cpu.amd.updateMicrocode = true;
@@ -101,6 +103,7 @@ services = {
     secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
   };
 
+  avahi.enable = true;
   nginx = {
     enable = true;
     virtualHosts."bulldozer.home" = {
@@ -145,7 +148,7 @@ services = {
       vcsh mr fasd rcm renameutils jump
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
-      pass
+      pass gopass gnupg
       gnome3.vinagre
       docker-compose
       binutils-stuff
