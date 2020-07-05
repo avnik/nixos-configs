@@ -10,14 +10,13 @@ let
   mesa32 = pkgs.pkgsi686Linux.mesa_noglu;
   glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
   wine32 = pkgs.stdenv.lib.overrideDerivation pkgs.pkgsi686Linux.wineStaging (oldAttrs : {
-      libtxc_dxtn_Name = pkgs.pkgsi686Linux.libtxc_dxtn;
       patch = [
       ];
   });
   winetricks32 = pkgs.winetricks.override { wine = wine32; };
   wine32Env = pkgs.myEnvFun {
     name = "wine-gaming-32";
-    buildInputs = [ wine32 winetricks32 mesa32 glxinfo32];
+    buildInputs = [ wine32 winetricks32 mesa32 glxinfo32 ];
     inherit extraCmds;
   };
   wineWowStaging = pkgs.wineWowPackages.full.override {

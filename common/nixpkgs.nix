@@ -5,6 +5,7 @@
   ];
   nixpkgs.config = {
      allowUnfree = true;
+     allowBroken = true;
      pulseaudio = true;
      checkMeta = false;
      avahi.qt4Support = false;
