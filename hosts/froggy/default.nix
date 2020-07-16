@@ -15,6 +15,7 @@
       ./openvpn.nix
       ../../roles/console.nix
       ../../roles/desktop.nix
+      ../../roles/pulse.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
       ../../roles/printing.nix
@@ -89,9 +90,6 @@
 
   services.xserver.videoDrivers = [ "intel" ];
 
-
-
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";
-
 }

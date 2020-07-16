@@ -1,12 +1,5 @@
 { config, pkgs, ... }:
 
-let configF = pkgs.runCommand "system.pa" {} ''
-   cat ${config.hardware.pulseaudio.package.daemon}/etc/pulse/system.pa \
-     | sed '/module-native-protocol-unix/ s/$/ auth-group=pulse auth-group-enable=1 auth-anonymous=1/' \
-     > $out
-'';
-in
-
 {
   nixpkgs.config.firefox = {
     enableAdobeFlash = true;
@@ -15,12 +8,6 @@ in
   hardware = {
       opengl = {
           driSupport32Bit = true;
-      };
-
-      pulseaudio = {
-          enable = true;
-          systemWide = true;
-          configFile = configF;
       };
   };
 
@@ -45,7 +32,4 @@ in
     zathura ## for pdfs
     #apvlv ## for pdfs
   ];
-
-  # I use systemwide pulse on my desktops, so won't have him go away on upgrades
-  systemd.services.pulseaudio.restartIfChanged = false;
 }
