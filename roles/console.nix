@@ -18,7 +18,7 @@
       psmisc  # for killall
       sysstat # for iostat
       tcpdump
-      iotop htop
+      iotop htop bottom 
       bup     # for backup tool
       shared_mime_info
       file lsof zip unzip unrar wget p7zip xorriso
@@ -28,10 +28,17 @@
       fd          # for super-fast `find`
       ripgrep
       telnet      # for telnet
-      nix-index
-#      nix-du
+      lm_sensors smartmontools hdparm
+      usbutils pciutils
     ];
-    nixpkgs.config.permittedInsecurePackages = [
-         "p7zip-16.02"
-    ];
+
+    programs.bash.interactiveShellInit = ''
+      HISTCONTROL=ignoreboth:erasedups
+      HISTSIZE=100000                   # big big history
+      HISTFILESIZE=100000               # big big history
+      shopt -s histappend               # append to history, don't overwrite it
+
+      # Save and reload the history after each command finishes
+      PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+    '';
 }

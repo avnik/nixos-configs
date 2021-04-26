@@ -1,14 +1,18 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
      ./nix.nix
      ./nixpkgs.nix
      ./i18n.nix
+     ./home-manager.nix
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
   boot.tmpOnTmpfs = true;
 
-  hardware.ksm.enable = true;
+  hardware = {
+    ksm.enable = true;
+    enableRedistributableFirmware = lib.mkDefault true;
+  };
 
   # Select internationalisation properties.
   console = {

@@ -15,12 +15,15 @@
       ./openvpn.nix
       ../../roles/console.nix
       ../../roles/desktop.nix
-      ../../roles/pulse.nix
+      ./pulse.nix
+      ../../roles/camera.nix
+      ../../roles/chats.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
       ../../envs/wine.nix
+      ../../modules/r8168.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -39,13 +42,21 @@
       };
     };
     extraModprobeConfig = ''
-      options iwlwifi swcrypto=1 11n_disable=1
-      options iwlmvm power_scheme=1
+      #options iwlwifi swcrypto=1 11n_disable=1
+      #options iwlmvm power_scheme=1
+      blacklist iwlwifi
+      blacklist iwlmvm
     '';
     kernelPackages = pkgs.linuxPackages;
+    #kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "intel_idle.max_cstate=1" "processor.max_cstate=1" "idle=poll" "pcie_aspm=off" ];
   };
+  services.udev.extraRules = ''
+    # SUBSYSTEM=="net", ACTION=="add", DEVTYPE=="wlan", ATTR{address}=="00:C0:CA:81:F3:AD", NAME="wifi1"
+    SUBSYSTEM=="net", ACTION=="add", ATTRS{manufacturer}=="ATHEROS", NAME="wifi1"
+  '';
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.custom.r8168.enable = false;
 
   fileSystems = {
       "/mnt/media" = {
@@ -66,7 +77,6 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     xfce.thunar
-#    geeqie
     tcpdump
     vim
     krita
@@ -89,6 +99,11 @@
   # networking.firewall.enable = false;
 
   services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.desktopManager.xfce = {
+    enable = true;
+  };
+  services.xserver.displayManager.defaultSession = "xfce";
+  services.system-config-printer.enable = false;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "17.09";

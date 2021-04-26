@@ -21,11 +21,13 @@
 
   boot.initrd.luks = {
     cryptoModules = [ "aes_x86_64" "xts" "ecb" "cbc" "sha256_generic" "sha512_generic"];
-    devices = [ {
-      name="cryptolvm";
-      device = "/dev/sda3";
-      preLVM = true;
-    } ];
+    devices = { 
+      cryptolvm = {
+        name="cryptolvm";
+        device = "/dev/sda3";
+        preLVM = true;
+      };
+    };
   };
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -57,7 +59,6 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     libreoffice
-    deadbeef-with-plugins
     abcde
     xfce.thunar
     geeqie
@@ -76,7 +77,6 @@
   # services.xserver.xkbOptions = "eurosign:e";
    services.xserver.synaptics.enable = false;
    services.xserver.displayManager.job.logsXsession = true;
-   services.xserver.windowManager.qtile.enable = true; 
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "15.09";

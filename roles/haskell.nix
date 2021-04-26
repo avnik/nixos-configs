@@ -32,7 +32,7 @@ in
 
 {
   imports = [ ../envs/haskell.nix ];
-  environment.systemPackages = with haskellPackages; [
+  environment.systemPackages = with pkgs.haskellPackages; [
     stack
     cabal2nix
     ormolu

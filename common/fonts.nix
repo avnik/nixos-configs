@@ -1,11 +1,10 @@
 { config, pkgs, ... }:
 {
 fonts = {
-    enableFontDir = true;
+    fontDir.enable = true;
     fontconfig = {
         useEmbeddedBitmaps = true;
     };
-#    enableGhostscriptFont = true;
     fonts = with pkgs; [
         dejavu_fonts
         liberation_ttf

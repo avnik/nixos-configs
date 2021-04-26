@@ -7,7 +7,6 @@ let rustEnv = with pkgs; myEnvFun {
     carnix
 #    cargo-edit
     cargo-release
-    cargo-tree
   ];
   extraCmds = ''
     unset SSL_CERT_FILE

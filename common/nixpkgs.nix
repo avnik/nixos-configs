@@ -24,5 +24,8 @@
             plugins = [ pkgs.deadbeef-mpris2-plugin ];
         };
      };
+     permittedInsecurePackages = [
+       "spidermonkey-38.8.0"
+     ];
   };
 }

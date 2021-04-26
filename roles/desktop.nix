@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  nixpkgs.config.firefox = {
-    enableAdobeFlash = true;
-  };
-
   hardware = {
       opengl = {
           driSupport32Bit = true;
@@ -15,21 +11,21 @@
 
   environment.systemPackages = with pkgs; [
     alock
+    alacritty
     chromium
     firefox
-    gimp-with-plugins
+    gimp-with-plugins rawtherapee # photoflow
     libreoffice
     maim sxiv
     pavucontrol
     qastools
     aumix
-    mpv mplayer mpg123 youtube-dl
+    mpv mpg123 youtube-dl
     mp3splt mp3splt-gtk
     dex desktop_file_utils
     xsel
     ## windowmanagers, which I want to be built by default
-    fvwm awesome qtile
+    fvwm qtile
     zathura ## for pdfs
-    #apvlv ## for pdfs
   ];
 }

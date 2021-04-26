@@ -1,0 +1,26 @@
+{
+    "iohk-nix": {
+        "branch": "master",
+        "description": "nix scripts shared across projects",
+        "homepage": null,
+        "owner": "input-output-hk",
+        "repo": "iohk-nix",
+        "rev": "ca80aeb33e8ca854dca77c1098a90136b9dabf2e",
+        "sha256": "0sp9v7l68xq1kg4862pcpjji918lgb6jlak4p6lpv2k4h93dypv2",
+        "type": "tarball",
+        "url": "https://github.com/input-output-hk/iohk-nix/archive/ca80aeb33e8ca854dca77c1098a90136b9dabf2e.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    },
+    "niv": {
+        "branch": "master",
+        "description": "Easy dependency management for Nix projects",
+        "homepage": "https://github.com/nmattia/niv",
+        "owner": "nmattia",
+        "repo": "niv",
+        "rev": "98c74a80934123cb4c3bf3314567f67311eb711a",
+        "sha256": "1w8n54hapd4x9f1am33icvngkqns7m3hl9yair38yqq08ffwg0kn",
+        "type": "tarball",
+        "url": "https://github.com/nmattia/niv/archive/98c74a80934123cb4c3bf3314567f67311eb711a.tar.gz",
+        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+    }
+}

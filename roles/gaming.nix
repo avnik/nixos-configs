@@ -21,8 +21,6 @@ let minetestclient_5_custom = pkgs.runCommand "minetest-5" {} ''
 #    lgogdownloader
 #    minetestclient_4
 #    minetestclient_5_custom
-    terraria
-    opendungeons
     openxcom-extended
     rocksndiamonds
     scummvm

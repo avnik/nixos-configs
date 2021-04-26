@@ -11,7 +11,7 @@ in
        address = internalAddress;
        prefixLength = 24;
      } ];
-     wlp1s0.ipv4.addresses = [ {
+     wifi1.ipv4.addresses = [ {
        address = "172.16.229.1";
        prefixLength = 24;
      } ];
@@ -24,19 +24,19 @@ in
    '';
    networking.firewall = {
      enable = true;
-     trustedInterfaces = [ "enp3s0" "wlp1s0" ];
+     trustedInterfaces = [ "enp3s0" "wifi1" ];
      rejectPackets = true;
      logRefusedPackets = false;
      logRefusedConnections = false;
    };
    networking.nat = {
      enable = true;
-     internalInterfaces = [ "enp3s0" "wlp1s0" ];
+     internalInterfaces = [ "enp3s0" "wifi1" ];
      externalInterface = "enp2s0";
    };
    services.hostapd = {
      enable = true;
-     interface = "wlp1s0";
+     interface = "wifi1";
      ssid = "froggy";
      wpaPassphrase = "entropia";
    };
@@ -51,7 +51,7 @@ in
    };
    services.dhcpd4 = {
      enable = true;
-     interfaces = [ "enp3s0" "wlp1s0" ];
+     interfaces = [ "enp3s0" "wifi1" ];
      extraConfig = ''
        option domain-name-servers 172.16.228.1;
        option domain-name "home";

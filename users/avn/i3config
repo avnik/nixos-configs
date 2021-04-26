@@ -1,0 +1,103 @@
+set $mod Mod4
+font pango:monospace 10
+floating_modifier $mod
+new_window pixel 2
+new_float pixel 2
+hide_edge_borders none
+force_focus_wrapping no
+focus_follows_mouse yes
+focus_on_window_activation smart
+mouse_warping output
+workspace_layout stacked
+workspace_auto_back_and_forth no
+
+client.focused #4c7899 #285577 #ffffff #2e9ef4 #285577
+client.focused_inactive #333333 #5f676a #ffffff #484e50 #5f676a
+client.unfocused #333333 #222222 #888888 #292d2e #222222
+client.urgent #2f343a #900000 #ffffff #900000 #900000
+client.placeholder #000000 #0c0c0c #ffffff #000000 #0c0c0c
+client.background #ffffff
+
+bindsym $mod+0 workspace 10
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up 
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Return exec urxvt
+bindsym $mod+Shift+Return exec alacritty
+bindsym $mod+Shift+0 move container to workspace 10
+bindsym $mod+Shift+1 move container to workspace 1
+bindsym $mod+Shift+2 move container to workspace 2
+bindsym $mod+Shift+3 move container to workspace 3
+bindsym $mod+Shift+4 move container to workspace 4
+bindsym $mod+Shift+5 move container to workspace 5
+bindsym $mod+Shift+6 move container to workspace 6
+bindsym $mod+Shift+7 move container to workspace 7
+bindsym $mod+Shift+8 move container to workspace 8
+bindsym $mod+Shift+9 move container to workspace 9
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Right move right
+bindsym $mod+Shift+Up move up
+bindsym $mod+Tab focus next
+bindsym $mod+Shift+Tab focus prev
+bindsym $mod+Shift+b layout splith
+bindsym $mod+Shift+f floating toggle
+bindsym $mod+Shift+i move container to workspace "Irc"
+bindsym $mod+Shift+q restart
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+s layout stacking
+bindsym $mod+Shift+t layout tabbed
+bindsym $mod+Shift+v layout splitv
+bindsym $mod+Shift+w move container to workspace "Web"
+bindsym $mod+c kill
+bindsym $mod+f fullscreen
+bindsym $mod+h split h
+bindsym $mod+i workspace "Irc"
+bindsym $mod+space focus mode_toggle
+bindsym $mod+v split v
+bindsym $mod+w workspace "Web"
+
+mode "resize" {
+  bindsym Down resize grow height 10 px or 10 ppt
+  bindsym Escape mode default
+  bindsym Left resize shrink width 10 px or 10 ppt
+  bindsym Return mode default
+  bindsym Right resize grow width 10 px or 10 ppt
+  bindsym Up resize shrink height 10 px or 10 ppt
+}
+
+assign [class="^Chromium$"] 2
+assign [class="^Firefox$"] web
+
+bar {
+  font pango:monospace 10
+  mode dock
+  hidden_state show
+  position top
+  status_command i3status-rs /home/avn/.config/i3status-rust/config-default.toml
+  workspace_buttons yes
+  strip_workspace_numbers no
+  tray_output primary
+  colors {
+    background #000000
+    statusline #ffffff
+    separator #666666
+    focused_workspace #4c7899 #285577 #ffffff
+    active_workspace #333333 #5f676a #ffffff
+    inactive_workspace #333333 #222222 #888888
+    urgent_workspace #2f343a #900000 #ffffff
+    binding_mode #2f343a #900000 #ffffff
+  }
+}
+smart_borders no_gaps
+for_window [class="^.*"] border pixel 2

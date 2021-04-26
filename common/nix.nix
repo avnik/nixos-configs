@@ -6,6 +6,7 @@ with lib;
     readOnlyStore = true;
     buildCores = 4;    # -j4 for subsequent make calls
 #    maxJobs = 2;       # Parallel nix builds
+    nrBuildUsers = 2;
     binaryCaches = lib.optionals (config.networking.hostName != "bulldozer") ["http://bulldozer.home:5000/"] ++ [
       "http://cache.nixos.org/"
     ];
@@ -14,6 +15,7 @@ with lib;
     ] ++ [
       "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
     ];
+    trustedUsers = [ "avn" ];
     extraOptions = ''
         gc-keep-outputs = true
         gc-keep-derivations = true

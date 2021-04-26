@@ -12,7 +12,7 @@ with lib;
       ../../common/common.nix
       ../../roles/camera.nix
       ../../roles/chats.nix
-      ../../roles/emacs.nix
+#      ../../roles/emacs.nix
       ../../roles/X11.nix
       ../../roles/desktop.nix
       ../../roles/console.nix
@@ -29,15 +29,15 @@ with lib;
       ./boot.nix
       ./fs.nix
       ./mail.nix
-      ./taskd.nix
       ./openvpn.nix
+      ./samba.nix
 #      ../../modules/extras.nix
     ];
 
   nixpkgs.config = {
      allowBroken = true;  # Until ansible will be fixed
   };
-#  extras.iohkOverlays = true;
+  nix.package = pkgs.nixFlakes;
 
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
@@ -75,6 +75,7 @@ with lib;
       };
       cpu.amd.updateMicrocode = true;
   };
+  systemd.services.pulseaudio.restartIfChanged = false;
 
 # List services that you want to enable:
 virtualisation = {
@@ -87,7 +88,6 @@ virtualisation = {
           dates = "daily";
         };
     };
-#    rkt.enable = true;
 };
 
 services = {
@@ -141,9 +141,7 @@ services = {
       rtorrent
       mercurial
       pre-commit gist
-      nox
       vagrant ansible
-      lm_sensors smartmontools hdparm
       imagemagick
       vcsh mr fasd rcm renameutils jump
       manpages posix_man_pages iana_etc
@@ -154,19 +152,17 @@ services = {
       binutils-stuff
       remmina rdesktop
       hledger
-      nix-review
-      nixpkgs-fmt
       perf-tools
       awscli
-      usbutils
-      conky
       jq
       direnv
       picocom
       cutecom
       sshpass
       dateutils
-      x11docker
+      zoom-us
+      newman
+      ppp xl2tpd
   ] ++ (with pkgs.gitAndTools; [
       gitflow git-remote-hg git-sizer
       gitRemoteGcrypt hub topGit delta 
