@@ -6,25 +6,30 @@
 
 with lib;
 
+let 
+  mesa_version = "21.1.3";
+  mesa_src = pkgs.fetchurl {
+    url = "https://mesa.freedesktop.org/archive/mesa-${mesa_version}.tar.xz";
+    sha256 = "0s8yi7y63xsyqw19ihil18fykkjxr6ibcir2fvymz1vh4ql23qnb";
+  };  
+  mesa_21_1 = pkgs.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
+  mesa_21_1_32 = pkgs.pkgsi686Linux.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
+in
 {
   imports =
     [ 
       ../../common/common.nix
       ../../roles/camera.nix
       ../../roles/chats.nix
-#      ../../roles/emacs.nix
       ../../roles/X11.nix
       ../../roles/desktop.nix
       ../../roles/console.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
-      ../../roles/haskell.nix
       ../../roles/texlive.nix
       ../../roles/nixpkgs-maintainer.nix
-      ../../roles/dev/ftdi.nix
+      ../../roles/wayland.nix
       ../../users.nix
-      ../../envs/golang.nix
-      ../../envs/rust.nix
       ../../envs/wine.nix
       ./boot.nix
       ./fs.nix
@@ -61,6 +66,8 @@ with lib;
   hardware = {
       opengl = {
           driSupport32Bit = true;
+          package = mkForce mesa_21_1.drivers;
+          package32 = mkForce mesa_21_1_32.drivers;
       };
       pulseaudio = {
           enable = true;
@@ -90,6 +97,7 @@ virtualisation = {
     };
 };
 
+programs.sway.enable = true;
 services = {
 #  syslog-ng.enable = true;
   klogd.enable = false;
@@ -131,6 +139,9 @@ services = {
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+  services.xserver.deviceSection = ''
+    Option "DRI3" "on"
+  '';
 
   environment = {
   # List packages installed in system profile. To search by name, run:
@@ -141,12 +152,11 @@ services = {
       rtorrent
       mercurial
       pre-commit gist
-      vagrant ansible
       imagemagick
-      vcsh mr fasd rcm renameutils jump
+      fasd rcm renameutils jump
       manpages posix_man_pages iana_etc
       perl pythonFull ruby bundix
-      pass gopass gnupg
+      gopass gnupg
       gnome3.vinagre
       docker-compose
       binutils-stuff
@@ -157,17 +167,15 @@ services = {
       jq
       direnv
       picocom
-      cutecom
       sshpass
       dateutils
-      zoom-us
       newman
       ppp xl2tpd
   ] ++ (with pkgs.gitAndTools; [
-      gitflow git-remote-hg git-sizer
-      gitRemoteGcrypt hub topGit delta 
+      gitflow
+      gitRemoteGcrypt hub delta 
       git-absorb git-gone git-machete git-octopus git-recent
-      git-quick-stats
+      git-quick-stats git-delete-merged-branches
   ]);
   sessionVariables =
       { 

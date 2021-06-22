@@ -1,4 +1,5 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
+
 
 {
   hardware = {
@@ -12,7 +13,8 @@
   environment.systemPackages = with pkgs; [
     alock
     alacritty
-    chromium
+    brewtarget
+    stable.chromium
     firefox
     gimp-with-plugins rawtherapee # photoflow
     libreoffice
@@ -25,7 +27,7 @@
     dex desktop_file_utils
     xsel
     ## windowmanagers, which I want to be built by default
-    fvwm qtile
+    fvwm
     zathura ## for pdfs
   ];
 }

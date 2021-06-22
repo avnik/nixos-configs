@@ -2,6 +2,7 @@
 , deploy-rs
 , flake-utils
 , nixpkgs
+, nixpkgs-stable
 , sops-nix
 , ...
 }@inputs:
@@ -14,6 +15,12 @@
   {
     defaultApp = self.apps.${system}.deploy;
     defaultPackage = self.packages.${system}.hosts;
+
+    overlays = [
+      (final: prev: {
+          stable = nixpkgs-stable.legacyPackages.${system};
+       })
+    ];
 
     apps = {
       deploy = {

@@ -12,6 +12,7 @@
       ../../common/common.nix
       ../../common/efi.nix
       ../../roles/console.nix
+      ../../roles/chats.nix
       ../../roles/desktop.nix
       ../../roles/X11.nix
       ../../roles/emacs.nix
@@ -20,7 +21,7 @@
     ];
 
   boot.initrd.luks = {
-    cryptoModules = [ "aes_x86_64" "xts" "ecb" "cbc" "sha256_generic" "sha512_generic"];
+    cryptoModules = [ "aes_generic" "xts" "ecb" "cbc" "sha256_generic" "sha512_generic"];
     devices = { 
       cryptolvm = {
         name="cryptolvm";
@@ -52,13 +53,36 @@
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
-
-  hardware.pulseaudio.configFile = ./verbatim/system.pa;
+  hardware = {
+      bluetooth = {
+        enable = true;
+        settings = {
+          General = {
+            Enable = "Source,Sink,Media,Socket";
+          };
+        };
+      };
+      opengl = {
+          driSupport32Bit = true;
+      };
+      pulseaudio = {
+          enable = true;
+          configFile = ./verbatim/system.pa;
+          systemWide = true;
+          daemon.config = {
+            default-fragments = 10;
+            default-fragment-size-msec = 2;
+          };
+          extraModules = [ pkgs.pulseaudio-modules-bt ];
+          package = pkgs.pulseaudioFull;
+      };
+      cpu.amd.updateMicrocode = true;
+  };
+  powerManagement.cpuFreqGovernor = "powersave";
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    libreoffice
     abcde
     xfce.thunar
     geeqie
@@ -66,6 +90,7 @@
    ];
 
   # List services that you want to enable:
+  services.blueman.enable = true;
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
@@ -76,7 +101,7 @@
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
    services.xserver.synaptics.enable = false;
-   services.xserver.displayManager.job.logsXsession = true;
+   services.xserver.displayManager.job.logToFile = true;
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "15.09";

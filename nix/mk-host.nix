@@ -1,6 +1,7 @@
 { inputs
 , name
 , system
+, overlays
 , extraModules ? [ ]
 }:
 let
@@ -13,7 +14,7 @@ let
     allowAliases = true;
   };
 
-  overlays = map
+  overlays' = overlays ++ map
     (f: import (../overlays + "/${f}"))
     (attrNames (optionalAttrs (pathExists ../overlays) (readDir ../overlays)));
 in
@@ -21,7 +22,7 @@ nixpkgs.lib.nixosSystem {
   inherit system;
 
   modules = [
-    ({ nixpkgs = { inherit config overlays; }; })
+    ({ nixpkgs = { inherit config; overlays = overlays'; }; })
     impermanence.nixosModules.impermanence
     home-manager.nixosModules.home-manager
     sops-nix.nixosModules.sops

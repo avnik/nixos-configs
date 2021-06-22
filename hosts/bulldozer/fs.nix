@@ -9,16 +9,19 @@ let bindMount = from: { options = [ "bind" ]; fsType = "none"; device = from; };
 in
 {
   boot = {
-      initrd.availableKernelModules = ["btrfs"];
       supportedFilesystems = [ "zfs" ];
 #      zfs.enableUnstable = true;
   };
   fileSystems = {
     "/boot/sda/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
     "/boot/sdb/efi" = { device = "/dev/sdb1"; fsType = "vfat"; };
+    "/" = {
+      device = "tank/zroot";
+      fsType = "zfs";
+    };
     "/home"={
-        device="tank/home";
-        fsType="zfs";
+      device="tank/home";
+      fsType="zfs";
     };
     "/var/lib/docker"={
       device="tank/docker";

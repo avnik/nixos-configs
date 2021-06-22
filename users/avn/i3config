@@ -66,6 +66,7 @@ bindsym $mod+i workspace "Irc"
 bindsym $mod+space focus mode_toggle
 bindsym $mod+v split v
 bindsym $mod+w workspace "Web"
+bindsym $mod+s exec maim -i $(xdotool getactivewindow) ~/.screenshots/$(date +%F-%T).png 
 
 mode "resize" {
   bindsym Down resize grow height 10 px or 10 ppt

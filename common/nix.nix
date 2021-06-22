@@ -22,8 +22,10 @@ with lib;
         auto-optimise-store = true 
         binary-caches-parallel-connections = 10
         keep-failed = true
+        keep-going = true
     '';
     daemonNiceLevel = 15;
+    daemonIONiceLevel = 7;
     nixPath = [
         "nixpkgs=/etc/nixos/nixpkgs"
         "nixos=/etc/nixpkgs/nixos"

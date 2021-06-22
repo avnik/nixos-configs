@@ -1,8 +1,8 @@
-{ pkgs,  stdenv }:
+{ pkgs, lib, stdenv }:
 
 with pkgs;
 
-let libPath = stdenv.lib.makeLibraryPath [
+let libPath = lib.makeLibraryPath [
     gtk2
 ]; in
 

@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 let
   extraCmds = ''
@@ -9,7 +9,7 @@ let
   stdenv = pkgs.stdenv;
   mesa32 = pkgs.pkgsi686Linux.mesa_noglu;
   glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
-  wine32 = pkgs.stdenv.lib.overrideDerivation pkgs.pkgsi686Linux.wineStaging (oldAttrs : {
+  wine32 = lib.overrideDerivation pkgs.pkgsi686Linux.wineStaging (oldAttrs : {
       patch = [
       ];
   });

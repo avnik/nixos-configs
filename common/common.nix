@@ -14,6 +14,11 @@
     enableRedistributableFirmware = lib.mkDefault true;
   };
 
+  documentation = {
+    doc.enable = false;
+    man.generateCaches = true;
+  };
+
   # Select internationalisation properties.
   console = {
      font = "lat9w-16";

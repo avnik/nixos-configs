@@ -1,8 +1,8 @@
-{ pkgs, stdenv }:
+{ pkgs, stdenv, lib }:
 
 with pkgs;
 
-let libPath = stdenv.lib.makeLibraryPath [
+let libPath = lib.makeLibraryPath [
     stdenv.cc.cc
     libglvnd libGL libGLU mesa_noglu.drivers
     libpulseaudio

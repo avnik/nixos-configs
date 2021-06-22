@@ -27,12 +27,34 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixpkgs-wayland  = { 
+      url = "github:colemickens/nixpkgs-wayland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "git+file:///home/avn/nixos/nixpkgs";
+    
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-21.05";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-direnv.url = "github:nix-community/nix-direnv";
+    nix-direnv.flake = false;
+
+    ### EMACS, DOOM EMACS
+    doom-emacs.url = "github:hlissner/doom-emacs/develop";
+    doom-emacs.flake = false;
+    emacs-overlay.url = "github:nix-community/emacs-overlay/d9530a7048f4b1c0f65825202a0ce1d111a1d39a";
+    emacs-overlay.flake = false;
+    nix-doom-emacs = {
+      url = "github:vlaci/nix-doom-emacs/develop";
+#      inputs.doom-emacs.follows = "doom-emacs";
+#      inputs.emacs-overlay.follows = "emacs-overlay";
+#      inputs.home-manager.follows = "home-manager";
     };
   };
 

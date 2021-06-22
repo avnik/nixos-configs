@@ -5,7 +5,7 @@
 let
   inherit (builtins) elemAt mapAttrs;
 
-  mkHost = name: system: import ./mk-host.nix { inherit inputs name system; };
+  mkHost = name: system: import ./mk-host.nix { inherit inputs name system; overlays = self.overlays.${system}; };
 
   mkPath = name: system: deploy-rs.lib.${system}.activate.nixos (mkHost name system);
 in
