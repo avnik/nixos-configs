@@ -60,10 +60,11 @@ in
     "/mnt/fast" = {
         device="/dev/bulldozer-secondary/fast";
         fsType="ext4";
+        options = [ "nofail" ];
     };
   };
   swapDevices = [
     { device = "/dev/bulldozer-secondary/swap"; priority = 1; }
-    { label = "ssd-swap"; priority = 100; }
+    # { label = "ssd-swap"; priority = 100; }
   ];
 }

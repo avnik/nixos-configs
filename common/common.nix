@@ -8,6 +8,7 @@
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
   boot.tmpOnTmpfs = true;
+  boot.kernelParams = [ "mitigations=off"];
 
   hardware = {
     ksm.enable = true;
