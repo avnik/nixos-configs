@@ -171,6 +171,7 @@ services = {
       dateutils
       newman
       ppp xl2tpd
+      ntfs3g
   ] ++ (with pkgs.gitAndTools; [
       gitflow
       gitRemoteGcrypt hub delta 

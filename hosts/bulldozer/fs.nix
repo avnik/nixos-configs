@@ -14,7 +14,7 @@ in
   };
   fileSystems = {
     "/boot/sda/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
-    "/boot/sdb/efi" = { device = "/dev/sdb1"; fsType = "vfat"; };
+#    "/boot/sdb/efi" = { device = "/dev/sdb1"; fsType = "vfat"; };
     "/" = {
       device = "tank/zroot";
       fsType = "zfs";
@@ -65,6 +65,6 @@ in
   };
   swapDevices = [
     { device = "/dev/bulldozer-secondary/swap"; priority = 1; }
-    # { label = "ssd-swap"; priority = 100; }
+    { device = "/disk/by-id/ata-Intenso_SSD_3813430-532012041-part1"; priority = 100; }
   ];
 }

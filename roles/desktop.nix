@@ -22,7 +22,7 @@
     pavucontrol
     qastools
     aumix
-    mpv mpg123 youtube-dl
+    mpv mpg123 youtube-dl vlc
     mp3splt mp3splt-gtk
     dex desktop_file_utils
     xsel

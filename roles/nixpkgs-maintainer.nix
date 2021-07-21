@@ -9,6 +9,7 @@
     nix-update-source
     nix-universal-prefetch
     nix-prefetch-scripts
+    nix-prefetch
     nixpkgs-fmt
     nixpkgs-review
     morph

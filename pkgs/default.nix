@@ -25,6 +25,7 @@ in
    nixpkgs.overlays = [
         (self: super: {
             binutils-stuff = binutils-stuff;
+            etxt-antiplagiat = super.pkgsi686Linux.callPackage ./etxt/default.nix {};
             droid-fonts = super.callPackage ./fonts/droid.nix {};
             kerbal = super.callPackage ./kerbal/default.nix {};
             terraria = super.callPackage ./gamesteam.nix {

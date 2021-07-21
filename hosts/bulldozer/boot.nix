@@ -19,8 +19,9 @@ with lib;
         copyKernels = true; /* grub unable to read kernels from /nix/store on zfs, too much hardlinks */
         mirroredBoots = [
             { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
-            { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
+#            { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
         ];
+        memtest86.enable = true;
       };
       kernelParams = [
         "reboot=w,a"
@@ -39,7 +40,7 @@ with lib;
 #        "zfs.zfs_dbgmsg_enable=0"
       ];
       kernelPackages = pkgs.linuxPackages_5_12;
-      zfs.enableUnstable = true;
+      #zfs.enableUnstable = true;
       #kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
   };

@@ -7,8 +7,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "MeridianOXC";
     repo = "OpenXcom";
-    rev = "41873c291";
-    sha256 = "1864ymdz1sk6q8agd1a0170xbhz1yxha5ln8q69b380viyf7vhl5";
+    rev = "43e7d36";
+    sha256 = "1mdgls1g9g327cxnih1m935lhc637wmb9707596rcqvk9pqpvd5k";
   };
 
   nativeBuildInputs = [ cmake pkgconfig ];
