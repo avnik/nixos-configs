@@ -11,4 +11,9 @@
     system = "x86_64-linux";
     hostname = "172.16.228.9";
   };
+  raptor = {
+    system = "x86_64-linux";
+    hostname = "172.16.228.7";
+  	sshOpts = [ "-t" "-v" ];
+  };
 }

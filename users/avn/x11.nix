@@ -20,28 +20,6 @@ let
 in
 {
   home.packages = [ i3 ];
-  programs.i3status-rust = {
-    enable = true;
-    bars = {
-      default = {
-        settings = {
-                theme =  {
-                  name = "solarized-dark";
-                  overrides = {
-                    idle_bg = "#123456";
-                    idle_fg = "#abcdef";
-                  };
-                };
-              };
-        blocks = [
-         { block ="focused_window"; max_width=200; }
-         { block="load"; format="{1m} {5m} {15m}"; interval=1; }
-         {block="memory"; }
-         { block="time"; format="⏰ %F %a %T"; interval=1; locale="en_US"; }
-        ];
-      };
-    };
-  };
   xdg = {
     enable = true;
     configFile."i3/config" = {
@@ -85,7 +63,7 @@ in
       enable = false;
       config = rec {
         modifier = "Mod4";
-        keybindings = import ./keybindings.nix { mod = modifier; };
+        keybindings = import ./keybindings.nix { mod = modifier; terminal="urxvt"; };
         assigns = {
           "web" = [{ class = "^Firefox$"; }];
           "2" = [{ class = "^Chromium$"; }];

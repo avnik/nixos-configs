@@ -53,7 +53,7 @@
     nix-doom-emacs = {
       url = "github:vlaci/nix-doom-emacs/develop";
 #      inputs.doom-emacs.follows = "doom-emacs";
-#      inputs.emacs-overlay.follows = "emacs-overlay";
+      inputs.emacs-overlay.follows = "emacs-overlay";
 #      inputs.home-manager.follows = "home-manager";
     };
   };

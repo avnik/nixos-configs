@@ -9,6 +9,7 @@
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
   boot.tmpOnTmpfs = true;
   boot.kernelParams = [ "mitigations=off"];
+  boot.loader.grub.memtest86.enable = true;
 
   hardware = {
     ksm.enable = true;

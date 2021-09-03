@@ -1,4 +1,4 @@
-{ mod }:
+{ mod, terminal }:
 {
             "${mod}+1" = "workspace 1";
             "${mod}+2" = "workspace 2";
@@ -51,5 +51,5 @@
             "${mod}+Shift+q" = "restart";
             "${mod}+c" = "kill";
 
-            "${mod}+Return" = "exec urxvt";
+            "${mod}+Return" = "exec ${terminal}";
         }

@@ -1,0 +1,7 @@
+partial modifier_keys
+xkb_symbols "ralt_switch" {
+  key <RALT> {
+    symbols[Group1] = [ Mode_switch, Mode_switch ],
+    virtualMods= AltGr
+  };
+};

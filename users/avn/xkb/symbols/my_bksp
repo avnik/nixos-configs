@@ -1,0 +1,4 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "bksp" { 
+  key <BKSP> {  [ BackSpace , BackSpace ], [BackSpace, BackSpace]  };
+};

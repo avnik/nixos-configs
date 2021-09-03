@@ -1,0 +1,18 @@
+partial alphanumeric_keys modifier_keys
+xkb_symbols "lt_mix" {
+      key <LT_Q>  { [ umacron,Umacron ],[]};
+      key <LT_W> { [ eabovedot, Eabovedot ],[]};
+      key <LT_E> { [ eogonek, Eogonek ],[]};
+      key <LT_A> { [ aogonek, Aogonek ],[]};
+      key <LT_I> { [ iogonek, Iogonek ],[]};
+      key <LT_U> { [ uogonek, Uogonek ],[]};
+      key <LT_C> { [ ccaron, Ccaron ],[]};
+      key <LT_Z> { [ zcaron, Zcaron ],[]};
+      key <LT_S> { [ scaron, Scaron ],[]};
+      replace key <AD01> { overlay1 = <LT_Q>,
+         [ q, Q], [Cyrillic_shorti,Cyrillic_SHORTI] };
+      replace key <AD02> { overlay1 = <LT_W> ,
+         [ w, W], [ Cyrillic_tse, Cyrillic_TSE]};
+      replace key <AD03> { overlay1 = <LT_E>,
+         [ e, E], [Cyrillic_u, Cyrillic_U]};
+};

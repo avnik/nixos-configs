@@ -1,0 +1,8 @@
+partial modifier_keys
+xkb_symbols {
+  key <LCTL> {
+    type[Group1] = "ONE_LEVEL",
+    actions[Group1] = [ SetGroup(group=3) ]
+  };
+  modifier_map Mod5 { ISO_Level3_Shift };
+};

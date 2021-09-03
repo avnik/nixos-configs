@@ -2,14 +2,6 @@
 {
     imports = [ ./vim.nix ];
 
-    nixpkgs.overlays = [
-        (self: super: {
-            gitAndTools = super.gitAndTools // {
-                gitFull = super.gitAndTools.gitFull.override { guiSupport = config.services.xserver.enable; };
-            };
-        })
-    ];
-
     environment.systemPackages = with pkgs; [
       pandoc
       screen tmux elinks

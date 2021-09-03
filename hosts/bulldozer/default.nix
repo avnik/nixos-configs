@@ -172,6 +172,7 @@ services = {
       newman
       ppp xl2tpd
       ntfs3g
+      vultr-cli
   ] ++ (with pkgs.gitAndTools; [
       gitflow
       gitRemoteGcrypt hub delta 

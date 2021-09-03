@@ -1,0 +1,7 @@
+xkb_keymap {
+  xkb_keycodes { include "evdev" };
+  xkb_types     { include "complete" };
+  xkb_compat    { include "complete" };
+  xkb_symbols   { include "pc+inet(media_common)+us(dvorak)+ru:2+cz_over(dvorak):3+ralt_switch_nomulti+ctrl(nocaps)+ctrl_group3" };
+  xkb_geometry  { include "pc(pc105)" };
+};

@@ -1,0 +1,18 @@
+// This file was inspired by XFree86 version 3.3.2
+// as distributed with RedHat Linux 5.1
+// This file was created by Eric Moreau, 1998-09-27
+// I am reachable at eric_moreau@compuserve.com
+//
+// $XFree86: xc/programs/xkbcomp/symbols/ralt,v 1.1.2.1 1998/12/18 11:56:38 dawes Exp $
+//
+// This gives the Right Alt key (sometimes labeled
+// as AltGr or Alt Car) the capability of displaying
+// the third symbol labeled on your keys.
+
+partial modifier_keys
+xkb_symbols "toggle" {
+    key <FK12>	{	
+	symbols[Group1]= [ISO_Last_Group],
+        symbols[Group2]= [ISO_First_Group]
+    };
+};

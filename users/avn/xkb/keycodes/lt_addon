@@ -1,0 +1,14 @@
+xkb_keycodes "evdev"  { 
+      include "evdev(evdev)"
+      <LT_Q> = 200;
+      <LT_W> = 201;
+      <LT_X> = 202;
+      <LT_E> = 203;
+      <LT_Z> = 204;
+      <LT_C> = 205;
+      <LT_U> = 206;
+      <LT_I> = 207;
+      <LT_A> = 208;
+      <LT_S> = 209;
+};
+

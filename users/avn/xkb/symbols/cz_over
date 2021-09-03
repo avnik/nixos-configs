@@ -1,0 +1,49 @@
+partial
+xkb_symbols "dvorak" {
+    name[Group1] = "Czechia - Dvorak overlay with dead keys and eszett";
+
+    key <TLDE> { [ dead_grave,          dead_tilde          ] }; // ~
+
+    key <AE01> { [ copyright                                ] }; // 1->©
+    key <AE02> { [ EuroSign                                 ] }; // 2->€
+    key <AE06> { [ dead_circumflex                          ] }; // 6
+    key <AE07> { [ eacute,              Eacute              ] }; // 7
+    key <AE08> { [ uacute,              Uacute              ] }; // 8
+    key <AE09> { [ yacute,              Yacute              ] }; // 9
+    key <AE10> { [ oacute,              Oacute              ] }; // 0
+    key <AE11> { [ guillemotright                           ] }; // _->[
+    key <AE12> { [ guillemotleft                            ] }; // +->]
+
+    key <AD01> { [ dead_acute,          dead_doubleacute    ] }; // q->'
+    key <AD02> { [ oslash,              Oslash              ] }; // w->ø
+    key <AD03> { [ aring,               Aring               ] }; // e->å
+    key <AD04> { [ ae,                  AE                  ] }; // r->æ
+    key <AD05> { [ yacute,              Yacute              ] }; // t->ý
+    key <AD06> { [ ecaron,              Ecaron              ] }; // y->f
+    key <AD07> { [ uring,               Uring               ] }; // u->g
+    key <AD08> { [ ccaron,              Ccaron              ] }; // i->c
+    key <AD09> { [ rcaron,              Rcaron              ] }; // o->r
+    key <AD10> { [ iacute,              Iacute              ] }; // p->l
+    key <BKSL> { [ copyright ] };                                // \->
+
+    key <AC01> { [ aacute,              Aacute              ] }; // a->a
+    key <AC02> { [ oacute,              Oacute              ] }; // s->o
+    key <AC03> { [ eacute,              Eacute              ] }; // d->e
+    key <AC04> { [ uacute,              Uacute              ] }; // f->u
+    key <AC05> { [ iacute,              Iacute              ] }; // g->i
+    key <AC06> { [ dcaron,              Dcaron              ] }; // h->d
+    key <AC07> { [ aacute,              Aacute              ] }; // j->h
+    key <AC08> { [ tcaron,              Tcaron              ] }; // k->t
+    key <AC09> { [ ncaron,              Ncaron              ] }; // l->n
+    key <AC10> { [ scaron,              Scaron              ] }; // ;->s
+    key <AC11> { [ dead_macron                              ] }; // '->_
+
+    key <AB01> { [ dead_diaeresis                           ] }; //z->;
+    key <AB02> { [ ssharp                                   ] }; //x->q
+    key <AB03> { [ ecaron,              Ecaron              ] }; //c->c
+    key <AB04> { [ uring,               Uring               ] }; //v->k
+    key <AB06> { [ doublelowquotemark,  singlelowquotemark  ] }; //n->b
+    key <AB07> { [ leftdoublequotemark, leftsinglequotemark ] }; //m->m
+    key <AB09> { [ dead_caron                               ] }; //.->v
+    key <AB10> { [ zcaron,              Zcaron              ] }; // /->z
+};
