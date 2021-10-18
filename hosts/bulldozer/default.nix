@@ -5,7 +5,7 @@
 { config, pkgs, lib, ... }:
 
 with lib;
-
+/*
 let 
   mesa_version = "21.1.3";
   mesa_src = pkgs.fetchurl {
@@ -15,6 +15,7 @@ let
   mesa_21_1 = pkgs.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
   mesa_21_1_32 = pkgs.pkgsi686Linux.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
 in
+*/
 {
   imports =
     [ 
@@ -36,7 +37,7 @@ in
       ./mail.nix
       ./openvpn.nix
       ./samba.nix
-#      ../../modules/extras.nix
+      ./set-profile.nix
     ];
 
   nixpkgs.config = {
@@ -66,8 +67,8 @@ in
   hardware = {
       opengl = {
           driSupport32Bit = true;
-          package = mkForce mesa_21_1.drivers;
-          package32 = mkForce mesa_21_1_32.drivers;
+#          package = mkForce mesa_21_1.drivers;
+#          package32 = mkForce mesa_21_1_32.drivers;
       };
       pulseaudio = {
           enable = true;
@@ -98,6 +99,7 @@ virtualisation = {
 };
 
 programs.sway.enable = true;
+set-profile.enable = true;
 services = {
 #  syslog-ng.enable = true;
   klogd.enable = false;
@@ -114,10 +116,11 @@ services = {
   avahi.enable = true;
   nginx = {
     enable = true;
+    logError = "/var/log/nginx/error.log info";
     virtualHosts."bulldozer.home" = {
       enableACME = false;
       forceSSL = false;
-      root = "/home/www";
+      root = "/var/www";
     };
   };
 
@@ -155,7 +158,7 @@ services = {
       imagemagick
       fasd rcm renameutils jump
       manpages posix_man_pages iana_etc
-      perl pythonFull ruby bundix
+      pythonFull
       gopass gnupg
       gnome3.vinagre
       docker-compose
@@ -170,9 +173,7 @@ services = {
       sshpass
       dateutils
       newman
-      ppp xl2tpd
-      ntfs3g
-      vultr-cli
+#      ppp xl2tpd
   ] ++ (with pkgs.gitAndTools; [
       gitflow
       gitRemoteGcrypt hub delta 
