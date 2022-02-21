@@ -7,12 +7,18 @@
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
-        naersk.follows = "naersk";
         nixpkgs.follows = "nixpkgs";
         utils.follows = "flake-utils";
       };
     };
 
+    digga = {
+      url = "github:divnix/digga";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.deploy.follows = "deploy-rs";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.home-manager.follows = "home-manager";
+    };
     flake-utils.url = "github:numtide/flake-utils";
 
     home-manager = {
@@ -22,11 +28,6 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
-    naersk = {
-      url = "github:nmattia/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nixpkgs-wayland  = { 
       url = "github:colemickens/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +36,7 @@
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "git+file:///home/avn/nixos/nixpkgs";
     
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-21.05";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-21.11";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -48,15 +49,24 @@
     ### EMACS, DOOM EMACS
     doom-emacs.url = "github:hlissner/doom-emacs/develop";
     doom-emacs.flake = false;
-    emacs-overlay.url = "github:nix-community/emacs-overlay/d9530a7048f4b1c0f65825202a0ce1d111a1d39a";
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.flake = false;
     nix-doom-emacs = {
-      url = "github:vlaci/nix-doom-emacs/develop";
-#      inputs.doom-emacs.follows = "doom-emacs";
+      url = "github:nix-community/nix-doom-emacs/develop";
+      inputs.doom-emacs.follows = "doom-emacs";
       inputs.emacs-overlay.follows = "emacs-overlay";
-#      inputs.home-manager.follows = "home-manager";
+      inputs.home-manager.follows = "home-manager";
+      inputs.flake-utils.follows = "flake-utils";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
-  };
+    secrets = {
+      url = "path:/home/avn/nixos/secrets";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home.follows = "home-manager";
+      inputs.digga.follows = "digga";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+};
 
   # FIXME: I can't η-reduce this for some reason
   outputs = args: import ./nix/outputs.nix args;

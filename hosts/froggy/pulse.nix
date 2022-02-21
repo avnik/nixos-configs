@@ -12,6 +12,12 @@ in
           enable = true;
           systemWide = true;
           configFile = configF;
+          daemon.config = {
+              default-fragments = 10;
+              default-fragment-size-msec = 2;
+              default-sample-format = "s16le";
+              default-sample-rate = 48000;
+          };
       };
 
       # I use systemwide pulse on my desktops, so won't have him go away on upgrades

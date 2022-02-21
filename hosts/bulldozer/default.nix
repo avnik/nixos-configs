@@ -52,7 +52,7 @@ in
   networking.domain = "home";
   networking.search = ["home"];
   networking.hostId = "2f78bb0d";
-  networking.interfaces.enp9s0.ipv4.addresses = [ { address = "172.16.228.3"; prefixLength = 24;} ];
+  networking.interfaces.enp6s0.ipv4.addresses = [ { address = "172.16.228.3"; prefixLength = 24;} ];
   networking.defaultGateway = "172.16.228.1";
   networking.nameservers  = [ "172.16.228.1" ];
   networking.firewall.enable = false;
@@ -81,7 +81,8 @@ in
             default-sample-rate = 48000;
           };
       };
-      cpu.amd.updateMicrocode = true;
+      #cpu.amd.updateMicrocode = true;
+      cpu.intel.updateMicrocode = true;
   };
   systemd.services.pulseaudio.restartIfChanged = false;
 
@@ -108,10 +109,10 @@ services = {
     HandleSuspendKey=ignore
   '';
 
-  nix-serve = {
-    enable = true;
-    secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
-  };
+#  nix-serve = {
+#    enable = true;
+#    secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
+#  };
 
   avahi.enable = true;
   nginx = {
@@ -145,6 +146,7 @@ services = {
   services.xserver.deviceSection = ''
     Option "DRI3" "on"
   '';
+  services.xserver.videoDrivers = [ "amdgpu" "radeon" ];
 
   environment = {
   # List packages installed in system profile. To search by name, run:
@@ -160,7 +162,6 @@ services = {
       manpages posix_man_pages iana_etc
       pythonFull
       gopass gnupg
-      gnome3.vinagre
       docker-compose
       binutils-stuff
       remmina rdesktop
@@ -173,6 +174,8 @@ services = {
       sshpass
       dateutils
       newman
+      edac-utils dmidecode efibootmgr lshw
+      tribler
 #      ppp xl2tpd
   ] ++ (with pkgs.gitAndTools; [
       gitflow

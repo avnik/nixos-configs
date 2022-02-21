@@ -16,7 +16,6 @@ with lib;
         version = 2;
         enable = true;
         efiSupport = true;
-        copyKernels = true; /* grub unable to read kernels from /nix/store on zfs, too much hardlinks */
         mirroredBoots = [
             { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
             { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
@@ -31,21 +30,13 @@ with lib;
         "swapaccount=1"
         "libata.force=noncq"
 
-        # ZFS stuff
-        "elevator=cfq" # noop works bad for me
-        "zfs.zfs_arc_max=4294967296"
-        "zfs.zfs_vdev_cache_bshift=18"
-        "zfs.l2arc_feed_again=0"
-        "zfs.zfs_compressed_arc_enable=1"
-#        "zfs.zfs_dbgmsg_enable=0"
       ];
-      kernelPackages = pkgs.linuxPackages_5_15;
+      kernelPackages = pkgs.linuxPackages_5_14;
       #zfs.enableUnstable = true;
       #kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];
   };
   fileSystems = {
-     "/boot/sda/efi" = { device = "/dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J2ZPD560-part1"; fsType = "vfat"; };
-     "/boot/sdb/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
+     "/boot/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
   };
 }

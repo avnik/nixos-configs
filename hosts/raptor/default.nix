@@ -83,8 +83,8 @@
   services.xserver.enable = false;
   # services.xserver.layout = "us";
   # services.xserver.xkbOptions = "eurosign:e";
-   services.xserver.synaptics.enable = false;
-   services.xserver.displayManager.job.logToJournal = true;
+  services.xserver.synaptics.enable = false;
+  services.xserver.displayManager.job.logToJournal = true;
 
   users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "render" "wheel" "pulse"];
   # The NixOS release to be compatible with for stateful data such as databases.

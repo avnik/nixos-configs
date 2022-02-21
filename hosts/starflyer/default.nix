@@ -10,12 +10,9 @@
       ./hardware-configuration.nix
       ../../common/common.nix
       ../../users.nix
-      ./network.nix
-      ./mail.nix
-      ./openvpn.nix
       ../../roles/console.nix
       ../../roles/desktop.nix
-      ./pulse.nix
+      ../froggy/pulse.nix
       ../../roles/camera.nix
       ../../roles/chats.nix
       ../../roles/gaming.nix
@@ -23,7 +20,6 @@
       ../../roles/printing.nix
       ../../roles/X11.nix
       ../../envs/wine.nix
-      ../../modules/r8168.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -41,22 +37,10 @@
         efiSupport = true;
       };
     };
-    extraModprobeConfig = ''
-      #options iwlwifi swcrypto=1 11n_disable=1
-      #options iwlmvm power_scheme=1
-      blacklist iwlwifi
-      blacklist iwlmvm
-    '';
     kernelPackages = pkgs.linuxPackages;
     #kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "intel_idle.max_cstate=1" "processor.max_cstate=1" "idle=poll" "pcie_aspm=off" ];
   };
-  services.udev.extraRules = ''
-    # SUBSYSTEM=="net", ACTION=="add", DEVTYPE=="wlan", ATTR{address}=="00:C0:CA:81:F3:AD", NAME="wifi1"
-    SUBSYSTEM=="net", ACTION=="add", ATTRS{manufacturer}=="ATHEROS", NAME="wifi1"
-  '';
-  hardware.cpu.intel.updateMicrocode = true;
-  hardware.custom.r8168.enable = false;
+  hardware.cpu.amd.updateMicrocode = true;
 
   fileSystems = {
       "/mnt/media" = {
@@ -73,21 +57,33 @@
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
 
+   networking.hostName = "starflyer"; # Define your hostname.
+   networking.domain = "home";
+   networking.search = ["home"];
+   networking.hostId = "2f78bb0e";
+   networking.interfaces.enp9s0.ipv4.addresses = [ { address = "172.16.228.4"; prefixLength = 24;} ];
+   networking.defaultGateway = "172.16.228.1";
+   networking.nameservers  = [ "172.16.228.1" ];
+   networking.firewall.enable = false;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    tcpdump
-    vim
     ethtool
     lm_sensors
+    claws-mail
   ];
 
   # List services that you want to enable:
+  services.logind.extraConfig = ''
+      HandlePowerKey=ignore
+      HandleSuspendKey=ignore
+  '';
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "no";
+  services.openssh.permitRootLogin = "yes";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -95,13 +91,16 @@
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
-  services.xserver.videoDrivers = [ "intel" ];
+  services.xserver.enable = true;
+  services.xserver.videoDrivers = [ "intel" "amdgpu" "radeon" "nouveau" "modesetting" "fbdev" ]; 
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
   services.xserver.displayManager.defaultSession = "xfce";
-  services.system-config-printer.enable = false;
+  services.xserver.displayManager.job.logToFile = true;
+
+  users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "render" "wheel" "pulse"];
 
   # The NixOS release to be compatible with for stateful data such as databases.
-  system.stateVersion = "17.09";
+  system.stateVersion = "21.09";
 }

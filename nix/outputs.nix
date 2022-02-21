@@ -32,6 +32,30 @@
     packages = {
       hosts = joinDrvs "hosts" (mapAttrs (_: v: v.profiles.system.path) self.deploy.nodes);
       images = joinDrvs "images" self.images;
+      bootx64 = let
+        grubPkgs = pkgs;
+        targetArch =
+          if pkgs.stdenv.isi686 /*|| config.boot.loader.grub.forcei686 */then
+            "ia32"
+          else if pkgs.stdenv.isx86_64 then
+            "x64"
+          else if pkgs.stdenv.isAarch32 then
+            "arm"
+          else if pkgs.stdenv.isAarch64 then
+            "aa64"
+          else
+            throw "Unsupported architecture";
+
+        in pkgs.runCommand "grub-standalone" { } ''
+          mkdir -p $out/EFI/boot
+          echo 'configfile ''${cmdpath}/grub.cfg' >$out/EFI/boot/embedded.cfg
+          ${grubPkgs.grub2_efi}/bin/grub-mkstandalone \
+            --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} \
+            -o $out/EFI/boot/boot${targetArch}.efi  \
+            --themes="" \
+            -O ${grubPkgs.grub2_efi.grubTarget} \
+            "boot/grub/grub.cfg=$out/EFI/boot/embedded.cfg" -v
+      '';
     };
 
     devShell = pkgs.callPackage ./shell.nix {

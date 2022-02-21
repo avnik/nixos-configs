@@ -2,6 +2,7 @@
 {
   environment.systemPackages = with pkgs; [
     cachix
+    deadnix
     niv
     nix-diff
     nix-prefetch-scripts
@@ -12,6 +13,6 @@
     nix-prefetch
     nixpkgs-fmt
     nixpkgs-review
-    morph
+    poetry2nix.cli
   ];
 }

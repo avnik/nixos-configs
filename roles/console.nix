@@ -3,6 +3,7 @@
     imports = [ ./vim.nix ];
 
     environment.systemPackages = with pkgs; [
+      enca # smart codepage recoder with detection
       pandoc
       screen tmux elinks
       pythonFull
@@ -22,6 +23,7 @@
       telnet      # for telnet
       lm_sensors smartmontools hdparm
       usbutils pciutils
+      flashrom    # I need it on all local machines (split local stuff to own role?)
     ];
 
     programs.bash.interactiveShellInit = ''

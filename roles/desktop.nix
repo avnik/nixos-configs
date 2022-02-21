@@ -26,8 +26,6 @@
     mp3splt mp3splt-gtk
     dex desktop_file_utils
     xsel
-    ## windowmanagers, which I want to be built by default
-    fvwm
     zathura ## for pdfs
   ];
 }

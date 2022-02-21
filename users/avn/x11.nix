@@ -19,6 +19,7 @@ let
     '';
 in
 {
+  imports = [ ../common/x11.nix ];
   home.packages = [ i3 ];
   xdg = {
     enable = true;
@@ -37,26 +38,8 @@ in
     enable = true;
     scriptPath = ".xsession";
     initExtra = ''
-      xset m 5 2 c 0 b 0
-
-      #XRDB
-      if [ -d "$HOME/.Xresources.d" ] && type xrdb >/dev/null 2>&1; then
-        RESOURCEFILES=$(find $HOME/.Xresources.d -type f -o -type l)
-        if [ -n "$RESOURCEFILES" ]; then
-          for RESOURCEFILE in $RESOURCEFILES; do
-              xrdb -merge $RESOURCEFILE
-          done
-        fi
-      fi
-
-      # Screensaver -> off
-      xset -dpms
-      xset s off
-      xset s noblank 
+      # AVN personal stuff
       xrandr --output DisplayPort-0 --gamma 1.6:1.6:1.6 
-      # XKB
-      xkbcomp -I$HOME/.xkb $HOME/.xkb/main.xkb $DISPLAY >/dev/null 2>&1
-      export _JAVA_AWT_WM_NONREPARENTING=1
     '';
     windowManager.command = "i3";
     windowManager.i3 = {

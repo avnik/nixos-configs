@@ -8,7 +8,7 @@
 {
     imports = [
       ../users.nix
-      ../users/avn/default.nix
+      ../users/default.nix
     ];
     home-manager = {
       useUserPackages = true;

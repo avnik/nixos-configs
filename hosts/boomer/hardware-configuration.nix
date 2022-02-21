@@ -34,5 +34,5 @@
 
   swapDevices = [ ];
 
-  nix.maxJobs = 4;
+  nix.maxJobs = lib.mkForce 4;
 }

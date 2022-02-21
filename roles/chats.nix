@@ -7,5 +7,6 @@
     tdesktop
     skype
     zoom-us
+    tensor nheko gomuks ## Matrix
   ];
 }
