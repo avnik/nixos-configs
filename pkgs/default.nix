@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, system, ... }:
 
 let   
 myShellFunc = { name, buildInputs ? [], extraCmds ? ""}: pkgs.myEnvFun {
@@ -9,6 +9,22 @@ myShellFunc = { name, buildInputs ? [], extraCmds ? ""}: pkgs.myEnvFun {
       ${extraCmds}
     '';
 };
+/*
+whisperfish = let
+     naersk-lib = inputs.naersk.lib."${system}";
+  in naersk-lib.buildPackage {
+    name = "whisperfish";
+    version = "devel";
+    src = inputs.whisperfish;
+    usePureFromTOML = false;
+    allRefs = true;
+    buildInputs = with pkgs; [ dbus pkgconfig ];
+
+    # needed for internal protobuf c wrapper library
+    PROTOC = "${pkgs.protobuf}/bin/protoc";
+    PROTOC_INCLUDE = "${pkgs.protobuf}/include";
+  };
+*/
 
 binutils-stuff = pkgs.runCommand "binutils-stuff" { } ''
     #!${pkgs.stdenv.shell}
@@ -34,6 +50,7 @@ in
               gameExecutable = "Terraria";
             };
             openxcom-extended = super.callPackage ./openxcom/extended.nix {};
+            inherit (inputs.whisperfish-nix.packages.${system}) whisperfish gurk;
         })
    ];
 }

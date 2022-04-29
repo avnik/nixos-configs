@@ -34,6 +34,7 @@
           nativeBuildInputs = [ pkgs.cmake pkgs.llvmPackages.llvm pkgs.llvmPackages.clang ];
         });
       };
+      extraPackages = with pkgs; [ ripgrep git pandoc ];
       doomPrivateDir = ./doom.d;
     };
 }

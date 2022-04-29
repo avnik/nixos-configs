@@ -4,17 +4,17 @@ with pkgs;
 
 let libPath = lib.makeLibraryPath [
     stdenv.cc.cc
-    libglvnd libGL libGLU mesa_noglu.drivers
+    libglvnd libGL libGLU mesa.drivers
     libpulseaudio
-    xlibs.libX11
-    xlibs.libXext
-    xlibs.libXcursor
-    xlibs.libXrandr
+    xorg.libX11
+    xorg.libXext
+    xorg.libXcursor
+    xorg.libXrandr
     gtk2
     pango
     atk
     glib
-    gdk_pixbuf
+    gdk-pixbuf
     cairo
     fontconfig
     freetype

@@ -17,5 +17,7 @@
     SUBSYSTEM=="tty" ATTRS{idVendor}=="0403" ATTRS{idProduct}=="6001" ATTRS{serial}=="FT9ZONCN" SYMLINK+="ttyUART-macnica-right" MODE="0666"
     SUBSYSTEM=="tty" ATTRS{idVendor}=="0403" ATTRS{idProduct}=="6001" ATTRS{serial}=="FT9ZOO5E" SYMLINK+="ttyCON-macnica-left" MODE="0666"
     SUBSYSTEM=="tty" ATTRS{idVendor}=="0403" ATTRS{idProduct}=="6001" ATTRS{serial}=="FT9ZOO6F" SYMLINK+="ttyCON-macnica-right" MODE="0666"
+    SUBSYSTEM=="usb" ATTRS{idVendor}=="0e8d" MODE="0666" GROUP="users"
   '';
+  programs.adb.enable = true;
 }

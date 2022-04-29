@@ -24,7 +24,7 @@
     aumix
     mpv mpg123 youtube-dl vlc
     mp3splt mp3splt-gtk
-    dex desktop_file_utils
+    desktop-file-utils
     xsel
     zathura ## for pdfs
   ];

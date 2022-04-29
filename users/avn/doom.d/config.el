@@ -8,6 +8,31 @@
       doom-big-font (font-spec :family "Fira Mono" :size 22))
 (setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook #'goto-address-mode) ;; Linkify links!
-;; Place your private configuration here
 
+;; Place your private configuration here
+(setq deft-directory "~/notes")
+
+(after! minimap-mode
+  (pushnew! minimap-major-modes 'prog-mode))
+
+;; Prefer ormolu for haskell
+(set-formatter! 'ormolu "ormolu" :modes '(haskell-mode))
+
+(after! emojify
+  (setq emojify-download-emojis-p nil))
+
+;;; Stolen  from hlissner
+;;; :tools lsp
+;; Disable invasive lsp-mode features
+(after! lsp-mode
+  (setq lsp-enable-symbol-highlighting nil
+        ;; If an LSP server isn't present when I start a prog-mode buffer, you
+        ;; don't need to tell me. I know. On some machines I don't care to have
+        ;; a whole development environment for some ecosystems.
+        lsp-enable-suggest-server-download nil))
+(after! lsp-ui
+  (setq lsp-ui-sideline-enable nil  ; no more useful than flycheck
+        lsp-ui-doc-enable nil))  
+
+(load! "+reverse-im")
 (load! "+org")

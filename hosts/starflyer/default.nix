@@ -20,6 +20,7 @@
       ../../roles/printing.nix
       ../../roles/X11.nix
       ../../envs/wine.nix
+      ../../roles/dev/ftdi.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -49,6 +50,10 @@
       };
       "/mnt/video" = {
           device = "bulldozer:/mnt/video";
+          fsType = "nfs";
+      };
+      "/mnt/raid" = {
+          device = "bulldozer:/mnt/raid";
           fsType = "nfs";
       };
   };

@@ -31,4 +31,5 @@ nixpkgs.lib.nixosSystem {
   ] ++ extraModules;
 
   specialArgs.inputs = inputs;
+  specialArgs.system = system;
 }

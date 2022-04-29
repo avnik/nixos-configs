@@ -22,10 +22,11 @@ let minetestclient_5_custom = pkgs.runCommand "minetest-5" {} ''
 #    minetestclient_4
 #    minetestclient_5_custom
     openxcom-extended
-    rocksndiamonds
+#    rocksndiamonds
     runelite
     scummvm
     stellarium
     wesnoth
+    xmage
   ];
 }

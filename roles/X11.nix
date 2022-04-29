@@ -20,12 +20,12 @@
 
   environment.systemPackages = with pkgs; [
     rxvt_unicode
-    xlibs.xkbcomp
+    xorg.xkbcomp
     xorg.xlsatoms xorg.xkill
     xorg.xdpyinfo xorg.xdriinfo glxinfo xorg.xev xorg.xgamma xorg.xmodmap xorg.xwininfo autocutsel
 # FIXME: should opencl-info be in common, X11 or desktop?
 #    opencl-info 
-    xlibs.xkbcomp
+    xorg.xkbcomp
     wmctrl xdotool
   ];
 

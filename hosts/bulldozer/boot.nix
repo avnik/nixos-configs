@@ -39,7 +39,7 @@ with lib;
         "zfs.zfs_compressed_arc_enable=1"
 #        "zfs.zfs_dbgmsg_enable=0"
       ];
-      kernelPackages = pkgs.linuxPackages_5_15;
+      kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
       #zfs.enableUnstable = true;
       #kernelPackages = pkgs.linuxPackages_latest;
       kernelModules = [ "r8169" ];

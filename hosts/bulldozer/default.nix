@@ -30,6 +30,8 @@ in
       ../../roles/texlive.nix
       ../../roles/nixpkgs-maintainer.nix
       ../../roles/wayland.nix
+      ../../roles/dev/ftdi.nix
+      ../../roles/printing.nix
       ../../users.nix
       ../../envs/wine.nix
       ./boot.nix
@@ -62,6 +64,7 @@ in
     172.16.228.10 printer printer.home
     172.16.228.7 raptor 
     172.16.228.9 boomer
+    172.16.228.4 starflyer
   '';
 
   hardware = {
@@ -103,7 +106,6 @@ programs.sway.enable = true;
 set-profile.enable = true;
 services = {
 #  syslog-ng.enable = true;
-  klogd.enable = false;
   logind.extraConfig = ''
     HandlePowerKey=ignore
     HandleSuspendKey=ignore
@@ -131,9 +133,9 @@ services = {
   nfs.server = {
      enable = true;
      exports = ''
-/mnt/raid   boomer(rw,no_subtree_check) raptor(rw,no_subtree_check)
-/mnt/video   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
-/mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check)
+/mnt/raid   boomer(rw,no_subtree_check) raptor(rw,no_subtree_check) starflyer(rw,no_subtree_check)
+/mnt/video   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check)
+/mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check) 
        '';
     };
   };
@@ -159,7 +161,7 @@ services = {
       pre-commit gist
       imagemagick
       fasd rcm renameutils jump
-      manpages posix_man_pages iana_etc
+      man-pages man-pages-posix
       pythonFull
       gopass gnupg
       docker-compose

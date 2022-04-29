@@ -13,17 +13,18 @@
       tcpdump
       iotop htop bottom 
       bup     # for backup tool
-      shared_mime_info
+      shared-mime-info
       file lsof zip unzip unrar wget p7zip xorriso
       libxslt.bin # for xsltproc
       gitAndTools.gitFull git-crecord git-series
       whois       # for whois
       fd          # for super-fast `find`
       ripgrep
-      telnet      # for telnet
+      inetutils # for telnet
       lm_sensors smartmontools hdparm
       usbutils pciutils
       flashrom    # I need it on all local machines (split local stuff to own role?)
+      iana-etc
     ];
 
     programs.bash.interactiveShellInit = ''

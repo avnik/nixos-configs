@@ -5,8 +5,11 @@
     discord
     irssi
     tdesktop
-    skype
+    skypeforlinux
     zoom-us
-    tensor nheko gomuks ## Matrix
+    tensor nheko gomuks quaternion ## Matrix
+    signal-desktop signal-cli gurk
   ];
+
+  services.signald.enable = true;
 }

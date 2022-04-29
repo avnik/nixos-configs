@@ -13,20 +13,22 @@
        ;;japanese
 
        :completion
-       company           ; the ultimate code completion backend
-       helm              ; the *other* search engine for love and life
+       ;;company           ; the ultimate code completion backend
+       ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
        ;;ivy               ; a search engine for love and life
+       vertico           ; the search engine of the future
 
        :ui
-       ;;deft              ; notational velocity for Emacs
+       deft              ; notational velocity for Emacs
        doom              ; what makes DOOM look the way it does
        doom-dashboard    ; a nifty splash screen for Emacs
        doom-quit         ; DOOM quit-message prompts when you quit Emacs
+;;       (emoji +ascii +github +unicode)
        ;;fill-column       ; a `fill-column' indicator
        hl-todo           ; highlight TODO/FIXME/NOTE tags
        hydra
-       ;;indent-guides     ; highlighted indent columns
+       indent-guides     ; highlighted indent columns
        minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink the current line after jumping
@@ -36,12 +38,14 @@
         +all             ; catch all popups that start with an asterix
         +defaults)       ; default popup rules
        ;;pretty-code       ; replace bits of code with pretty symbols
-       ;;tabbar            ; FIXME an (incomplete) tab bar for Emacs
-       treemacs          ; a project drawer, like neotree but cooler
-       ;;unicode           ; extended unicode support for various languages
+       tabs              ; tab bar for Emacs
+       (treemacs         ; a project drawer, like neotree but cooler
+         +lsp)
+       unicode           ; extended unicode support for various languages
        vc-gutter         ; vcs diff in the fringe
        vi-tilde-fringe   ; fringe tildes to mark beyond EOB
-       window-select     ; visually switch windows
+       (window-select     ; visually switch windows
+         +switch-windows +numbers)
        workspaces        ; tab emulation, persistence & separate workspaces
 
        :editor
@@ -62,8 +66,9 @@
          +icons          ; colorful icons for dired-mode
         )
        electric          ; smarter, keyword-based electric-indent
+       undo              ; persistent, smarter undo for your inevitable mistakes
        vc                ; version-control and Emacs, sitting in a tree
-       ibuffer           ; interactive buffer management
+;       ibuffer           ; interactive buffer management
 
        :term
        ;;eshell            ; a consistent, cross-platform shell (WIP)
@@ -100,15 +105,19 @@
        ;;upload            ; map local to remote projects via ssh/ftp
        ;;wakatime
 
+       :os
+       (:if IS-MAC macos)  ; improve compatibility with macOS
+       (tty +osc)          ; improve the terminal Emacs experience
+
        :lang
        ;;agda              ; types of types of types of types...
        ;;assembly          ; assembly for fun or debugging
-       cc                  ; C/C++/Obj-C madness
+       (cc +lsp)           ; C/C++/Obj-C madness
        ;;clojure           ; java with a lisp
        ;;common-lisp       ; if you've seen one lisp, you've seen them all
        ;;coq               ; proofs-as-programs
        ;;crystal           ; ruby at the speed of c
-       csharp              ; unity, .NET, and mono shenanigans
+       ;csharp             ; unity, .NET, and mono shenanigans
        data                ; config/data formats
        ;;erlang            ; an elegant language for a more civilized age
        ;;elixir            ; erlang done right
@@ -116,8 +125,8 @@
        emacs-lisp         ; drown in parentheses
        ;;ess               ; emacs speaks statistics
        ;;fsharp           ; ML stands for Microsoft's Language
-       go                  ; the hipster dialect
-       (haskell +dante)    ; a language that's lazier than I am
+       (go +lsp)           ; the hipster dialect
+       (haskell +lsp)      ; a language that's lazier than I am
        ;;hy                ; readability of scheme w/ speed of python
        ;;idris             ;
        ;;(java +meghanada) ; the poster child for carpal tunnel syndrome
@@ -133,7 +142,9 @@
        ocaml               ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
+        +brain
         +babel           ; running code in org
+        +jupyter
         +capture         ; org-capture in and outside of Emacs
         +export          ; Exporting org to whatever you want
         +habit           ; Keep track of your habits
@@ -146,7 +157,7 @@
        ;;plantuml          ; diagrams for confusing people more
        purescript          ; javascript, but functional
        python            ; beautiful is better than ugly
-       ;;qt                ; the 'cutest' gui framework ever
+       qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        rest                ; Emacs as a REST client
        ;;ruby              ; 1.step {|i| p "Ruby is #{i.even? ? 'love' : 'life'}"}
