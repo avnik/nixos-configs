@@ -73,7 +73,7 @@
             default-fragments = 10;
             default-fragment-size-msec = 2;
           };
-          extraModules = [ pkgs.pulseaudio-modules-bt ];
+          extraModules = [ ];
           package = pkgs.pulseaudioFull;
       };
       cpu.amd.updateMicrocode = true;

@@ -178,7 +178,7 @@ services = {
       newman
       edac-utils dmidecode efibootmgr lshw
       tribler
-#      ppp xl2tpd
+      xsane
   ] ++ (with pkgs.gitAndTools; [
       gitflow
       gitRemoteGcrypt hub delta 

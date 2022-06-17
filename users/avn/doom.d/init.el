@@ -67,8 +67,8 @@
         )
        electric          ; smarter, keyword-based electric-indent
        undo              ; persistent, smarter undo for your inevitable mistakes
-       vc                ; version-control and Emacs, sitting in a tree
-;       ibuffer           ; interactive buffer management
+;;!!       vc                ; version-control and Emacs, sitting in a tree
+       ibuffer           ; interactive buffer management
 
        :term
        ;;eshell            ; a consistent, cross-platform shell (WIP)
@@ -84,19 +84,19 @@
        ;; ansible
        debugger            ; FIXME stepping through code, to help you add bugs
        direnv
-       docker
+;;       docker
        editorconfig        ; let someone else argue about tabs vs spaces
-       ;;ein               ; tame Jupyter notebooks with emacs
+;;       ein               ; tame Jupyter notebooks with emacs
        (eval                ; run code, run (also, repls)
          +overlay)
        gist                ; interacting with github gists
        (lookup             ; helps you navigate your code and documentation
         +docsets)          ; ...or in Dash docsets locally
-       ;;lsp
+       lsp
        ;;macos             ; MacOS-specific commands
-       magit               ; a git porcelain for Emacs
+;;       magit               ; a git porcelain for Emacs
        make                ; run make tasks from Emacs
-       pass                ; password manager for nerds
+;;       pass                ; password manager for nerds
        ;;pdf               ; pdf enhancements
        ;;prodigy           ; FIXME managing external services & code builders
        rgb                 ; creating color strings
@@ -138,7 +138,7 @@
        lua                 ; one-based indices? one-based indices
        markdown            ; writing docs for people to ignore
        ;;nim               ; python + lisp at the speed of c
-       nix                 ; I hereby declare "nix geht mehr!"
+ ;;      nix                 ; I hereby declare "nix geht mehr!"
        ocaml               ; an objective camel
        (org              ; organize your plain life in plain text
         +attach          ; custom attachment system
@@ -156,7 +156,7 @@
        ;;php               ; perl's insecure younger brother
        ;;plantuml          ; diagrams for confusing people more
        purescript          ; javascript, but functional
-       python            ; beautiful is better than ugly
+;;       python            ; beautiful is better than ugly
        qt                ; the 'cutest' gui framework ever
        ;;racket            ; a DSL for DSLs
        rest                ; Emacs as a REST client
@@ -183,9 +183,6 @@
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
        ;;twitter           ; twitter client https://twitter.com/vnought
-       (write            ; emacs as a word processor (latex + org + markdown)
-        +wordnut         ; wordnet (wn) search
-        +langtool)       ; a proofreader (grammar/style check) for Emacs
 
        :collab
        ;;floobits          ; peer programming for a price

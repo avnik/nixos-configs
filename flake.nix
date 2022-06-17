@@ -53,14 +53,14 @@
     nix-direnv.flake = false;
 
     ### EMACS, DOOM EMACS
-    doom-emacs.url = "github:hlissner/doom-emacs/master";
+    doom-emacs.url = "github:doomemacs/doomemacs/master";
     doom-emacs.flake = false;
     emacs-overlay.url = "github:nix-community/emacs-overlay";
     emacs-overlay.flake = false;
     nix-doom-emacs = {
       url = "github:nix-community/nix-doom-emacs/master";
-      inputs.doom-emacs.follows = "doom-emacs";
-      inputs.emacs-overlay.follows = "emacs-overlay";
+      #inputs.doom-emacs.follows = "doom-emacs";
+      #inputs.emacs-overlay.follows = "emacs-overlay";
       inputs.home-manager.follows = "home-manager";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";

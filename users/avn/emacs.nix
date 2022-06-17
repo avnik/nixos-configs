@@ -1,8 +1,8 @@
-{ lib, pkgs, config, inputs, ... }:
+{ lib, pkgs, config, inputs, system, ... }:
 {
     programs.doom-emacs = {
       enable = true;
-#      emacsPackage = pkgs.emacsUnstable; 
+      # emacsPackage = pkgs.emacsPgtkNative; 
       emacsPackagesOverlay = self: super: { 
         sln-mode = pkgs.runCommand "sln-mode-stub" {} "";
         irony = super.irony.overrideAttrs (old: {
