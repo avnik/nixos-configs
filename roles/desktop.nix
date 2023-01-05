@@ -16,7 +16,7 @@
     brewtarget
     stable.chromium
     firefox
-    gimp-with-plugins rawtherapee # photoflow
+    gimp-with-plugins rawtherapee
     libreoffice
     maim sxiv
     pavucontrol
@@ -27,5 +27,7 @@
     desktop-file-utils
     xsel
     zathura ## for pdfs
+    sweethome3d.application
+    sweethome3d.furniture-editor
   ];
 }

@@ -12,8 +12,10 @@
       };
     };
 
-    digga = {
-      url = "github:divnix/digga";
+    std.url = "github:divnix/std";
+
+    roleplay = {
+      url = "path:/home/avn/nixos/roleplay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.deploy.follows = "deploy-rs";
       inputs.flake-utils.follows = "flake-utils";
@@ -52,6 +54,8 @@
     nix-direnv.url = "github:nix-community/nix-direnv";
     nix-direnv.flake = false;
 
+    OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
+
     ### EMACS, DOOM EMACS
     doom-emacs.url = "github:doomemacs/doomemacs/master";
     doom-emacs.flake = false;
@@ -65,15 +69,26 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    secrets = {
+    private = {
       url = "path:/home/avn/nixos/secrets";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home.follows = "home-manager";
-      inputs.digga.follows = "digga";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs.std.follows = "std";
+      inputs.roleplay.follows = "roleplay";
     };
 };
 
   # FIXME: I can't η-reduce this for some reason
   outputs = args: import ./nix/outputs.nix args;
+  /*
+  outputs = inputs@{std, ...}:
+    std.growOn {
+        cellsFrom = ./lib;
+        cellBlocks = [
+          (std.functions "grub")
+        ];
+    }
+    { };
+  import ./nix/outputs.nix args;
+  */
 }

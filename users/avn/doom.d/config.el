@@ -21,7 +21,18 @@
 (after! emojify
   (setq emojify-download-emojis-p nil))
 
+(after! highlight-indent-guides
+  (setq highlight-indent-guides-method 'bitmap))
+
 ;;; Stolen  from hlissner
+;;; :completion company
+;; IMO, modern editors have trained a bad habit into us all: a burning need for
+;; completion all the time -- as we type, as we breathe, as we pray to the
+;; ancient ones -- but how often do you *really* need that information? I say
+;; rarely. So opt for manual completion:
+(after! company
+  (setq company-idle-delay nil))
+
 ;;; :tools lsp
 ;; Disable invasive lsp-mode features
 (after! lsp-mode

@@ -12,14 +12,12 @@
     layout = "us";
     videoDrivers = [ "ati" ];
     exportConfiguration = true;
-  # Glamor still buggy on my Radeon HD6670
-    useGlamor = false;
   };
 
   services.xserver.displayManager.lightdm.enable = true;
 
   environment.systemPackages = with pkgs; [
-    rxvt_unicode
+    rxvt-unicode
     xorg.xkbcomp
     xorg.xlsatoms xorg.xkill
     xorg.xdpyinfo xorg.xdriinfo glxinfo xorg.xev xorg.xgamma xorg.xmodmap xorg.xwininfo autocutsel

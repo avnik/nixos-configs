@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # Enable CUPS to print documents.
@@ -8,6 +8,8 @@
       DefaultEncryption Never
     '';
   };
+  # prefer ensurePrinters' defined printer over GUI selection
+  services.system-config-printer.enable = lib.mkForce false;
   hardware.printers = {
     ensureDefaultPrinter = "printer";
     ensurePrinters = [ {

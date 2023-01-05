@@ -15,7 +15,6 @@
       ../../roles/chats.nix
       ../../roles/desktop.nix
       ../../roles/X11.nix
-      ../../roles/emacs.nix
       ../../roles/gaming.nix
       ../../roles/printing.nix
     ];

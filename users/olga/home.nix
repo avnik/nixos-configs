@@ -9,4 +9,5 @@
       ../avn/direnv.nix
       ../avn/emacs.nix
       ];
+    home.stateVersion = "22.05";  
 }

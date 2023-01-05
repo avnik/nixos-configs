@@ -1,8 +1,8 @@
 xkb_keymap {
 //  xkb_keycodes { include "lt_addon(evdev)" }; 
-  xkb_keycodes { include "evdev(evdev)" }; 
-  xkb_types     { include "complete" };                                         
-  xkb_compat    { include "complete" };                                         
-  xkb_symbols   { include "pc(pc105)+pc(editing)+keypad(x11)+keypad(overlay)+keypad(oss)+us(basic)+my_bksp(bksp)+ctrl(nocaps)+terminate+ru(legacy):2+f12(toggle)"};
-  xkb_geometry  { include "sun(t6)" };                                        
+  xkb_keycodes { include "evdev(evdev)" };
+  xkb_types     { include "complete" };
+  xkb_compat    { include "complete" };
+  xkb_symbols   { include "pc(pc105)+pc(editing)+keypad(x11)+keypad(overlay)+keypad(oss)+us(basic)+lt(us)+level3(ralt_switch)+my_bksp(bksp)+ctrl(nocaps)+terminate+ru(legacy):2+f12(toggle)"};
+  xkb_geometry  { include "sun(t6)" };
 };

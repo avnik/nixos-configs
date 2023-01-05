@@ -38,8 +38,8 @@
         efiSupport = true;
       };
     };
-    kernelPackages = pkgs.linuxPackages;
-    #kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
   };
   hardware.cpu.amd.updateMicrocode = true;
 

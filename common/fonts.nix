@@ -38,6 +38,7 @@ fonts = {
         noto-fonts
         noto-fonts-extra
         droid-fonts
+        powerline-symbols
       ];
 };
 }

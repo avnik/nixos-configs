@@ -20,6 +20,7 @@ in
   imports =
     [ 
       ../../common/common.nix
+      ../../common/pipewire.nix
       ../../roles/camera.nix
       ../../roles/chats.nix
       ../../roles/X11.nix
@@ -45,7 +46,6 @@ in
   nixpkgs.config = {
      allowBroken = true;  # Until ansible will be fixed
   };
-  nix.package = pkgs.nixFlakes;
 
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
@@ -73,7 +73,7 @@ in
 #          package = mkForce mesa_21_1.drivers;
 #          package32 = mkForce mesa_21_1_32.drivers;
       };
-      pulseaudio = {
+/*      pulseaudio = {
           enable = true;
           systemWide = true;
           configFile = ./verbatim/system.pa;
@@ -84,10 +84,11 @@ in
             default-sample-rate = 48000;
           };
       };
+  */
       #cpu.amd.updateMicrocode = true;
       cpu.intel.updateMicrocode = true;
   };
-  systemd.services.pulseaudio.restartIfChanged = false;
+  #systemd.services.pulseaudio.restartIfChanged = false;
 
 # List services that you want to enable:
 virtualisation = {
@@ -179,9 +180,11 @@ services = {
       edac-utils dmidecode efibootmgr lshw
       tribler
       xsane
+      anydesk
+      ffmpeg
   ] ++ (with pkgs.gitAndTools; [
       gitflow
-      gitRemoteGcrypt hub delta 
+      git-remote-gcrypt hub delta 
       git-absorb git-gone git-machete git-octopus git-recent
       git-quick-stats git-delete-merged-branches
   ]);

@@ -9,8 +9,12 @@ let
     ${xkbcomp}/bin/xkbcomp -I${xkb-sources} -xkb -o $out/default.xkb ${xkb-sources}/models/${host}.xkb
   '';
   xkb = "${xkb-blob hostname}/default.xkb";
+  xkb-script = pkgs.writeShellScriptBin "xkb-reload" ''
+    ${xkbcomp}/bin/xkbcomp ${xkb} $DISPLAY >/dev/null 2>&1
+  '';
 in
 {
+  home.packages = [ xkb-script ];  
   wayland.windowManager.sway = {
        config = rec {
          input = {

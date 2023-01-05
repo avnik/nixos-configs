@@ -11,7 +11,7 @@
 #  };
 
   environment.systemPackages = with pkgs; [
-    v4l_utils
+    v4l-utils
 #    webcamoid
     motion
 #    uvcdynctrl

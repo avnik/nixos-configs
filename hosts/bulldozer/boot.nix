@@ -38,6 +38,7 @@ with lib;
         "zfs.l2arc_feed_again=0"
         "zfs.zfs_compressed_arc_enable=1"
 #        "zfs.zfs_dbgmsg_enable=0"
+        "l2arc_feed_again=0"
       ];
       kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
       #zfs.enableUnstable = true;

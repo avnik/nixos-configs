@@ -14,46 +14,54 @@
   ;; The standard unicode characters are usually misaligned depending on the font.
   ;; This bugs me. Personally, markdown #-marks for headlines are more elegant.
 
+   (setq
+        org-agenda-skip-scheduled-if-done t
+        org-agenda-skip-deadline-if-done t
+        org-todo-keywords '((sequence "TODO" "WAITING" "NEXT" "|" "DONE" "CANCELED"))
+        org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "NEXT" "|" "DONE" "CANCELED"))
+        ;; Put state changes into the LOGBOOK drawer, to clean up a bit
+        org-log-into-drawer t)
+
   ;; Normally its only like 3 lines tall, too hard to see anything.
   (set-popup-rule! "^\\*Org Agenda"
     :size 15
     :quit t
     :select t
     :parameters
-    '((transient))))
+    '((transient)))
 
-;; org-match-sparse-tree
-;; org-set-tags-command
-(defun +open-todo-file ()
-  (interactive)
-  "Opens the todo file"
-  (find-file +todo-file))
+  ;; org-match-sparse-tree
+  ;; org-set-tags-command
+  (defun +open-todo-file ()
+    (interactive)
+    "Opens the todo file"
+    (find-file +todo-file))
 
-(map!
- :leader
-   :desc "Open todo file" "O" #'+open-todo-file)
+  (map!
+    :leader
+    :desc "Open todo file" "O" #'+open-todo-file)
 
-(defun +show-agenda ()
-  (interactive)
-  (delete-other-windows)
-  (with-popup-rules! nil
-    (org-agenda-list)
-    (calendar))
-  (other-window 1)
-  (split-window-vertically)
-  (other-window 1)
-  (todays-daypage))
+  (defun +show-agenda ()
+    (interactive)
+    (delete-other-windows)
+    (with-popup-rules! nil
+      (org-agenda-list)
+      (calendar))
+    (other-window 1)
+    (split-window-vertically)
+    (other-window 1)
+    (todays-daypage))
 
 
-(map! :g
+  (map! :g
       "<f2>" #'+open-todo-file
       "<f1>" #'+show-agenda
       "<f3>" #'org-capture)
 
-(map! :leader
+  (map! :leader
       (:prefix "o"
         :desc "Org Agenda" "a" #'org-agenda-list
         :desc "Org Agenda and Notes" "A" #'+show-agenda)
       (:when (featurep! :completion helm)
-        "X" #'helm-org-capture-templates))
+        "X" #'helm-org-capture-templates)))
 
