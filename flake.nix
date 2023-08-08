@@ -38,7 +38,7 @@
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "git+file:///home/avn/nixos/nixpkgs";
     
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-21.11";
+    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-23.05";
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -54,18 +54,23 @@
     nix-direnv.url = "github:nix-community/nix-direnv";
     nix-direnv.flake = false;
 
+    hercules-ci.url = "github:hercules-ci/hercules-ci-agent";
+
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
 
     ### EMACS, DOOM EMACS
     doom-emacs.url = "github:doomemacs/doomemacs/master";
     doom-emacs.flake = false;
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
-    emacs-overlay.flake = false;
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
     nix-doom-emacs = {
-      url = "github:nix-community/nix-doom-emacs/master";
-      #inputs.doom-emacs.follows = "doom-emacs";
-      #inputs.emacs-overlay.follows = "emacs-overlay";
-      inputs.home-manager.follows = "home-manager";
+      #url = "github:nix-community/nix-doom-emacs/master";
+      url = "github:thiagokokada/nix-doom-emacs/bump-doom-emacs";
+      inputs.doom-emacs.follows = "doom-emacs";
+      inputs.emacs-overlay.follows = "emacs-overlay";
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };

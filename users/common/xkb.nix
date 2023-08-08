@@ -4,8 +4,9 @@ let
   username = config.home.username;
   xkbcomp = pkgs.xorg.xkbcomp;
   xkb-sources = ./xkb;
-  xkb-blob = host: pkgs.runCommand "xkb-blob" { } ''
+  xkb-blob = host: pkgs.runCommand "xkb-blob-${host}" { } ''
     mkdir $out
+    echo -I${xkb-sources}
     ${xkbcomp}/bin/xkbcomp -I${xkb-sources} -xkb -o $out/default.xkb ${xkb-sources}/models/${host}.xkb
   '';
   xkb = "${xkb-blob hostname}/default.xkb";

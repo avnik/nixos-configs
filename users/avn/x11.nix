@@ -1,4 +1,4 @@
-{ libs, pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 let
   mod = "Mod4"; 
   i3 = pkgs.i3-gaps;
@@ -46,7 +46,7 @@ in
       enable = false;
       config = rec {
         modifier = "Mod4";
-        keybindings = import ./keybindings.nix { mod = modifier; terminal="urxvt"; };
+        keybindings = import ./keybindings.nix { mod = modifier; terminal="urxvt"; inherit pkgs lib; };
         assigns = {
           "web" = [{ class = "^Firefox$"; }];
           "2" = [{ class = "^Chromium$"; }];

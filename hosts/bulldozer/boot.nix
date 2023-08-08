@@ -13,7 +13,6 @@ with lib;
         efiSysMountPoint = "/boot/sda/efi";
       };
       loader.grub = {
-        version = 2;
         enable = true;
         efiSupport = true;
         copyKernels = true; /* grub unable to read kernels from /nix/store on zfs, too much hardlinks */

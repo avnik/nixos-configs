@@ -10,9 +10,8 @@
     alsa.enable = true;
     jack.enable = true;
     pulse.enable = true;
-    media-session.enable = false;
     wireplumber.enable = true;
-    config = {
+    /* config = {
       pipewire."context.properties"."default.clock.allowed-rates" = [
         44100
         48000
@@ -28,7 +27,7 @@
       pipewire-pulse."stream.properties"."resample.quality" = 15;
       client."stream.properties"."resample.quality" = 15;
       client-rt."stream.properties"."resample.quality" = 15;
-    };
+    }; */
   };
 
   sound.enable = true;

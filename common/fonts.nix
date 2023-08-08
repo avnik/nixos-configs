@@ -22,7 +22,7 @@ fonts = {
           </match>
         '';
     };
-    fonts = with pkgs; [
+    packages = with pkgs; [
         dejavu_fonts
         liberation_ttf
         terminus_font
@@ -38,7 +38,7 @@ fonts = {
         noto-fonts
         noto-fonts-extra
         droid-fonts
-        powerline-symbols
+        powerline-fonts
       ];
 };
 }

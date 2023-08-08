@@ -3,6 +3,7 @@
 , flake-utils
 , nixpkgs
 , nixpkgs-stable
+, hercules-ci
 , sops-nix
 , ...
 }@inputs:
@@ -17,8 +18,10 @@
     defaultPackage = self.packages.${system}.hosts;
 
     overlays = [
+      inputs.emacs-overlay.overlay
       (final: prev: {
           stable = nixpkgs-stable.legacyPackages.${system};
+          hercules-ci-cli = hercules-ci.packages.${system}.hercules-ci-cli;
        })
     ];
 

@@ -36,9 +36,16 @@ in
    };
    services.hostapd = {
      enable = true;
-     interface = "wifi1";
-     ssid = "froggy";
-     wpaPassphrase = "entropia";
+     package = pkgs.stable.hostapd;
+     radios.wifi1.networks.wifi1 = {
+       ssid = "froggy";
+       authentication = {
+         mode = "wpa2-sha256";
+         wpaPassword = "entropia";
+#         enableRecommendedPairwiseCiphers = true;
+         pairwiseCiphers = ["CCMP" "CCMP-256" "GCMP" "GCMP-256"];
+       };
+     };
    };
    services.pdns-recursor = {
      enable = true;
@@ -49,6 +56,65 @@ in
        export-etc-hosts-search-suffix = "home";
      };
    };
+  services.kea.dhcp4 = {
+    enable = true;
+    settings = {
+      valid-lifetime = 4000;
+      renew-timer = 1000;
+      rebind-timer = 2000;  
+      interfaces-config = {
+        interfaces = [ "enp3s0" "wifi1" ];
+      };
+      lease-database = {
+        type = "memfile";
+        persist = true;
+        name = "/var/lib/kea/dhcp4.leases";
+      };
+      option-data = [{
+        name = "domain-name-servers";
+        data = "172.16.228.1";
+      } {
+        name = "domain-name";
+        data = "home";
+      }];
+      subnet4 = [{
+        subnet = "172.16.228.0/24";
+        pools = [
+          { pool = "172.16.228.129 - 172.16.228.254"; }
+        ];
+        option-data = [{
+          name = "routers";
+          data = "172.16.228.1";
+        }];
+        reservations = [
+         {
+#           name = "printer";
+           hw-address = "70:5a:0f:13:90:d2";
+           ip-address = "172.16.228.10";
+         }
+         {
+#           name = "boomer";
+           hw-address = "f0:76:1c:d9:b8:06";
+           ip-address = "172.16.228.9";
+         }
+         {
+#           name = "raptor";
+           hw-address = "00:21:86:9e:8b:74";
+           ip-address = "172.16.228.7";
+         }
+        ];
+      } {
+        subnet = "172.16.229.0/24";
+        pools = [
+          { pool = "172.16.229.129 - 172.16.229.254"; }
+        ];
+        option-data = [{
+          name = "routers";
+          data = "172.16.229.1";
+        }];
+      }];
+    };
+  }; /*
    services.dhcpd4 = {
      enable = true;
      interfaces = [ "enp3s0" "wifi1" ];
@@ -90,26 +156,6 @@ in
            ipAddress = "172.16.228.7";
        }
        {
-           hostName = "macnica-decoder";
-           ethernetAddress = "00:0a:35:00:1e:63";
-           ipAddress = "172.16.228.20";
-       }
-       {
-           hostName = "macnica-encoder";
-           ethernetAddress = "00:0a:35:00:1e:62";
-           ipAddress = "172.16.228.21";
-       }
-       {
-           hostName = "macnica-decoder-media";
-           ethernetAddress = "70:B3:D5:E8:E1:48";
-           ipAddress = "172.16.228.40";
-       }
-       {
-           hostName = "macnica-encoder-media";
-           ethernetAddress = "70:B3:D5:E8:E1:48";
-           ipAddress = "172.16.228.41";
-       }
-       {
            hostName = "mobile-olga";
            ethernetAddress = "ac:cf:85:89:ac:f0";
            ipAddress = "172.16.229.3";
@@ -120,7 +166,7 @@ in
            ipAddress = "172.16.229.4";
        }
      ];
-   };
+   }; */
    environment.systemPackages = with pkgs; [
      wirelesstools
    ];

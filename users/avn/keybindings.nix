@@ -1,4 +1,13 @@
-{ mod, terminal }:
+{ mod, terminal, pkgs, lib, sway ? false }:
+let 
+  i3specific = if sway then {} else {
+    "${mod}+Shift+r" = "restart";
+    "${mod}+Shift+q" = "restart";
+  };
+  swaySpecific = if sway then {
+    "${mod}+q" = "exec ${lib.getExe pkgs.swaylock} -f -k -c \"#000000\"";
+  } else {};
+  in
 {
             "${mod}+1" = "workspace 1";
             "${mod}+2" = "workspace 2";
@@ -37,7 +46,7 @@
             "${mod}+Shift+Up" = "move up";
             "${mod}+Shift+Right" = "move right";
 
-            "${mod}+Shift+b" = "layout splith";
+            "${mod}+Shift+h" = "layout splith";
             "${mod}+Shift+v" = "layout splitv";
             "${mod}+Shift+s" = "layout stacking";
             "${mod}+Shift+t" = "layout tabbed";
@@ -47,9 +56,7 @@
             "${mod}+h" = "split h";
             "${mod}+v" = "split v";
             "${mod}+f" = "fullscreen";
-            "${mod}+Shift+r" = "restart";
-            "${mod}+Shift+q" = "restart";
             "${mod}+c" = "kill";
 
             "${mod}+Return" = "exec ${terminal}";
-        }
+        } // i3specific // swaySpecific

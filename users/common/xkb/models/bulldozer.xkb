@@ -3,6 +3,6 @@ xkb_keymap {
   xkb_keycodes { include "evdev(evdev)" };
   xkb_types     { include "complete" };
   xkb_compat    { include "complete" };
-  xkb_symbols   { include "pc(pc105)+pc(editing)+keypad(oss)+us(sun_type6)+lt(us)+level3(ralt_switch)+my_bksp(bksp)+ctrl(nocaps)+terminate+sun_vndr/solaris(defaults)+ru(legacy):2+f12(toggle)"};
+  xkb_symbols   { include "pc(pc105)+keypad(oss)+us(sun_type6)+lt(us)+level3(ralt_switch)+my_bksp(bksp)+ctrl(nocaps)+terminate+sun_vndr/solaris(defaults)+ru(legacy):2+f12(toggle)"};
   xkb_geometry  { include "sun(t6)" };
 };

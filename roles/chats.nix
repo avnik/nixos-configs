@@ -2,14 +2,17 @@
 
 {
   environment.systemPackages = with pkgs; [
-    discord
-    irssi
+# Unused for years
+#    discord
+# Unused for years
+#    irssi
     tdesktop
-    skypeforlinux
+# Unused for years
+#    skypeforlinux
     zoom-us
-    tensor nheko gomuks quaternion ## Matrix
-    signal-desktop signal-cli #gurk
+    ## Matrix
+    fractal-next nheko gomuks 
+    signal-desktop #gurk
+    element-desktop
   ];
-
-  services.signald.enable = true;
 }

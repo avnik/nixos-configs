@@ -2,7 +2,7 @@
 
 {
   services.samba = {
-    enable = true;
+    enable = false;
     enableNmbd = true;
     invalidUsers = [ "root" "avn" ];
     securityType = "user";
@@ -42,7 +42,7 @@
     };
   };
   services.samba-wsdd = {
-    enable = true;
+    enable = false;
     workgroup = "WORKGROUP";
     hostname = "bulldozer";
     interface = "enp9s0";

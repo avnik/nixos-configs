@@ -13,7 +13,7 @@
   environment.systemPackages = with pkgs; [
     v4l-utils
 #    webcamoid
-    motion
+#    motion
 #    uvcdynctrl
     uvccapture
     xawtv

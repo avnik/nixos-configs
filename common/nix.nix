@@ -23,7 +23,6 @@ in
       substituters = binaryCaches;
       trusted-public-keys = binaryCachePublicKeys;
     };
-    readOnlyStore = true;
     nrBuildUsers = 4;
     extraOptions = ''
         gc-keep-outputs = true
@@ -42,5 +41,8 @@ in
         "private=/home/avn/nixos/private"
     ];
     buildLocation = "/var/buildroot";
+  };
+  boot = {
+    readOnlyNixStore = true;
   };
 }

@@ -4,9 +4,11 @@
 
     environment.systemPackages = with pkgs; [
       enca # smart codepage recoder with detection
+      jq
+      direnv
       pandoc
       screen tmux elinks
-      pythonFull
+      python3Full
       rsync
       psmisc  # for killall
       sysstat # for iostat
@@ -23,8 +25,9 @@
       inetutils # for telnet
       lm_sensors smartmontools hdparm
       usbutils pciutils
-      flashrom    # I need it on all local machines (split local stuff to own role?)
+      flashrom    # I need it on all local machines (split special local stuff to own role?)
       iana-etc
+      picocom
     ];
 
     programs.bash.interactiveShellInit = ''

@@ -16,13 +16,13 @@
       ../../roles/console.nix
       ../../roles/desktop.nix
       ./pulse.nix
-      ../../roles/camera.nix
+#      ../../roles/camera.nix
       ../../roles/chats.nix
-      ../../roles/gaming.nix
-      ../../roles/steam.nix
+#      ../../roles/gaming.nix
+#      ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
-      ../../envs/wine.nix
+#      ../../envs/wine.nix
       ../../modules/r8168.nix
     ];
 
@@ -35,7 +35,6 @@
         efiSysMountPoint = "/boot/efi";
       };
       grub = {
-        version = 2;
         enable = true;
         device = "nodev";
         efiSupport = true;
@@ -87,7 +86,7 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
   services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "no";
+  services.openssh.permitRootLogin = "yes";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

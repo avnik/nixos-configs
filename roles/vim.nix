@@ -56,7 +56,7 @@
                     ]; }
                 ];
             };
-            configuredVi = super.runCommand "binutils-stuff" { } ''
+            configuredVi = super.runCommand "configured-vi" { } ''
                 #!${super.stdenv.shell}
                 mkdir -p $out/bin
                 ln -s ${self.configuredVim.out}/bin/vim $out/bin

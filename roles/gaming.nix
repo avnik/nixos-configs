@@ -19,8 +19,6 @@ let minetestclient_5_custom = pkgs.runCommand "minetest-5" {} ''
     dosbox
     kerbal
 #    lgogdownloader
-#    minetestclient_4
-#    minetestclient_5_custom
     openxcom-extended
 #    rocksndiamonds
     runelite

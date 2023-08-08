@@ -27,12 +27,24 @@ in
       ./emacs.nix
       ./sway.nix
       ./i3status.nix
+      ./gpg.nix
       ];
 
-#    programs.powerline-go = {
-#      enable = true;
-#      modules = [ "host" "ssh" "cwd" "gitlite" "jobs" "exit" ];
-#    };
+    services.gnome-keyring = {
+      enable = true;
+      components = [ "pkcs11" "secrets" ];
+    };
+    home.packages = with pkgs; [
+      gnome.seahorse # Manager for gnome-keyring
+    ];
+    programs.powerline-go = {
+      enable = true;
+      modules = [ "host" "ssh" "cwd" "gitlite" "jobs" "exit" "direnv" "nix-shell"];
+      settings = {
+        numeric-exit-codes = true;
+        condensed = true;
+      };
+    };
 
     programs.zsh = {
       enable = true;
@@ -41,7 +53,7 @@ in
         path = "$HOME/.zsh_history";
         ignorePatterns = [ "rm *" "pkill *" ];
       };
-      enableSyntaxHighlighting =  true;
+      syntaxHighlighting.enable = true;
       sessionVariables = sessionVariables // {
  
       };
@@ -68,7 +80,10 @@ in
           fi
         }  
         alias cdroot='cd $(reporoot)'
+        bindkey '^R' history-incremental-search-backward
+        bindkey -M viins '\e.' insert-last-word
       '';
+      historySubstringSearch.enable = true;
       plugins = [
       {
         name = "you-should-use";
@@ -77,7 +92,7 @@ in
           repo = "zsh-you-should-use";
           rev = "2be37f376c13187c445ae9534550a8a5810d4361";
           sha256 = "0yhwn6av4q6hz9s34h4m3vdk64ly6s28xfd8ijgdbzic8qawj5p1";
-        };
+        }; 
       }
       ];
     };

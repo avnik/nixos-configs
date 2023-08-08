@@ -28,10 +28,10 @@ in
       ../../roles/console.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
-      ../../roles/texlive.nix
+#      ../../roles/texlive.nix
       ../../roles/nixpkgs-maintainer.nix
       ../../roles/wayland.nix
-      ../../roles/dev/ftdi.nix
+      ../../roles/greetd.nix
       ../../roles/printing.nix
       ../../users.nix
       ../../envs/wine.nix
@@ -40,8 +40,26 @@ in
       ./mail.nix
       ./openvpn.nix
       ./samba.nix
+      ./portal.nix
       ./set-profile.nix
     ];
+
+  nix.buildMachines = [{
+     hostName = "awsarm";
+     system = "aarch64-linux";
+     protocol = "ssh-ng";
+     maxJobs = 1;
+     speedFactor = 2;
+     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+     mandatoryFeatures = [ ];
+     sshUser = "avnik";
+   }];
+
+   nix.distributedBuilds = true;
+   # optional, useful when the builder has a faster internet connection than yours
+   nix.extraOptions = ''
+     builders-use-substitutes = true
+   '';
 
   nixpkgs.config = {
      allowBroken = true;  # Until ansible will be fixed
@@ -68,6 +86,7 @@ in
   '';
 
   hardware = {
+      bluetooth.enable = true;
       opengl = {
           driSupport32Bit = true;
 #          package = mkForce mesa_21_1.drivers;
@@ -143,50 +162,44 @@ services = {
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
+  services.clamav.daemon.enable = true;
+  services.clamav.updater.enable = true;
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-  services.xserver.deviceSection = ''
-    Option "DRI3" "on"
-  '';
-  services.xserver.videoDrivers = [ "amdgpu" "radeon" ];
+#  services.xserver.deviceSection = ''
+#    Option "DRI3" "on"
+#  '';
+#  services.xserver.videoDrivers = [ "amdgpu" "radeon" ];
 
   environment = {
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
-      gnumake
       neovim
       rtorrent
       mercurial
       pre-commit gist
       imagemagick
-      fasd rcm renameutils jump
+      fasd renameutils jump
       man-pages man-pages-posix
-      pythonFull
-      gopass gnupg
+      python3Full
+      gopass
       docker-compose
       binutils-stuff
       remmina rdesktop
       hledger
       perf-tools
       awscli
-      jq
-      direnv
-      picocom
       sshpass
-      dateutils
-      newman
       edac-utils dmidecode efibootmgr lshw
-      tribler
       xsane
-      anydesk
       ffmpeg
+      gnome.gnome-bluetooth
   ] ++ (with pkgs.gitAndTools; [
       gitflow
       git-remote-gcrypt hub delta 
       git-absorb git-gone git-machete git-octopus git-recent
       git-quick-stats git-delete-merged-branches
+      gh
   ]);
   sessionVariables =
       { 

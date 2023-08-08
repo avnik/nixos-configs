@@ -8,16 +8,27 @@
       };
   };
 
-  services.openssh.forwardX11 = true;
+  services.openssh.settings.X11Forwarding = true;
+  home-manager.sharedModules = [ 
+   { 
+     programs.chromium = {
+        enable = true;
+        package = pkgs.stable.chromium;
+     };
+     home.packages = [ pkgs.stable.libreoffice ];
+   } 
+  ];
 
   environment.systemPackages = with pkgs; [
+    anki
     alock
-    alacritty
     brewtarget
-    stable.chromium
     firefox
-    gimp-with-plugins rawtherapee
-    libreoffice
+    homebank
+    gimp-with-plugins
+#    blender
+    krita
+    rawtherapee
     maim sxiv
     pavucontrol
     qastools

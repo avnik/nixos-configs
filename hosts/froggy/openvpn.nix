@@ -2,7 +2,7 @@
 
 {
     services.openvpn.servers = {
-      sghost = {
+/*      sghost = {
           config = ''
             dev tun
             remote sg.avnik.info 1194
@@ -13,7 +13,7 @@
             ping-restart 0
             secret ${./sghost.key}
           '';
-      };
+      }; */
     };
     networking.firewall.allowedUDPPorts = [ 1194 ];
 }

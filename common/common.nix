@@ -7,8 +7,8 @@
      ./home-manager.nix
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
-  boot.tmpOnTmpfs = true;
-  boot.kernelParams = [ "mitigations=off"];
+  boot.tmp.useTmpfs = true;
+  boot.kernelParams = [ "mitigations=off" "boot.shell_on_fail"];
   boot.loader.grub.memtest86.enable = true;
 
   hardware = {

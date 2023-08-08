@@ -28,5 +28,5 @@ let
   };
 in
 {
-        environment.systemPackages = [ wineEnv ];
+        environment.systemPackages = [ wineEnv wineEnvStable ];
 }

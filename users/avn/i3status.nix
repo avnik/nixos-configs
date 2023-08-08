@@ -6,7 +6,7 @@
       default = {
         settings = {
                 theme =  {
-                  name = "solarized-dark";
+                  theme = "solarized-dark";
                   overrides = {
                     idle_bg = "#123456";
                     idle_fg = "#abcdef";
@@ -14,10 +14,10 @@
                 };
               };
         blocks = [
-         { block ="focused_window"; max_width=200; }
+         { block ="focused_window"; format="$title.str(max_w:180)|Missing"; }
          { block="load"; format="{1m} {5m} {15m}"; interval=1; }
          {block="memory"; }
-         { block="time"; format="⏰ %F %a %T"; interval=1; locale="en_US"; }
+         { block="time"; format="$timestamp.datetime(f:'⏰ %F %a %T', l:en_US)"; interval=1;  }
         ];
       };
     };

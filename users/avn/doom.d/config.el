@@ -1,7 +1,8 @@
 ;;; ~/.doom.d/config.el -*- lexical-binding: t; -*-
 (setq user-full-name "Alexander V. Nikolaev"
       user-mail-address "avn@avnik.info"
-      doom-theme 'doom-avn
+;      doom-theme 'doom-avn
+      doom-theme 'doom-dracula
       doom-font (font-spec :family "Go Mono" :size 18)
 ;      doom-font (font-spec :family "Anonymous Pro" :size 18)
 ;      doom-font (font-spec :family "Fira Mono" :size 18)

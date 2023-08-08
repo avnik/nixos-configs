@@ -42,6 +42,7 @@
     kernelPackages = pkgs.linuxPackages_latest;
   };
   hardware.cpu.amd.updateMicrocode = true;
+  hardware.bluetooth.enable = true;
 
   fileSystems = {
       "/mnt/media" = {
@@ -77,6 +78,7 @@
     ethtool
     lm_sensors
     claws-mail
+    obs-studio
   ];
 
   # List services that you want to enable:
