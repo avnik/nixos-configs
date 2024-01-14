@@ -1,14 +1,17 @@
-{ stdenv, emacs, spacemacs
+{ stdenv
+, emacs
+, spacemacs
 , fromLayer
 , sourcePackage
-, buildInputs ? [] }:
+, buildInputs ? [ ]
+}:
 
 stdenv.mkDerivation {
   name = "spacemacs-locals-${builtins.replaceStrings ["/"] ["-"] fromLayer}-${sourcePackage}";
   src = spacemacs.src;
   buildInputs = [ emacs ] ++ buildInputs;
   unpackPhase = ''
-      cp -rv --no-preserve=mode $src/layers/${fromLayer}/local/${sourcePackage} .
+    cp -rv --no-preserve=mode $src/layers/${fromLayer}/local/${sourcePackage} .
   '';
   buildPhase = ''
     ARGS=$(find ${stdenv.lib.concatStrings

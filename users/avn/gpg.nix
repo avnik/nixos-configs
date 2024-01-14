@@ -1,13 +1,13 @@
-{pkgs, lib, config, ...}: 
+{ pkgs, lib, config, ... }:
 let
   gnupghome = "${config.xdg.dataHome}/gnupg";
-in 
+in
 {
   services.gpg-agent = {
     enable = true;
     pinentryFlavor = "qt";
-    defaultCacheTtl = 10800; 
-    defaultCacheTtlSsh = 10800; 
+    defaultCacheTtl = 10800;
+    defaultCacheTtlSsh = 10800;
   };
   systemd.user.services.gpg-agent = {
     Service = {
@@ -18,12 +18,12 @@ in
       ];
     };
   };
-  home.sessionVariables = { GNUPGHOME=gnupghome; }; 
-  programs.zsh.sessionVariables = { GNUPGHOME=gnupghome; }; 
+  home.sessionVariables = { GNUPGHOME = gnupghome; };
+  programs.zsh.sessionVariables = { GNUPGHOME = gnupghome; };
 
   programs.gpg = {
     enable = true;
-    homedir = gnupghome; 
+    homedir = gnupghome;
   };
   home.packages = with pkgs; [ pinentry-qt ];
 }

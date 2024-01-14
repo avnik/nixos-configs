@@ -1,5 +1,20 @@
-{ src, lib, stdenv, fetchFromGitHub, cmake, libGL, libGLU, zlib, openssl, libyamlcpp, boost
-, SDL, SDL_image, SDL_mixer, SDL_gfx, pkg-config }:
+{ src
+, lib
+, stdenv
+, fetchFromGitHub
+, cmake
+, libGL
+, libGLU
+, zlib
+, openssl
+, libyamlcpp
+, boost
+, SDL
+, SDL_image
+, SDL_mixer
+, SDL_gfx
+, pkg-config
+}:
 
 let version = "git-via-flake"; in
 stdenv.mkDerivation {

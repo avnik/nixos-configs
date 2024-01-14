@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/common.nix
       ../../users.nix
@@ -16,13 +17,13 @@
       ../../roles/console.nix
       ../../roles/desktop.nix
       ./pulse.nix
-#      ../../roles/camera.nix
+      #      ../../roles/camera.nix
       ../../roles/chats.nix
-#      ../../roles/gaming.nix
-#      ../../roles/steam.nix
+      #      ../../roles/gaming.nix
+      #      ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
-#      ../../envs/wine.nix
+      #      ../../envs/wine.nix
       ../../modules/r8168.nix
     ];
 
@@ -58,14 +59,14 @@
   hardware.custom.r8168.enable = false;
 
   fileSystems = {
-      "/mnt/media" = {
-          device = "bulldozer:/mnt/media";
-          fsType = "nfs";
-      };
-      "/mnt/video" = {
-          device = "bulldozer:/mnt/video";
-          fsType = "nfs";
-      };
+    "/mnt/media" = {
+      device = "bulldozer:/mnt/media";
+      fsType = "nfs";
+    };
+    "/mnt/video" = {
+      device = "bulldozer:/mnt/video";
+      fsType = "nfs";
+    };
   };
 
 
@@ -85,8 +86,8 @@
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PermitRootLogin = "yes";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, system,... }:
+{ config, pkgs, inputs, system, ... }:
 {
   environment.systemPackages = with pkgs; [
     cachix

@@ -3,8 +3,8 @@
 , emacs
 , name
 , src
-, buildInputs ? []
-, patches ? []
+, buildInputs ? [ ]
+, patches ? [ ]
 }:
 
 stdenv.mkDerivation {

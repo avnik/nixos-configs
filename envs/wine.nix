@@ -2,9 +2,9 @@
 
 let
   extraCmds = ''
-      export LIBGL_DEBUG=verbose
-      export MESA_DEBUG=1
-      export __GL_SYNC_TO_VBLANK=1
+    export LIBGL_DEBUG=verbose
+    export MESA_DEBUG=1
+    export __GL_SYNC_TO_VBLANK=1
   '';
   stdenv = pkgs.stdenv;
   glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
@@ -28,5 +28,5 @@ let
   };
 in
 {
-        environment.systemPackages = [ wineEnv wineEnvStable ];
+  environment.systemPackages = [ wineEnv wineEnvStable ];
 }

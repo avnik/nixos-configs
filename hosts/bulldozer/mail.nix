@@ -1,40 +1,41 @@
 { config, pkgs, lib, ... }:
 
-let maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
-  #!${pkgs.bash}/bin/sh -e
-  PATH="${pkgs.maildrop}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
-  export PATH
-  ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
-'';
+let
+  maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
+    #!${pkgs.bash}/bin/sh -e
+    PATH="${pkgs.maildrop}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
+    export PATH
+    ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
+  '';
   rspamdLocalConfig = ''
-    classifier "bayes" {
-      autolearn = true;
-    }
-#    dkim_signing {
-#      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
-#      selector = "default";
-#      allow_username_mismatch = true;
-#    }
-#    arc {
-#      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
-#      selector = "default";
-#      allow_username_mismatch = true;
-#    }
-    milter_headers {
-      use = ["authentication-results", "x-spam-status"];
-      authenticated_headers = ["authentication-results"];
-    }
-    replies {
-      action = "no action";
-    }
-    url_reputation {
-      enabled = true;
-    }
-    phishing {
-      openphish_enabled = true;
-      phishtank_enabled = true;
-    }
-'';
+        classifier "bayes" {
+          autolearn = true;
+        }
+    #    dkim_signing {
+    #      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+    #      selector = "default";
+    #      allow_username_mismatch = true;
+    #    }
+    #    arc {
+    #      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
+    #      selector = "default";
+    #      allow_username_mismatch = true;
+    #    }
+        milter_headers {
+          use = ["authentication-results", "x-spam-status"];
+          authenticated_headers = ["authentication-results"];
+        }
+        replies {
+          action = "no action";
+        }
+        url_reputation {
+          enabled = true;
+        }
+        phishing {
+          openphish_enabled = true;
+          phishtank_enabled = true;
+        }
+  '';
 in
 {
   services = {
@@ -49,7 +50,7 @@ in
       enable = true;
       hostname = "bulldozer";
       domain = "avnik.info";
-      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
+      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
       rootAlias = "avn";
       postmasterAlias = "avn";
       origin = "avnik.info";
@@ -97,15 +98,15 @@ in
 
   environment = {
     etc = {
-      "users/kris/forward" = { 
-         text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
-         mode = "0444";
-         user = "kris";
+      "users/kris/forward" = {
+        text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
+        mode = "0444";
+        user = "kris";
       };
       "users/olga/forward" = {
-         text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
-         mode = "0444";
-         user = "olga";
+        text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
+        mode = "0444";
+        user = "olga";
       };
       "users/avn/forward" = {
         text = "|${maildropWrapper}";
@@ -114,7 +115,10 @@ in
       };
     };
     systemPackages = with pkgs; [
-      neomutt procmail notmuch maildrop
+      neomutt
+      procmail
+      notmuch
+      maildrop
     ];
   };
 }

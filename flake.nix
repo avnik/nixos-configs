@@ -41,14 +41,14 @@
 
     impermanence.url = "github:nix-community/impermanence";
 
-    nixpkgs-wayland  = { 
+    nixpkgs-wayland = {
       url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     #nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable-small";
     nixpkgs.url = "git+file:///home/avn/nixos/nixpkgs";
-    
+
     nixpkgs-stable.url = "github:NixOS/nixpkgs/release-23.05";
     poetry2nix = {
       url = "github:nix-community/poetry2nix";
@@ -119,7 +119,7 @@
       inputs.home.follows = "home-manager";
       inputs.roleplay.follows = "roleplay";
     };
-};
+  };
 
   # FIXME: I can't η-reduce this for some reason
   outputs = inputs: import ./nix/outputs.nix inputs;

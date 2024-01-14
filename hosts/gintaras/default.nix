@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ../../users.nix
       ../../common/common.nix
       ../../roles/console.nix
@@ -36,13 +37,13 @@
 
   fileSystems = {
     "/" =
-      { device = "/dev/disk/by-label/NIXOS";
+      {
+        device = "/dev/disk/by-label/NIXOS";
         fsType = "ext4";
       };
   };
   swapDevices =
-    [ { device = "/dev/disk/by-label/SWAP"; }
-    ];
+    [{ device = "/dev/disk/by-label/SWAP"; }];
 
   i18n.defaultLocale = lib.mkForce "ru_RU.UTF-8";
   networking.hostName = "gintaras"; # Define your hostname.
@@ -51,7 +52,7 @@
   networking.networkmanager.wifi.powersave = false;
   networking.wireless.iwd.enable = true;
   networking.wireless.networks = {
-    "free" = {};
+    "free" = { };
   };
 
 
@@ -61,7 +62,8 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
-    wirelesstools iw
+    wirelesstools
+    iw
   ];
 
   # List services that you want to enable:
@@ -80,7 +82,7 @@
     enable = true;
   };
 
-  users.extraUsers.kris.extraGroups= ["audio" "docker" "video" "render" "wheel" "pulse"];
+  users.extraUsers.kris.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "23.05";
 }

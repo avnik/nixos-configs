@@ -1,5 +1,8 @@
-{ stdenv, emacs, fetchFromGitHub
-, buildInputs ? [] }:
+{ stdenv
+, emacs
+, fetchFromGitHub
+, buildInputs ? [ ]
+}:
 
 stdenv.mkDerivation {
   name = "spacemacs";

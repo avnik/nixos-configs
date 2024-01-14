@@ -1,12 +1,13 @@
 { config, pkgs, lib, ... }:
 
-let maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
-  #!${pkgs.bash}/bin/sh -e
-  PATH="${pkgs.maildrop}/bin:${pkgs.lockfileProgs}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
-  export PATH
-  ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
-'';
-myDomains = [ "avnik.info" "mareicheva.info" "daemon.hole.ru" "alexawm.com" ];
+let
+  maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
+    #!${pkgs.bash}/bin/sh -e
+    PATH="${pkgs.maildrop}/bin:${pkgs.lockfileProgs}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
+    export PATH
+    ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
+  '';
+  myDomains = [ "avnik.info" "mareicheva.info" "daemon.hole.ru" "alexawm.com" ];
 in
 {
   services = {
@@ -14,7 +15,7 @@ in
       enable = true;
       hostname = "froggy";
       domain = "froggy.home";
-      relayDomains = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru"  "avnik.info"  "mareicheva.info" "alexawm.com" ];
+      relayDomains = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "alexawm.com" ];
       rootAlias = "avn";
       postmasterAlias = "avn";
       origin = "avnik.info";
@@ -42,7 +43,8 @@ in
 
   environment = {
     systemPackages = with pkgs; [
-      neomutt maildrop
+      neomutt
+      maildrop
     ];
   };
 }

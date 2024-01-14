@@ -2,17 +2,18 @@
 
 {
   environment.systemPackages = with pkgs; [
-# Unused for years
-#    discord
-# Unused for years
-#    irssi
+    # Unused for years
+    #    discord
+    # Unused for years
+    #    irssi
     tdesktop
-# Unused for years
-#    skypeforlinux
+    # Unused for years
+    #    skypeforlinux
     zoom-us
     ## Matrix
     # fractal-next
-    nheko gomuks 
+    nheko
+    gomuks
 
     signal-desktop #gurk
     element-desktop

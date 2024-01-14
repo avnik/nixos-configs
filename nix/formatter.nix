@@ -1,9 +1,9 @@
-{ inputs, ...}:
+{ inputs, ... }:
 {
   imports = [
     inputs.flake-root.flakeModule
     inputs.treefmt-nix.flakeModule
-  ];  
+  ];
   perSystem =
     { config
     , pkgs
@@ -16,8 +16,8 @@
         flakeCheck = true;
         programs = {
           nixpkgs-fmt.enable = true;
-#          prettier.enable = true;
-#          statix.enable = true;
+          #          prettier.enable = true;
+          #          statix.enable = true;
         };
       };
 

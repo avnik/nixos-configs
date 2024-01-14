@@ -12,11 +12,11 @@
   services.system-config-printer.enable = lib.mkForce false;
   hardware.printers = {
     ensureDefaultPrinter = "printer";
-    ensurePrinters = [ {
+    ensurePrinters = [{
       name = "printer";
       description = "HP m201";
       model = "everywhere";
       deviceUri = "ipp://printer.home/ipp/print";
-    } ];
+    }];
   };
 }

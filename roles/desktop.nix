@@ -3,20 +3,20 @@
 
 {
   hardware = {
-      opengl = {
-          driSupport32Bit = true;
-      };
+    opengl = {
+      driSupport32Bit = true;
+    };
   };
 
   services.openssh.settings.X11Forwarding = true;
-  home-manager.sharedModules = [ 
-   { 
-     programs.chromium = {
+  home-manager.sharedModules = [
+    {
+      programs.chromium = {
         enable = true;
         package = pkgs.chromium;
-     };
-     home.packages = [ pkgs.libreoffice ];
-   } 
+      };
+      home.packages = [ pkgs.libreoffice ];
+    }
   ];
 
   environment.systemPackages = with pkgs; [
@@ -29,13 +29,18 @@
     blender
     krita
     rawtherapee
-    maim sxiv
+    maim
+    sxiv
     minder
     pavucontrol
     qastools
     aumix
-    mpv mpg123 youtube-dl vlc
-    mp3splt mp3splt-gtk
+    mpv
+    mpg123
+    youtube-dl
+    vlc
+    mp3splt
+    mp3splt-gtk
     desktop-file-utils
     xsel
     zathura ## for pdfs

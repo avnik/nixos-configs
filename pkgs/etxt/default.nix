@@ -16,16 +16,18 @@ stdenv.mkDerivation {
     gcc-unwrapped.lib
     libGL
     libxslt
-    qt5.qtbase qt5.qtmultimedia qt5.qtwebkit
+    qt5.qtbase
+    qt5.qtmultimedia
+    qt5.qtwebkit
     qt5.wrapQtAppsHook
   ];
   nativeBuildInputs = [ autoPatchelfHook unzip ];
   installPhase = ''
-    mkdir -p $out/lib $out/bin
-    cp EtxtAntiplagiat $out/bin/EtxtAntiplagiat
-    cat <<EOT >$out/bin/Etxt
-#/bin/sh -x
-exec ${strace}/bin/strace -e trace=open ${placeholder "out"}/bin/EtxtAntiplagiat    
+        mkdir -p $out/lib $out/bin
+        cp EtxtAntiplagiat $out/bin/EtxtAntiplagiat
+        cat <<EOT >$out/bin/Etxt
+    #/bin/sh -x
+    exec ${strace}/bin/strace -e trace=open ${placeholder "out"}/bin/EtxtAntiplagiat    
   '';
   meta = with lib; {
     platforms = [ "i686-linux" ];

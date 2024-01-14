@@ -1,6 +1,5 @@
 { config, ... }:
 
 {
-  services.openvpn.servers = {
-  };
+  services.openvpn.servers = { };
 }

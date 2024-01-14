@@ -1,6 +1,6 @@
 { lib, pkgs, config, ... }:
 let
-  mod = "Mod4"; 
+  mod = "Mod4";
   i3 = pkgs.i3-gaps;
   configFile = ./i3config;
   # Validates the i3 configuration
@@ -24,16 +24,16 @@ in
   xdg = {
     enable = true;
     configFile."i3/config" = {
-        source = checkI3Config;
-        onChange = ''
-          i3Socket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/i3/ipc-socket.*
-          if [ -S $i3Socket ]; then
-            echo "Reloading i3"
-            $DRY_RUN_CMD ${i3}/bin/i3-msg -s $i3Socket reload 1>/dev/null
-          fi
-        '';
+      source = checkI3Config;
+      onChange = ''
+        i3Socket=''${XDG_RUNTIME_DIR:-/run/user/$UID}/i3/ipc-socket.*
+        if [ -S $i3Socket ]; then
+          echo "Reloading i3"
+          $DRY_RUN_CMD ${i3}/bin/i3-msg -s $i3Socket reload 1>/dev/null
+        fi
+      '';
     };
-  }; 
+  };
   xsession = {
     enable = true;
     scriptPath = ".xsession";
@@ -46,7 +46,7 @@ in
       enable = false;
       config = rec {
         modifier = "Mod4";
-        keybindings = import ./keybindings.nix { mod = modifier; terminal="urxvt"; inherit pkgs lib; };
+        keybindings = import ./keybindings.nix { mod = modifier; terminal = "urxvt"; inherit pkgs lib; };
         assigns = {
           "web" = [{ class = "^Firefox$"; }];
           "2" = [{ class = "^Chromium$"; }];
@@ -62,8 +62,8 @@ in
           workspaceButtons = true;
           workspaceNumbers = true;
           statusCommand = "${pkgs.i3status-rust}/bin/i3status-rs /home/avn/.config/i3status-rust/config-default.toml";
-          fonts = [ "monospace 10"];
-#          height = 30;
+          fonts = [ "monospace 10" ];
+          #          height = 30;
         }];
       };
       extraConfig = ''

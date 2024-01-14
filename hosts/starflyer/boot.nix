@@ -8,34 +8,34 @@ with lib;
 
 {
   boot = {
-      loader.efi = {
-        canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/sda/efi";
-      };
-      loader.grub = {
-        enable = true;
-        efiSupport = true;
-        mirroredBoots = [
-            { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
-            { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
-        ];
-        memtest86.enable = true;
-      };
-      kernelParams = [
-        "reboot=w,a"
-        "radeon.dpm=0"
-        "radeon.audio=1"
-        "cgroup_enable=memory"
-        "swapaccount=1"
-        "libata.force=noncq"
-
+    loader.efi = {
+      canTouchEfiVariables = true;
+      efiSysMountPoint = "/boot/sda/efi";
+    };
+    loader.grub = {
+      enable = true;
+      efiSupport = true;
+      mirroredBoots = [
+        { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
+        { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
       ];
-      kernelPackages = pkgs.linuxPackages_5_14;
-      #zfs.enableUnstable = true;
-      #kernelPackages = pkgs.linuxPackages_latest;
-      kernelModules = [ "r8169" ];
+      memtest86.enable = true;
+    };
+    kernelParams = [
+      "reboot=w,a"
+      "radeon.dpm=0"
+      "radeon.audio=1"
+      "cgroup_enable=memory"
+      "swapaccount=1"
+      "libata.force=noncq"
+
+    ];
+    kernelPackages = pkgs.linuxPackages_5_14;
+    #zfs.enableUnstable = true;
+    #kernelPackages = pkgs.linuxPackages_latest;
+    kernelModules = [ "r8169" ];
   };
   fileSystems = {
-     "/boot/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
+    "/boot/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
   };
 }

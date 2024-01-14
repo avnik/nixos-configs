@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
 
@@ -13,20 +14,22 @@
   boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
   boot.kernelParams = [
-        "reboot=w,a"
-        "radeon.dpm=0"
-        "radeon.audio=1"
-        "cgroup_enable=memory"
-        "swapaccount=1"
-        "libata.force=noncq"
-        ];
+    "reboot=w,a"
+    "radeon.dpm=0"
+    "radeon.audio=1"
+    "cgroup_enable=memory"
+    "swapaccount=1"
+    "libata.force=noncq"
+  ];
   fileSystems."/" =
-    { device = "/dev/disk/by-id/ata-WDC_WD1600BEVS-75RST0_WD-WXE707559895-part3";
+    {
+      device = "/dev/disk/by-id/ata-WDC_WD1600BEVS-75RST0_WD-WXE707559895-part3";
       fsType = "ext4";
     };
 
   fileSystems."/boot/efi" =
-    { device = "/dev/disk/by-id/ata-WDC_WD1600BEVS-75RST0_WD-WXE707559895-part1";
+    {
+      device = "/dev/disk/by-id/ata-WDC_WD1600BEVS-75RST0_WD-WXE707559895-part1";
       fsType = "vfat";
     };
 

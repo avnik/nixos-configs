@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
+    [
+      <nixpkgs/nixos/modules/installer/scan/not-detected.nix>
     ];
 
   boot.initrd.availableKernelModules = [ "ahci" "ohci_pci" "ehci_pci" "xhci_hcd" "usb_storage" "usbhid" ];
@@ -13,11 +14,11 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-label/NIXOS";
+    {
+      device = "/dev/disk/by-label/NIXOS";
       fsType = "btrfs";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/99c2fcb0-d16f-460b-80c2-013a0e92f0eb"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/99c2fcb0-d16f-460b-80c2-013a0e92f0eb"; }];
 }

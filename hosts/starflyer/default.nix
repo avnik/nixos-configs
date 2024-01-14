@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/common.nix
       ../../users.nix
@@ -32,7 +33,6 @@
         efiSysMountPoint = "/boot/efi";
       };
       grub = {
-        version = 2;
         enable = true;
         device = "nodev";
         efiSupport = true;
@@ -45,32 +45,32 @@
   hardware.bluetooth.enable = true;
 
   fileSystems = {
-      "/mnt/media" = {
-          device = "bulldozer:/mnt/media";
-          fsType = "nfs";
-      };
-      "/mnt/video" = {
-          device = "bulldozer:/mnt/video";
-          fsType = "nfs";
-      };
-      "/mnt/raid" = {
-          device = "bulldozer:/mnt/raid";
-          fsType = "nfs";
-      };
+    "/mnt/media" = {
+      device = "bulldozer:/mnt/media";
+      fsType = "nfs";
+    };
+    "/mnt/video" = {
+      device = "bulldozer:/mnt/video";
+      fsType = "nfs";
+    };
+    "/mnt/raid" = {
+      device = "bulldozer:/mnt/raid";
+      fsType = "nfs";
+    };
   };
 
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
 
-   networking.hostName = "starflyer"; # Define your hostname.
-   networking.domain = "home";
-   networking.search = ["home"];
-   networking.hostId = "2f78bb0e";
-   networking.interfaces.enp9s0.ipv4.addresses = [ { address = "172.16.228.4"; prefixLength = 24;} ];
-   networking.defaultGateway = "172.16.228.1";
-   networking.nameservers  = [ "172.16.228.1" ];
-   networking.firewall.enable = false;
+  networking.hostName = "starflyer"; # Define your hostname.
+  networking.domain = "home";
+  networking.search = [ "home" ];
+  networking.hostId = "2f78bb0e";
+  networking.interfaces.enp9s0.ipv4.addresses = [{ address = "172.16.228.4"; prefixLength = 24; }];
+  networking.defaultGateway = "172.16.228.1";
+  networking.nameservers = [ "172.16.228.1" ];
+  networking.firewall.enable = false;
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -83,14 +83,14 @@
 
   # List services that you want to enable:
   services.logind.extraConfig = ''
-      HandlePowerKey=ignore
-      HandleSuspendKey=ignore
+    HandlePowerKey=ignore
+    HandleSuspendKey=ignore
   '';
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.openssh.passwordAuthentication = false;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.settings.PasswordAuthentication = false;
+  services.openssh.settings.PermitRootLogin = "yes";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -99,14 +99,14 @@
   # networking.firewall.enable = false;
 
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "intel" "amdgpu" "radeon" "nouveau" "modesetting" "fbdev" ]; 
+  services.xserver.videoDrivers = [ "intel" "amdgpu" "radeon" "nouveau" "modesetting" "fbdev" ];
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
   services.xserver.displayManager.defaultSession = "xfce";
   services.xserver.displayManager.job.logToFile = true;
 
-  users.extraUsers.olga.extraGroups= ["audio" "docker" "video" "render" "wheel" "pulse"];
+  users.extraUsers.olga.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "21.09";

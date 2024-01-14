@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-    services.kubernetes = {
-        roles = ["master" "node"];
-    };
+  services.kubernetes = {
+    roles = [ "master" "node" ];
+  };
 }

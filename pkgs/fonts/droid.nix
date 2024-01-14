@@ -59,6 +59,6 @@ stdenv.mkDerivation rec {
     homepage = https://github.com/google/fonts;
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
-    maintainers = [];
+    maintainers = [ ];
   };
 }

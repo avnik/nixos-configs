@@ -9,56 +9,56 @@ let bindMount = from: { options = [ "bind" ]; fsType = "none"; device = from; };
 in
 {
   boot = {
-      supportedFilesystems = [ "zfs" ];
-#      zfs.enableUnstable = true;
+    supportedFilesystems = [ "zfs" ];
+    #      zfs.enableUnstable = true;
   };
   fileSystems = {
     "/" = {
       device = "tank/zroot";
       fsType = "zfs";
     };
-    "/home"={
-      device="tank/home";
-      fsType="zfs";
+    "/home" = {
+      device = "tank/home";
+      fsType = "zfs";
     };
-    "/var/lib/docker"={
-      device="tank/docker";
-      fsType="zfs";
+    "/var/lib/docker" = {
+      device = "tank/docker";
+      fsType = "zfs";
     };
-    "/mnt/data"={
-        device="tank/data";
-        fsType="zfs";
+    "/mnt/data" = {
+      device = "tank/data";
+      fsType = "zfs";
     };
-    "/mnt/raid"={
-        device="tank/raid";
-        fsType="zfs";
+    "/mnt/raid" = {
+      device = "tank/raid";
+      fsType = "zfs";
     };
-    "/mnt/games"={
-        device="tank/games";
-        fsType="zfs";
+    "/mnt/games" = {
+      device = "tank/games";
+      fsType = "zfs";
     };
     "/mnt/systems" = bindMount "/mnt/data/systems";
     "/mnt/video" = {
-        device = "tank/video";
-        fsType="zfs";
+      device = "tank/video";
+      fsType = "zfs";
     };
     "/etc/nixos/nixpkgs" = bindMount "/home/avn/nixos/nixpkgs";
     "/mnt/maildir" = {
-        device="tank/maildir";
-        fsType="zfs";
+      device = "tank/maildir";
+      fsType = "zfs";
     };
     "/var/buildroot" = {
-        device="tank/buildroot";
-        fsType="zfs";
+      device = "tank/buildroot";
+      fsType = "zfs";
     };
     "/mnt/media" = {
-        device="tank/media";
-        fsType="zfs";
+      device = "tank/media";
+      fsType = "zfs";
     };
     "/mnt/fast" = {
-        device="/dev/bulldozer-secondary/fast";
-        fsType="ext4";
-        options = [ "nofail" ];
+      device = "/dev/bulldozer-secondary/fast";
+      fsType = "ext4";
+      options = [ "nofail" ];
     };
   };
   swapDevices = [

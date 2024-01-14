@@ -1,6 +1,6 @@
 { libs, pkgs, config, ... }:
 let
-  mod = "Mod4"; 
+  mod = "Mod4";
   i3 = pkgs.i3-gaps;
   configFile = ./i3config;
   # Validates the i3 configuration

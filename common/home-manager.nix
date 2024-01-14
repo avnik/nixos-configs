@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ...}:
+{ lib, pkgs, config, ... }:
 #let
 #  home-manager = builtins.fetchGit {
 #    url = "https://github.com/nix-community/home-manager.git";
@@ -6,13 +6,13 @@
 #  };
 #in
 {
-    imports = [
-      ../users.nix
-      ../users/default.nix
-    ];
-    home-manager = {
-      useUserPackages = true;
-      useGlobalPkgs = true;
-      verbose = true;
-    };
+  imports = [
+    ../users.nix
+    ../users/default.nix
+  ];
+  home-manager = {
+    useUserPackages = true;
+    useGlobalPkgs = true;
+    verbose = true;
+  };
 }

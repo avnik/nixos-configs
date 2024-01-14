@@ -24,25 +24,25 @@ in
         dpi-aware = "yes";
         word-delimiters = ",│`|\"'()[]{}<>";
         notify = "${pkgs.libnotify}/bin/notify-send -a foot -i foot \${title} \${body}";
-       };
-       scrollback.lines = 32768;
-       url.launch = "${pkgs.xdg-utils}/bin/xdg-open \${url}";
-       mouse = {
-         hide-when-typing = "yes";
-       };
-       tweak = {
-         overflowing-glyphs = "true";
-       };
-       search-bindings = {
-         find-prev = "Control+Up";
-         find-next = "Control+Down";
-       };
-       colors = {
-         foreground = toFootColor colors.primary.foreground;
-         background = toFootColor colors.primary.background;
-       } // toFootColors "regular" colors.normal
-         // toFootColors "bright" colors.bright
-         // toFootColors "dim" colors.dim;
+      };
+      scrollback.lines = 32768;
+      url.launch = "${pkgs.xdg-utils}/bin/xdg-open \${url}";
+      mouse = {
+        hide-when-typing = "yes";
+      };
+      tweak = {
+        overflowing-glyphs = "true";
+      };
+      search-bindings = {
+        find-prev = "Control+Up";
+        find-next = "Control+Down";
+      };
+      colors = {
+        foreground = toFootColor colors.primary.foreground;
+        background = toFootColor colors.primary.background;
+      } // toFootColors "regular" colors.normal
+      // toFootColors "bright" colors.bright
+      // toFootColors "dim" colors.dim;
     };
   };
 }

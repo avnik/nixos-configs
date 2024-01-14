@@ -15,15 +15,15 @@ let
   '';
 in
 {
-  home.packages = [ xkb-script ];  
+  home.packages = [ xkb-script ];
   wayland.windowManager.sway = {
-       config = rec {
-         input = {
-           "*" = {
-              xkb_file = "${xkb}";
-           };
-         };
-     };
+    config = rec {
+      input = {
+        "*" = {
+          xkb_file = "${xkb}";
+        };
+      };
+    };
   };
   xsession.initExtra = ''
     ${xkbcomp}/bin/xkbcomp ${xkb} $DISPLAY >/dev/null 2>&1
