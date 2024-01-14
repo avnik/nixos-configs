@@ -13,9 +13,9 @@
    { 
      programs.chromium = {
         enable = true;
-        package = pkgs.stable.chromium;
+        package = pkgs.chromium;
      };
-     home.packages = [ pkgs.stable.libreoffice ];
+     home.packages = [ pkgs.libreoffice ];
    } 
   ];
 
@@ -26,10 +26,11 @@
     firefox
     homebank
     gimp-with-plugins
-#    blender
+    blender
     krita
     rawtherapee
     maim sxiv
+    minder
     pavucontrol
     qastools
     aumix
@@ -40,5 +41,6 @@
     zathura ## for pdfs
     sweethome3d.application
     sweethome3d.furniture-editor
+    krop
   ];
 }

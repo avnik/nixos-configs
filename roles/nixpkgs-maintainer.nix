@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, system,... }:
 {
   environment.systemPackages = with pkgs; [
     cachix
@@ -13,6 +13,8 @@
     nix-prefetch
     nixpkgs-fmt
     nixpkgs-review
-    poetry2nix.cli
+    inputs.poetry2nix.packages.${system}.poetry2nix
+    inputs.nix-fast-build.packages.${system}.nix-fast-build
+    inputs.fast-flake-update.packages.${system}.fast-flake-update
   ];
 }

@@ -4,6 +4,13 @@
   description = "avnik's NixOS config";
 
   inputs = {
+    blank.url = "github:divnix/blank";
+
+    flake-parts = {
+      url = "github:hercules-ci/flake-parts";
+      inputs.nixpkgs-lib.follows = "nixpkgs";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
@@ -12,7 +19,11 @@
       };
     };
 
-    std.url = "github:divnix/std";
+    devshell = {
+      url = "github:numtide/devshell";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     roleplay = {
       url = "path:/home/avn/nixos/roleplay";
@@ -31,7 +42,7 @@
     impermanence.url = "github:nix-community/impermanence";
 
     nixpkgs-wayland  = { 
-      url = "github:colemickens/nixpkgs-wayland";
+      url = "github:nix-community/nixpkgs-wayland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -39,6 +50,10 @@
     nixpkgs.url = "git+file:///home/avn/nixos/nixpkgs";
     
     nixpkgs-stable.url = "github:NixOS/nixpkgs/release-23.05";
+    poetry2nix = {
+      url = "github:nix-community/poetry2nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -51,10 +66,34 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    nix-direnv.url = "github:nix-community/nix-direnv";
-    nix-direnv.flake = false;
+    nix-direnv = {
+      url = "github:nix-community/nix-direnv";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     hercules-ci.url = "github:hercules-ci/hercules-ci-agent";
+    flake-root.url = "github:srid/flake-root";
+
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    fast-flake-update = {
+      url = "github:Mic92/fast-flake-update";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
+    nix-fast-build = {
+      url = "github:Mic92/nix-fast-build";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+      };
+    };
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
 
@@ -78,22 +117,10 @@
       url = "path:/home/avn/nixos/secrets";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home.follows = "home-manager";
-      inputs.std.follows = "std";
       inputs.roleplay.follows = "roleplay";
     };
 };
 
   # FIXME: I can't η-reduce this for some reason
-  outputs = args: import ./nix/outputs.nix args;
-  /*
-  outputs = inputs@{std, ...}:
-    std.growOn {
-        cellsFrom = ./lib;
-        cellBlocks = [
-          (std.functions "grub")
-        ];
-    }
-    { };
-  import ./nix/outputs.nix args;
-  */
+  outputs = inputs: import ./nix/outputs.nix inputs;
 }

@@ -7,7 +7,7 @@
       ../common/xkb.nix
       ../common/x11.nix
       ../avn/direnv.nix
-      ../avn/emacs.nix
+#      ../avn/emacs.nix
       ];
     home.stateVersion = "22.05";  
 }

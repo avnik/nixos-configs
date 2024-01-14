@@ -11,10 +11,10 @@ let
 in
 {
   imports = [ ./foot.nix ];
-  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard ];
+  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe ];
   programs = {
     chromium = {
-      package = lib.mkForce (pkgs.stable.chromium.override {
+      package = lib.mkForce (pkgs.chromium.override {
         commandLineArgs = lib.concatStringsSep " " config.programs.chromium.commandLineArgs;
       });
       commandLineArgs = [

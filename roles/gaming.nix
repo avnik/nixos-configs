@@ -14,13 +14,12 @@ let minetestclient_5_custom = pkgs.runCommand "minetest-5" {} ''
 
 {
   environment.systemPackages = with pkgs; [
-#    dwarf-therapist
-#    dwarf
     dosbox
     kerbal
 #    lgogdownloader
+    prismlauncher
     openxcom-extended
-#    rocksndiamonds
+    rocksndiamonds
     runelite
     scummvm
     stellarium

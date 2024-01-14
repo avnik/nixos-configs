@@ -88,7 +88,7 @@
        direnv
        docker
        editorconfig        ; let someone else argue about tabs vs spaces
-       ein               ; tame Jupyter notebooks with emacs
+;;       ein               ; tame Jupyter notebooks with emacs
        (eval                ; run code, run (also, repls)
          +overlay)
        gist                ; interacting with github gists
@@ -146,7 +146,7 @@
         +attach          ; custom attachment system
         +brain
         +babel           ; running code in org
-        +jupyter
+;;        +jupyter
         +capture         ; org-capture in and outside of Emacs
         +export          ; Exporting org to whatever you want
         +habit           ; Keep track of your habits

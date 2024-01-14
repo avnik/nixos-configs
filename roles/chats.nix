@@ -11,7 +11,9 @@
 #    skypeforlinux
     zoom-us
     ## Matrix
-    fractal-next nheko gomuks 
+    # fractal-next
+    nheko gomuks 
+
     signal-desktop #gurk
     element-desktop
   ];

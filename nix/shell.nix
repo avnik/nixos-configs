@@ -1,37 +1,43 @@
-{ mkShell
-, cachix
-, nix-build-uncached
-, nix-linter
-, nixpkgs-fmt
-, pre-commit
-, sops
-
-, ssh-to-pgp
-, sops-pgp-hook
-, deploy-rs
-}: mkShell {
-  name = "nix-config";
-  buildInputs = [
-    cachix
-    nix-build-uncached
-    nix-linter
-    nixpkgs-fmt
-    pre-commit
-
-    deploy-rs
-    sops
-    ssh-to-pgp
+{inputs, ...}: {
+  imports = [
+    inputs.devshell.flakeModule
   ];
 
-  sopsPGPKeyDirs = [
-    "./keys/hosts"
-    "./keys/users"
-  ];
+  perSystem = {
+    pkgs,
+    config,
+    ...
+  }: {
+    devshells.default = {
+      devshell = {
+        name = "nix-config";
+        motd = ''
+          $(type -p menu &>/dev/null && menu)
+         '';
+      };
+      packages = with pkgs; [
+       cachix
+       nix-build-uncached
+       nix-linter
+       nixpkgs-fmt
+       pre-commit
 
-  SOPS_GPG_KEYSERVER = "https://keys.openpgp.org";
+       deploy-rs
+       sops
+       ssh-to-pgp
+    ];
 
-  shellHook = ''
-    source ${sops-pgp-hook}/nix-support/setup-hook
-    sopsPGPHook
-  '';
+#    sopsPGPKeyDirs = [
+#      "./keys/hosts"
+#      "./keys/users"
+#    ];
+
+#    SOPS_GPG_KEYSERVER = "https://keys.openpgp.org";
+
+#    shellHook = ''
+#      source ${pkgs.sops-pgp-hook}/nix-support/setup-hook
+#      sopsPGPHook
+#    '';
+    };
+  };
 }

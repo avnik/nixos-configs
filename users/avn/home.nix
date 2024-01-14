@@ -30,10 +30,17 @@ in
       ./gpg.nix
       ];
 
-    services.gnome-keyring = {
-      enable = true;
-      components = [ "pkcs11" "secrets" ];
+  gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = true;
     };
+  };
+
+   services.pass-secret-service = {
+     enable = true;
+     storePath = "$HOME/.local/share/pass-secret-service-store";
+   };
     home.packages = with pkgs; [
       gnome.seahorse # Manager for gnome-keyring
     ];

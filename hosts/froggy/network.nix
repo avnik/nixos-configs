@@ -21,6 +21,7 @@ in
      172.16.228.9 boomer boomer.home
      172.16.228.7 raptor raptor.home
      172.16.228.10 printer
+     172.16.228.5 gintaras
    '';
    networking.firewall = {
      enable = true;
@@ -36,7 +37,7 @@ in
    };
    services.hostapd = {
      enable = true;
-     package = pkgs.stable.hostapd;
+#     package = pkgs.stable.hostapd;
      radios.wifi1.networks.wifi1 = {
        ssid = "froggy";
        authentication = {
@@ -93,6 +94,10 @@ in
            ip-address = "172.16.228.10";
          }
          {
+            ip-address = "172.16.228.5";
+            hw-address = "14:da:e9:0d:b5:0d";
+         }
+         {
 #           name = "boomer";
            hw-address = "f0:76:1c:d9:b8:06";
            ip-address = "172.16.228.9";
@@ -111,6 +116,10 @@ in
         option-data = [{
           name = "routers";
           data = "172.16.229.1";
+        }];
+        reservations = [{
+            hw-address = "8C:A9:82:A1:E6:50";
+            ip-address = "172.16.229.5";
         }];
       }];
     };

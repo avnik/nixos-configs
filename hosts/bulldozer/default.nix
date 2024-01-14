@@ -86,7 +86,14 @@ in
   '';
 
   hardware = {
-      bluetooth.enable = true;
+      bluetooth = {
+        enable = true;
+        settings = {
+          General = {
+            Enable = "Source,Sink,Media,Socket";
+          };
+        };
+      };
       opengl = {
           driSupport32Bit = true;
 #          package = mkForce mesa_21_1.drivers;
@@ -162,8 +169,8 @@ services = {
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
-  services.clamav.daemon.enable = true;
-  services.clamav.updater.enable = true;
+#  services.clamav.daemon.enable = true;
+#  services.clamav.updater.enable = true;
 
 #  services.xserver.deviceSection = ''
 #    Option "DRI3" "on"
@@ -194,8 +201,9 @@ services = {
       xsane
       ffmpeg
       gnome.gnome-bluetooth
+      qemu minicom socat
+      anydesk
   ] ++ (with pkgs.gitAndTools; [
-      gitflow
       git-remote-gcrypt hub delta 
       git-absorb git-gone git-machete git-octopus git-recent
       git-quick-stats git-delete-merged-branches

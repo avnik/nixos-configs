@@ -1,71 +1,47 @@
 { self
-, deploy-rs
-, flake-utils
-, nixpkgs
-, nixpkgs-stable
-, hercules-ci
-, sops-nix
+, flake-parts 
 , ...
 }@inputs:
-(flake-utils.lib.eachDefaultSystem (system:
-  let
-    inherit (nixpkgs.lib) mapAttrs attrValues;
-    pkgs = import nixpkgs { inherit system; };
-    joinDrvs = pkgs.callPackage ./join-drvs.nix { };
-  in
-  {
-    defaultApp = self.apps.${system}.deploy;
-    defaultPackage = self.packages.${system}.hosts;
+    flake-parts.lib.mkFlake {
+      inherit inputs;
+    } {
+      imports = [
+        ./formatter.nix
+        ./shell.nix
+        ./deploy.nix
+      ];
+      config = {
+      debug = true;
+      systems = ["x86_64-linux"];
+      flake = {
+        overlays = {
+          emacs = inputs.emacs-overlay.overlay;
+          stable = (final: prev: rec {
+#              stable = nixpkgs-stable.legacyPackages.${system};
+#              hercules-ci-cli = hercules-ci.packages.${system}.hercules-ci-cli;
+          });
+        };
+      };
 
-    overlays = [
-      inputs.emacs-overlay.overlay
-      (final: prev: {
-          stable = nixpkgs-stable.legacyPackages.${system};
-          hercules-ci-cli = hercules-ci.packages.${system}.hercules-ci-cli;
-       })
-    ];
-
+      perSystem = { pkgs, lib, system, ... }:
+        let
+          inherit (lib) mapAttrs attrValues;
+          joinDrvs = pkgs.callPackage ./join-drvs.nix { };
+  in {
     apps = {
       deploy = {
         type = "app";
-        program = "${deploy-rs.packages."${system}".deploy-rs}/bin/deploy";
+        program = "${inputs.deploy-rs.packages."${system}".deploy-rs}/bin/deploy";
       };
     };
 
-    packages = {
+    packages = rec {
+      default = hosts;  
       hosts = joinDrvs "hosts" (mapAttrs (_: v: v.profiles.system.path) self.deploy.nodes);
-      images = joinDrvs "images" self.images;
-      bootx64 = let
-        grubPkgs = pkgs;
-        targetArch =
-          if pkgs.stdenv.isi686 /*|| config.boot.loader.grub.forcei686 */then
-            "ia32"
-          else if pkgs.stdenv.isx86_64 then
-            "x64"
-          else if pkgs.stdenv.isAarch32 then
-            "arm"
-          else if pkgs.stdenv.isAarch64 then
-            "aa64"
-          else
-            throw "Unsupported architecture";
-
-        in pkgs.runCommand "grub-standalone" { } ''
-          mkdir -p $out/EFI/boot
-          echo 'configfile ''${cmdpath}/grub.cfg' >$out/EFI/boot/embedded.cfg
-          ${grubPkgs.grub2_efi}/bin/grub-mkstandalone \
-            --directory=${grubPkgs.grub2_efi}/lib/grub/${grubPkgs.grub2_efi.grubTarget} \
-            -o $out/EFI/boot/boot${targetArch}.efi  \
-            --themes="" \
-            -O ${grubPkgs.grub2_efi.grubTarget} \
-            "boot/grub/grub.cfg=$out/EFI/boot/embedded.cfg" -v
-      '';
+#      images = joinDrvs "images" self.images;
     };
 
-    devShell = pkgs.callPackage ./shell.nix {
-      inherit (sops-nix.packages.${system}) sops-pgp-hook;
-      inherit (deploy-rs.packages.${system}) deploy-rs;
-    };
-  })
-)
-// (import ./deploy.nix inputs)
-// (import ./images.nix inputs)
+#    checks = (self.legacyPackages.${system}.deploy-rs.lib.deployChecks inputs.self.deploy)
+  };
+};
+}
