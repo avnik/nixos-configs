@@ -18,9 +18,7 @@
         packages = with pkgs; [
           cachix
           nix-build-uncached
-          nix-linter
           nixpkgs-fmt
-          pre-commit
 
           deploy-rs
           sops

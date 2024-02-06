@@ -29,6 +29,7 @@ in
     ./sway.nix
     ./i3status.nix
     ./gpg.nix
+    ./git.nix
   ];
 
   gtk = {
@@ -88,6 +89,9 @@ in
       alias cdroot='cd $(reporoot)'
       bindkey '^R' history-incremental-search-backward
       bindkey -M viins '\e.' insert-last-word
+
+      # Tell you-should-use plugin to ignore annoying "Use run-help instead of man"
+      export YSU_IGNORED_ALIASES=("run-help")
     '';
     historySubstringSearch.enable = true;
     plugins = [

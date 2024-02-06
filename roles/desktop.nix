@@ -46,6 +46,6 @@
     zathura ## for pdfs
     sweethome3d.application
     sweethome3d.furniture-editor
-    krop
+#    krop    # 18.01.2024, doesn't build
   ];
 }

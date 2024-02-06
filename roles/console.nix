@@ -4,12 +4,10 @@
 
   environment.systemPackages = with pkgs; [
     enca # smart codepage recoder with detection
-    jq
-    direnv
+    jq yq
     pandoc
     screen
     tmux
-    elinks
     python3Full
     rsync
     psmisc # for killall
@@ -34,6 +32,8 @@
     git-series
     whois # for whois
     fd # for super-fast `find`
+    sd # better sed
+    duf dua dutree # Disk usage reporters
     ripgrep
     inetutils # for telnet
     lm_sensors

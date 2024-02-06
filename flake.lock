@@ -3,11 +3,11 @@
     "OXCE": {
       "flake": false,
       "locked": {
-        "lastModified": 1699188573,
-        "narHash": "sha256-Y1ew1wuyrh9KCE2+p7Ej8i/OOtvlwNjzZnnvquglpM8=",
+        "lastModified": 1705256520,
+        "narHash": "sha256-XEAKOvQNMNLn82m1DR8VNiPVfLhaXrhN4LAIkar91Y8=",
         "owner": "MeridianOXC",
         "repo": "OpenXcom",
-        "rev": "97f95f766ff94bd9a0a448bd0675d45e6c6f17f1",
+        "rev": "fdcd1a075d35b25fbbea5682c7f717b26e36eb73",
         "type": "github"
       },
       "original": {
@@ -757,11 +757,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1703155327,
-        "narHash": "sha256-Q25AEghhhOp+ImNN4PsAExi7DIB1INMlBSaggGz7q4w=",
+        "lastModified": 1705535278,
+        "narHash": "sha256-V5+XKfNbiY0bLKLQlH+AXyhHttEL7XcZBH9iSbxxexA=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "8b797c8eea1eba7dfb47f6964103e6e0d134255f",
+        "rev": "b84191db127c16a92cbdf7f7b9969d58bb456699",
         "type": "github"
       },
       "original": {
@@ -1284,11 +1284,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1704461346,
-        "narHash": "sha256-Xz0OpciVIAtym0sD4e6X0bJ8eC2Zxw13cdGpyFGAb2A=",
+        "lastModified": 1705593981,
+        "narHash": "sha256-46hCoDKTQF05ofZrQG+DnMmVLHK412O3vsBgxjy/510=",
         "ref": "refs/heads/WIP",
-        "rev": "115e36d3dfa18f2c53ff62008baec52848ca3d89",
-        "revCount": 566690,
+        "rev": "2d8fad8fb2ebb20fff843fc8fa51655fad464dc7",
+        "revCount": 572860,
         "type": "git",
         "url": "file:///home/avn/nixos/nixpkgs"
       },
