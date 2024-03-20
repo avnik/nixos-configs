@@ -25,7 +25,8 @@
     brewtarget
     firefox
     homebank
-    gimp-with-plugins
+    #    gimp-with-plugins
+    gimp
     blender
     krita
     rawtherapee
@@ -46,6 +47,6 @@
     zathura ## for pdfs
     sweethome3d.application
     sweethome3d.furniture-editor
-#    krop    # 18.01.2024, doesn't build
+    #    krop    # 18.01.2024, doesn't build
   ];
 }

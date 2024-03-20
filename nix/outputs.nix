@@ -11,6 +11,7 @@ flake-parts.lib.mkFlake
     ./formatter.nix
     ./shell.nix
     ./deploy.nix
+    ./colmena.nix
   ];
   config = {
     debug = true;

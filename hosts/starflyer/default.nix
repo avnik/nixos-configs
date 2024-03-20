@@ -14,14 +14,11 @@
       ../../roles/console.nix
       ../../roles/desktop.nix
       ../froggy/pulse.nix
-      ../../roles/camera.nix
-      ../../roles/chats.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
       ../../envs/wine.nix
-      ../../roles/dev/ftdi.nix
     ];
 
   # Use the systemd-boot EFI boot loader.
@@ -79,6 +76,7 @@
     lm_sensors
     claws-mail
     obs-studio
+    tdesktop # Not include full chat role, due size constraints
   ];
 
   # List services that you want to enable:

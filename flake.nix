@@ -11,6 +11,14 @@
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
 
+    colmena = {
+      url = "github:zhaofengli/colmena";
+      inputs = {
+        flake-utils.follows = "flake-utils";
+        nixpkgs.follows = "nixpkgs";
+        stable.follows = "blank";
+      };
+    };
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
@@ -113,6 +121,8 @@
       inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    ### Unpublished stuff
     private = {
       url = "path:/home/avn/nixos/secrets";
       inputs.nixpkgs.follows = "nixpkgs";

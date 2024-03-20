@@ -19,7 +19,10 @@ in
       sandbox = true;
       cores = 4; # -j4 for subsequent make calls
       max-jobs = 6; # Parallel nix builds
-      trusted-users = [ "avn" ];
+      trusted-users = [
+        #        "avn"
+      ];
+      keep-going = false;
       substituters = binaryCaches;
       trusted-public-keys = binaryCachePublicKeys;
     };
@@ -38,9 +41,14 @@ in
       "nixpkgs=/etc/nixos/nixpkgs"
       "nixos=/etc/nixpkgs/nixos"
       "nixos-config=/etc/nixos/configuration.nix"
-      "private=/home/avn/nixos/private"
     ];
     buildLocation = "/var/buildroot";
+  } // lib.optionalAttrs (config.networking.hostName != "bulldozer") {
+    gc = {
+      automatic = true;
+      dates = "05:30";
+      options = "--max-freed 5G";
+    };
   };
   boot = {
     readOnlyNixStore = true;

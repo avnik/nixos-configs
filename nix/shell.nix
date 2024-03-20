@@ -6,6 +6,7 @@
   perSystem =
     { pkgs
     , config
+    , inputs'
     , ...
     }: {
       devshells.default = {
@@ -21,6 +22,7 @@
           nixpkgs-fmt
 
           deploy-rs
+          inputs'.colmena.packages.colmena
           sops
           ssh-to-pgp
         ];

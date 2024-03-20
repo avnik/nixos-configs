@@ -4,7 +4,8 @@
 
   environment.systemPackages = with pkgs; [
     enca # smart codepage recoder with detection
-    jq yq
+    jq
+    yq
     pandoc
     screen
     tmux
@@ -33,7 +34,10 @@
     whois # for whois
     fd # for super-fast `find`
     sd # better sed
-    duf dua dutree # Disk usage reporters
+    duf
+    dua
+    dutree
+    nix-du # Disk usage reporters
     ripgrep
     inetutils # for telnet
     lm_sensors

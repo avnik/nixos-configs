@@ -11,7 +11,7 @@ let
 in
 {
   imports = [ ./foot.nix ];
-  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe ];
+  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe wtype tessen fuzzel ];
   programs = {
     chromium = {
       package = lib.mkForce (pkgs.chromium.override {

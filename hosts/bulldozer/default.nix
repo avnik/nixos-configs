@@ -53,7 +53,17 @@ with lib;
     supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
     mandatoryFeatures = [ ];
     sshUser = "avnik";
-  }];
+  }
+    {
+      hostName = "vedenemo";
+      system = "x86_64-linux";
+      protocol = "ssh-ng";
+      maxJobs = 1;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
+      mandatoryFeatures = [ ];
+      sshUser = "avnik";
+    }];
 
   nix.distributedBuilds = true;
   # optional, useful when the builder has a faster internet connection than yours
@@ -77,7 +87,6 @@ with lib;
   networking.nameservers = [ "172.16.228.1" ];
   networking.firewall.enable = false;
   networking.extraHosts = ''
-    199.199.199.204 twt.tais.com twp.tais.com
     172.16.228.1 froggy
     172.16.228.10 printer printer.home
     172.16.228.7 raptor 
@@ -99,18 +108,6 @@ with lib;
       #          package = mkForce mesa_21_1.drivers;
       #          package32 = mkForce mesa_21_1_32.drivers;
     };
-    /*      pulseaudio = {
-          enable = true;
-          systemWide = true;
-          configFile = ./verbatim/system.pa;
-          daemon.config = {
-            default-fragments = 10;
-            default-fragment-size-msec = 2;
-            default-sample-format = "s16le";
-            default-sample-rate = 48000;
-          };
-      };
-    */
     #cpu.amd.updateMicrocode = true;
     cpu.intel.updateMicrocode = true;
   };
@@ -213,6 +210,7 @@ with lib;
       minicom
       socat
       anydesk
+      distrobox
     ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
       hub
