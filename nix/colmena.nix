@@ -13,6 +13,7 @@
         nixpkgs = import inputs.nixpkgs {
           system = "x86_64-linux";
         };
+        machinesFile = "/dev/null";
         specialArgs = {
           inherit inputs;
         };

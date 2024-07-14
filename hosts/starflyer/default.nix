@@ -80,6 +80,7 @@
   ];
 
   # List services that you want to enable:
+  services.dbus.implementation = "broker";
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
     HandleSuspendKey=ignore

@@ -17,11 +17,39 @@
    (setq
         org-agenda-skip-scheduled-if-done t
         org-agenda-skip-deadline-if-done t
-        org-todo-keywords '((sequence "TODO" "WAITING" "NEXT" "|" "DONE" "CANCELED"))
         org-todo-keywords-for-agenda '((sequence "TODO" "WAITING" "NEXT" "|" "DONE" "CANCELED"))
         ;; Put state changes into the LOGBOOK drawer, to clean up a bit
         org-log-into-drawer t)
 
+   (setq org-todo-keywords
+      (quote ((sequence "TODO(t)" "NEXT(n)" "STARTED(s)" "FEEDBACK(f)" 
+                        "|" "DONE(d!/!)" "DELEGATED")
+              (sequence "WAITING(w@/!)" "SOMEDAY(S!)" 
+                        "|" "CANCELLED(c@/!)" "PHONE")
+              (sequence "OPEN(O!)" "|" "CLOSED(C!)"))))
+
+;;   (setq org-todo-keyword-faces 
+;;      (quote (("TODO" :foreground "red" :weight bold)
+;;              ("NEXT" :foreground "blue" :weight bold)
+;;              ("STARTED" :foreground "blue" :weight bold)
+;;              ("DONE" :foreground "forest green" :weight bold)
+;;              ("WAITING" :foreground "orange" :weight bold)
+;;              ("DELEGATED" :foreground "orange" :weight bold)
+;;              ("SOMEDAY" :foreground "magenta" :weight bold)
+;;              ("CANCELLED" :foreground "forest green" :weight bold)
+;;              ("OPEN" :foreground "blue" :weight bold)
+;;              ("CLOSED" :foreground "forest green" :weight bold)
+;;              ("PHONE" :foreground "forest green" :weight bold))))
+
+(setq org-todo-state-tags-triggers
+      (quote (("CANCELLED" ("CANCELLED" . t))
+              ("WAITING" ("WAITING" . t))
+              ("SOMEDAY" ("WAITING" . t))
+              (done ("WAITING"))
+              ("TODO" ("WAITING") ("CANCELLED"))
+              ("NEXT" ("WAITING"))
+              ("STARTED" ("WAITING"))
+              ("DONE" ("WAITING") ("CANCELLED")))))
   ;; Normally its only like 3 lines tall, too hard to see anything.
   (set-popup-rule! "^\\*Org Agenda"
     :size 15

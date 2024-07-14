@@ -6,7 +6,7 @@ let
   };
   swaySpecific =
     if sway then {
-      "${mod}+q" = "exec ${lib.getExe pkgs.swaylock} -f -k -c \"#000000\"";
+      "${mod}+p" = "exec tessen -p gopass -d fuzzel";
     } else { };
 in
 {

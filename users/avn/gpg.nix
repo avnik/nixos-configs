@@ -5,7 +5,7 @@ in
 {
   services.gpg-agent = {
     enable = true;
-    pinentryFlavor = "qt";
+    pinentryPackage = pkgs.pinentry-qt;
     defaultCacheTtl = 10800;
     defaultCacheTtlSsh = 10800;
   };

@@ -20,14 +20,15 @@ in
   environment.systemPackages = with pkgs; [
     dosbox
     kerbal
+    fallout-ce
+    fallout2-ce
     #    lgogdownloader
-    prismlauncher
+    # prismlauncher
     openxcom-extended
     rocksndiamonds
     runelite
     scummvm
     stellarium
     wesnoth
-    xmage
   ];
 }

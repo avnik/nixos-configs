@@ -10,17 +10,34 @@ with lib;
   boot = {
     loader.efi = {
       canTouchEfiVariables = true;
-      efiSysMountPoint = "/boot/sda/efi";
+      efiSysMountPoint = "/efi";
     };
-    loader.grub = {
+    /*
+      loader.grub = {
       enable = true;
       efiSupport = true;
-      copyKernels = true; /* grub unable to read kernels from /nix/store on zfs, too much hardlinks */
+      copyKernels = true; 
       mirroredBoots = [
         { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
         { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
       ];
       memtest86.enable = true;
+    }; */
+    loader.systemd-boot = {
+      enable = true;
+      configurationLimit = 3;
+    };
+    initrd = {
+      /*      includeDefaultModules = false;
+      availableKernelModules = [
+        "sd_mod"
+        "ahci"
+        "nvme"
+        "atkbd"
+        "hid-generic" "usbhid" "xhci_pci"
+        "zfs"
+      ];
+      */
     };
     kernelParams = [
       "reboot=w,a"
@@ -45,7 +62,8 @@ with lib;
     kernelModules = [ "r8169" ];
   };
   fileSystems = {
-    "/boot/sda/efi" = { device = "/dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J2ZPD560-part1"; fsType = "vfat"; };
-    "/boot/sdb/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
+    "/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
+    #    "/boot/sdb/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
+    #    "/boot/sda/efi" = { device = "/dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J2ZPD560-part1"; fsType = "vfat"; };
   };
 }

@@ -2,14 +2,14 @@
 let
   toFootColor = c: lib.removePrefix "0x" c;
   toFootColors = section: cs: {
-    "${section}0" = cs.black;
-    "${section}1" = cs.red;
-    "${section}2" = cs.green;
-    "${section}3" = cs.yellow;
-    "${section}4" = cs.blue;
-    "${section}5" = cs.magenta;
-    "${section}6" = cs.cyan;
-    "${section}7" = cs.white;
+    "${section}0" = toFootColor cs.black;
+    "${section}1" = toFootColor cs.red;
+    "${section}2" = toFootColor cs.green;
+    "${section}3" = toFootColor cs.yellow;
+    "${section}4" = toFootColor cs.blue;
+    "${section}5" = toFootColor cs.magenta;
+    "${section}6" = toFootColor cs.cyan;
+    "${section}7" = toFootColor cs.white;
   };
   colors = import ./colors.nix;
 in

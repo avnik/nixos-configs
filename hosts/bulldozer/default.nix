@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, inputs, pkgs, lib, ... }:
 
 with lib;
 /*
@@ -19,6 +19,9 @@ with lib;
 {
   imports =
     [
+      # Private part of config, which I won't expose
+      inputs.private.nixosModules.bulldozer
+
       ../../common/common.nix
       ../../common/pipewire.nix
       ../../roles/camera.nix
@@ -44,26 +47,11 @@ with lib;
       ./set-profile.nix
     ];
 
-  nix.buildMachines = [{
-    hostName = "awsarm";
-    system = "aarch64-linux";
-    protocol = "ssh-ng";
-    maxJobs = 1;
-    speedFactor = 2;
-    supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-    mandatoryFeatures = [ ];
-    sshUser = "avnik";
-  }
-    {
-      hostName = "vedenemo";
-      system = "x86_64-linux";
-      protocol = "ssh-ng";
-      maxJobs = 1;
-      speedFactor = 2;
-      supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-      mandatoryFeatures = [ ];
-      sshUser = "avnik";
+  /*
+    nix.buildMachines = [{
+    # Moved to private part of config
     }];
+  */
 
   nix.distributedBuilds = true;
   # optional, useful when the builder has a faster internet connection than yours
@@ -72,7 +60,7 @@ with lib;
   '';
 
   nixpkgs.config = {
-    allowBroken = true; # Until ansible will be fixed
+    #    allowBroken = true; # Until ansible will be fixed
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
@@ -129,7 +117,7 @@ with lib;
   programs.sway.enable = true;
   set-profile.enable = true;
   services = {
-    #  syslog-ng.enable = true;
+    dbus.implementation = "broker";
     logind.extraConfig = ''
       HandlePowerKey=ignore
       HandleSuspendKey=ignore
@@ -209,8 +197,8 @@ with lib;
       qemu
       minicom
       socat
-      anydesk
       distrobox
+      xmage
     ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
       hub

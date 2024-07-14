@@ -3,12 +3,10 @@
   environment.systemPackages = with pkgs; [
     cachix
     deadnix
-    niv
+    nurl
     nix-diff
     nix-prefetch-scripts
-    nix-top
     nix-update-source
-    nix-universal-prefetch
     nix-prefetch-scripts
     nix-prefetch
     nixpkgs-fmt

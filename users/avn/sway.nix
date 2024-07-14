@@ -1,4 +1,4 @@
-{ lib, pkgs, config, nixosConfig, ... }:
+{ lib, inputs, pkgs, config, nixosConfig, ... }:
 let
   modifier = "Mod4";
   hostname = nixosConfig.networking.hostName;
@@ -8,9 +8,16 @@ let
   systemIcons = "/run/current-system/sw/share/icons/hicolor";
   systemPixmaps = "/run/current-system/sw/share/pixmaps";
   iconPath = "${homeIcons}:${systemIcons}:${homePixmaps}:${systemPixmaps}";
+
+  #  swaylock = pkgs.swaylock.overrideAttrs (oa: {
+  #    src = inputs.swaylock;
+  #    patches = (oa.patches or []) ++ [
+  #      ./swaylock-dpms.patch
+  #    ];
+  #  });
 in
 {
-  imports = [ ./foot.nix ];
+  imports = [ ./foot.nix ./swayidle.nix ];
   home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe wtype tessen fuzzel ];
   programs = {
     chromium = {
@@ -25,6 +32,10 @@ in
         "--enable-gpu-rasterization"
       ];
     };
+    swaylock = {
+      enable = true;
+      package = pkgs.swaylock;
+    };
   };
   wayland.windowManager.sway = {
     enable = true;
@@ -34,7 +45,12 @@ in
       bindkeysToCode = true;
       workspaceLayout = "stacking";
       defaultWorkspace = "1";
-      keybindings = import ./keybindings.nix { mod = modifier; inherit terminal pkgs lib; sway = true; };
+      keybindings =
+        (import ./keybindings.nix { mod = modifier; inherit terminal pkgs lib; sway = true; })
+        // {
+          #"${modifier}+q" = "exec ${lib.getExe config.programs.swaylock.package} -f -D -k -c \"#000000\"";
+          "--release ${modifier}+q" = "exec systemctl kill swayidle.service --user --signal USR1 --kill-who=main";
+        };
       focus.wrapping = "yes";
       assigns = {
         "web" = [{ class = "^Firefox$"; }];
@@ -65,6 +81,7 @@ in
 
       for_window [class="^.*"] border pixel 2
       for_window [app_id="firefox" title="^Picture-in-Picture$"] floating enable
+      for_window [shell="xwayland"] title_format "[XWayland] %title"
     '';
     extraSessionCommands = ''
       export SDL_VIDEODRIVER=wayland

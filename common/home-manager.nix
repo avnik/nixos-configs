@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, inputs, ... }:
 #let
 #  home-manager = builtins.fetchGit {
 #    url = "https://github.com/nix-community/home-manager.git";
@@ -14,5 +14,8 @@
     useUserPackages = true;
     useGlobalPkgs = true;
     verbose = true;
+    extraSpecialArgs = {
+      inherit inputs;
+    };
   };
 }

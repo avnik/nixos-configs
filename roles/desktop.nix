@@ -38,7 +38,7 @@
     aumix
     mpv
     mpg123
-    youtube-dl
+    yt-dlp # Was: youtube-dl
     vlc
     mp3splt
     mp3splt-gtk

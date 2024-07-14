@@ -102,6 +102,10 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    swaylock = {
+      url = "github:swaywm/swaylock";
+      flake = false;
+    };
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
 
@@ -128,6 +132,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home.follows = "home-manager";
       inputs.roleplay.follows = "roleplay";
+      inputs.flake-parts.follows = "flake-parts";
     };
   };
 
