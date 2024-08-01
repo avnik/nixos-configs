@@ -29,6 +29,4 @@
       client-rt."stream.properties"."resample.quality" = 15;
     }; */
   };
-
-  sound.enable = true;
 }

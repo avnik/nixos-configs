@@ -45,7 +45,7 @@ in
       droid-fonts = super.callPackage ./fonts/droid.nix { };
       kerbal = super.callPackage ./kerbal/default.nix { };
       openxcom-extended = super.callPackage ./openxcom/extended.nix { src = inputs.OXCE; };
-      inherit (inputs.whisperfish-nix.packages.${system}) whisperfish gurk;
+      gurk = super.callPackage ./gurk { crane = inputs.crane.mkLib self; src = inputs.gurk; };
     })
   ];
 }

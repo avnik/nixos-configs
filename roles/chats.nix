@@ -15,7 +15,7 @@
     nheko
     gomuks
 
-    signal-desktop #gurk
+    signal-desktop gurk
     element-desktop
   ];
 }

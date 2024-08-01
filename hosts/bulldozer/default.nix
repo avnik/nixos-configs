@@ -91,8 +91,8 @@ with lib;
         };
       };
     };
-    opengl = {
-      driSupport32Bit = true;
+    graphics = {
+      enable32Bit = true;
       #          package = mkForce mesa_21_1.drivers;
       #          package32 = mkForce mesa_21_1_32.drivers;
     };

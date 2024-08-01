@@ -102,12 +102,30 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    swaylock = {
-      url = "github:swaywm/swaylock";
-      flake = false;
+    crane = {
+      url = "github:ipetkov/crane";  
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
     };
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
+    gurk = { url = "github:boxdot/gurk-rs"; flake = false; };
+
+    ### Theming
+    stylix = {
+      url = "github:danth/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    catppuccin-base16 = {
+      url = "github:catppuccin/base16";
+      flake = false;
+    };
+    catppuccin-nix = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.stylix.follows = "nixpkgs";
+    };
 
     ### EMACS, DOOM EMACS
     doom-emacs.url = "github:doomemacs/doomemacs/master";

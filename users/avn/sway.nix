@@ -48,7 +48,7 @@ in
       keybindings =
         (import ./keybindings.nix { mod = modifier; inherit terminal pkgs lib; sway = true; })
         // {
-          #"${modifier}+q" = "exec ${lib.getExe config.programs.swaylock.package} -f -D -k -c \"#000000\"";
+          "${modifier}+q" = "nop"; # Do nothing on press, trigger on release
           "--release ${modifier}+q" = "exec systemctl kill swayidle.service --user --signal USR1 --kill-who=main";
         };
       focus.wrapping = "yes";
