@@ -8,6 +8,7 @@
       starflyer = ../hosts/starflyer;
       gintaras = ../hosts/gintaras;
     };
+    colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
     colmena = {
       meta = {
         nixpkgs = import inputs.nixpkgs {

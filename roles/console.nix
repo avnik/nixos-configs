@@ -29,11 +29,10 @@
     xorriso
     libxslt.bin # for xsltproc
     gitAndTools.gitFull
-    git-crecord
-    git-series
     whois # for whois
     fd # for super-fast `find`
     sd # better sed
+    when # Useful TZ related tool
     duf
     dua
     dutree

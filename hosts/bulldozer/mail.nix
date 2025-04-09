@@ -44,7 +44,7 @@ in
       enableImap = true;
       enablePop3 = false;
       mailLocation = "maildir:/mnt/maildir/%u";
-      modules = [ pkgs.dovecot_pigeonhole ];
+      #modules = [ pkgs.dovecot_pigeonhole ];
     };
     postfix = {
       enable = true;

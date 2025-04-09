@@ -22,6 +22,7 @@ in
 {
   imports = [
     inputs.nix-doom-emacs.hmModule
+    inputs.catppuccin-nix.homeManagerModules.catppuccin
     ../common/xkb.nix
     ./x11.nix
     ./direnv.nix
@@ -31,6 +32,8 @@ in
     ./gpg.nix
     ./git.nix
   ];
+
+  catppuccin.flavor = "mocha";
 
   gtk = {
     enable = true;
@@ -44,7 +47,7 @@ in
     storePath = "$HOME/.local/share/pass-secret-service-store";
   };
   home.packages = with pkgs; [
-    gnome.seahorse # Manager for gnome-keyring
+    seahorse # Manager for gnome-keyring
   ];
   programs.powerline-go = {
     enable = true;
@@ -54,6 +57,7 @@ in
       condensed = true;
     };
   };
+  programs.yazi.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -108,6 +112,5 @@ in
   };
 
   home.sessionVariables = sessionVariables;
-  xdg.configFile."alacritty/alacritty.yml" = { source = ./alacritty.yml; };
   home.stateVersion = "22.05";
 }

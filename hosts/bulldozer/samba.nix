@@ -3,22 +3,20 @@
 {
   services.samba = {
     enable = false;
-    enableNmbd = true;
-    invalidUsers = [ "root" "avn" ];
-    securityType = "user";
-    extraConfig = ''
-      workgroup = WORKGROUP
-      server string = bulldozer
-      server role = standalone
-      netbios name = bulldozer
-      #use sendfile = yes
-      #max protocol = smb2
-      hosts allow = 172.16.228.0/24 172.16.229.0/24  localhost
-      hosts deny = 0.0.0.0/0
-      guest account = nobody
-      map to guest = bad user
-    '';
-    shares = {
+    nmbd.enable = true;
+    settings = {
+      global = {  
+        "workgroup" = "WORKGROUP";
+        "server string" = "bulldozer";
+        "server role" = "standalone";
+        "netbios name" = "bulldozer";
+        "hosts allow" = "172.16.228.0/24 172.16.229.0/24  localhost";
+        "hosts deny" = "0.0.0.0/0";
+        "guest account" = "nobody";
+        "map to guest" = "bad user";
+        "invalid users" = "root avn";
+        "security" = "user";
+      };
       media = {
         path = "/mnt/media";
         browseable = "yes";

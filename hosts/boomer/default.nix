@@ -10,6 +10,7 @@
       ./hardware-configuration.nix # Include the results of the hardware scan.
       ../../users.nix
       ../../common/common.nix
+      ../../common/pipewire.nix
       ../../common/efi.nix
       ../../roles/console.nix
       ../../roles/chats.nix
@@ -63,17 +64,6 @@
     };
     opengl = {
       driSupport32Bit = true;
-    };
-    pulseaudio = {
-      enable = true;
-      configFile = ./verbatim/system.pa;
-      systemWide = true;
-      daemon.config = {
-        default-fragments = 10;
-        default-fragment-size-msec = 2;
-      };
-      extraModules = [ ];
-      package = pkgs.pulseaudioFull;
     };
     cpu.amd.updateMicrocode = true;
   };

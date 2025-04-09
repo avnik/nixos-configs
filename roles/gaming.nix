@@ -25,10 +25,10 @@ in
     #    lgogdownloader
     # prismlauncher
     openxcom-extended
-    rocksndiamonds
+    # rocksndiamonds
     runelite
     scummvm
-    stellarium
-    wesnoth
+    # stellarium
+    # wesnoth
   ];
 }

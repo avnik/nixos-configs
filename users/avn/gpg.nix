@@ -5,7 +5,8 @@ in
 {
   services.gpg-agent = {
     enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
+    pinentryPackage = pkgs.wayprompt;
+    #pinentryPackage = pkgs.pinentry-qt;
     defaultCacheTtl = 10800;
     defaultCacheTtlSsh = 10800;
   };
@@ -25,5 +26,5 @@ in
     enable = true;
     homedir = gnupghome;
   };
-  home.packages = with pkgs; [ pinentry-qt ];
+  home.packages = with pkgs; [ wayprompt pinentry-qt ];
 }

@@ -18,7 +18,7 @@ let
 in
 {
   imports = [ ./foot.nix ./swayidle.nix ];
-  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe wtype tessen fuzzel ];
+  home.packages = with pkgs; [ bemenu slurp grim swappy wayland-utils wlrctl wl-clipboard waypipe wtype tessen ];
   programs = {
     chromium = {
       package = lib.mkForce (pkgs.chromium.override {
@@ -31,6 +31,10 @@ in
         "--ignore-gpu-blocklist"
         "--enable-gpu-rasterization"
       ];
+    };
+    fuzzel = {
+      enable = true;
+      catppuccin.enable = true;
     };
     swaylock = {
       enable = true;
@@ -116,7 +120,6 @@ in
     enable = true;
     layer = "overlay";
     anchor = "bottom-right";
-    font = "monospace 13";
     icons = true;
     maxIconSize = 96;
     maxVisible = 3;

@@ -3,8 +3,8 @@
 
 {
   hardware = {
-    opengl = {
-      driSupport32Bit = true;
+    graphics = {
+      enable32Bit = true;
     };
   };
 
@@ -19,34 +19,30 @@
     }
   ];
 
+  services.speechd.enable = false;
+
   environment.systemPackages = with pkgs; [
     anki
+    aichat
     alock
     brewtarget
     firefox
-    homebank
-    #    gimp-with-plugins
-    gimp
+    gimp-with-plugins
+    # gimp
     blender
-    krita
+    #krita
     rawtherapee
-    maim
-    sxiv
     minder
     pavucontrol
+    pwvucontrol helvum qpwgraph
     qastools
-    aumix
     mpv
     mpg123
     yt-dlp # Was: youtube-dl
-    vlc
     mp3splt
     mp3splt-gtk
     desktop-file-utils
-    xsel
     zathura ## for pdfs
-    sweethome3d.application
-    sweethome3d.furniture-editor
-    #    krop    # 18.01.2024, doesn't build
+    krop ## for pdfs
   ];
 }

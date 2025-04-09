@@ -16,7 +16,7 @@
       ./openvpn.nix
       ../../roles/console.nix
       ../../roles/desktop.nix
-      ./pulse.nix
+      ./../../common/pipewire.nix
       #      ../../roles/camera.nix
       ../../roles/chats.nix
       #      ../../roles/gaming.nix

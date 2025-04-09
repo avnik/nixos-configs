@@ -21,10 +21,10 @@ in
       main = {
         term = "xterm-256color";
         font = "Droid Sans Mono:size=13";
-        dpi-aware = "yes";
+        dpi-aware = lib.mkForce "yes";
         word-delimiters = ",│`|\"'()[]{}<>";
-        notify = "${pkgs.libnotify}/bin/notify-send -a foot -i foot \${title} \${body}";
       };
+      desktop-notifications.command = "${pkgs.libnotify}/bin/notify-send -a foot -i foot \${title} \${body}";
       scrollback.lines = 32768;
       url.launch = "${pkgs.xdg-utils}/bin/xdg-open \${url}";
       mouse = {

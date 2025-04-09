@@ -5,7 +5,7 @@
   '';
   #    ${lib.optionalString config.programs.sway.enable "systemd-cat -t sway sway"}
   #    ${lib.optionalString config.services.xserver.windowManager.i3.enable "systemd-cat -t i3 startx ~/.xsession"}
-  hardware.opengl.enable = lib.mkDefault true;
+  hardware.graphics.enable = lib.mkDefault true;
   services.xserver.displayManager.lightdm.enable = lib.mkForce false;
   services.greetd =
     let

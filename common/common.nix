@@ -10,6 +10,7 @@
   boot.tmp.useTmpfs = true;
   boot.kernelParams = [ "mitigations=off" "boot.shell_on_fail" ];
   boot.loader.grub.memtest86.enable = true;
+  boot.initrd.systemd.enable = true;
 
   hardware = {
     ksm.enable = true;
@@ -55,5 +56,13 @@
         Defaults:root,%wheel env_keep+=NIX_PATH
       '';
     };
+  };
+#  system.etc.overlay = {
+#    enable = true;
+#    mutable = true;
+#  };
+  system.switch = {
+    enable = false;
+    enableNg = true;
   };
 }

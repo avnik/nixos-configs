@@ -6,16 +6,15 @@
     #    discord
     # Unused for years
     #    irssi
-    tdesktop
+    telegram-desktop
     # Unused for years
     #    skypeforlinux
     zoom-us
     ## Matrix
     # fractal-next
-    nheko
-    gomuks
 
-    signal-desktop gurk
-    element-desktop
+    gurk
+    # signal-desktop
+    # element-desktop
   ];
 }

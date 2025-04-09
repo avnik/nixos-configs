@@ -12,6 +12,7 @@ flake-parts.lib.mkFlake
     ./shell.nix
     ./deploy.nix
     ./colmena.nix
+    ../overlays/telegram.nix
   ];
   config = {
     debug = true;
@@ -44,8 +45,6 @@ flake-parts.lib.mkFlake
           hosts = joinDrvs "hosts" (mapAttrs (_: v: v.profiles.system.path) self.deploy.nodes);
           #      images = joinDrvs "images" self.images;
         };
-
-        #    checks = (self.legacyPackages.${system}.deploy-rs.lib.deployChecks inputs.self.deploy)
       };
   };
 }

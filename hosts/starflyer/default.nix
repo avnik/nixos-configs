@@ -10,14 +10,15 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/common.nix
+      ../../common/pipewire.nix
       ../../users.nix
       ../../roles/console.nix
       ../../roles/desktop.nix
-      ../froggy/pulse.nix
       ../../roles/gaming.nix
       ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
+      ../../roles/earlyoom.nix
       ../../envs/wine.nix
     ];
 
@@ -37,6 +38,7 @@
     };
     #kernelPackages = pkgs.linuxPackages;
     kernelPackages = pkgs.linuxPackages_latest;
+    binfmt.emulatedSystems = [ "aarch64-linux" ];
   };
   hardware.cpu.amd.updateMicrocode = true;
   hardware.bluetooth.enable = true;
@@ -74,10 +76,12 @@
   environment.systemPackages = with pkgs; [
     ethtool
     lm_sensors
-    claws-mail
-    obs-studio
+    #claws-mail
+    # obs-studio
     tdesktop # Not include full chat role, due size constraints
   ];
+
+  powerManagement.cpuFreqGovernor = "powersave"; # FIXME: changed form "ondemand"
 
   # List services that you want to enable:
   services.dbus.implementation = "broker";
@@ -98,7 +102,7 @@
   # networking.firewall.enable = false;
 
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "intel" "amdgpu" "radeon" "nouveau" "modesetting" "fbdev" ];
+  services.xserver.videoDrivers = [ "amdgpu" "radeon" "modesetting" "fbdev" ];
   services.xserver.desktopManager.xfce = {
     enable = true;
   };

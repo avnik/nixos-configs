@@ -2,7 +2,8 @@
 {
   programs.doom-emacs = rec {
     enable = true;
-    emacsPackage = pkgs.emacs29-pgtk;
+    emacs = pkgs.emacs30-pgtk;
+    extraPackages = epkgs: [ epkgs.vterm ];
     #      emacsPackagesOverlay = self: super: { 
     #        vterm = super.vterm.overrideAttrs (oldAttrs: {
     #          cmakeFlags = [
@@ -11,7 +12,7 @@
     #          ];
     #        });
     #      }; 
-    extraPackages = with pkgs; [ gcc ripgrep git pandoc ];
-    doomPrivateDir = ./doom.d;
+    extraBinPackages = with pkgs; [ ripgrep git pandoc ];
+    doomDir = ./doom.d;
   };
 }

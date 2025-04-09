@@ -12,6 +12,7 @@ with lib;
       canTouchEfiVariables = true;
       efiSysMountPoint = "/efi";
     };
+    loader.systemd-boot.memtest86.enable = true;
     /*
       loader.grub = {
       enable = true;
@@ -25,7 +26,7 @@ with lib;
     }; */
     loader.systemd-boot = {
       enable = true;
-      configurationLimit = 3;
+      configurationLimit = 2;
     };
     initrd = {
       /*      includeDefaultModules = false;
@@ -50,13 +51,13 @@ with lib;
       # ZFS stuff
       "elevator=cfq" # noop works bad for me
       "zfs.zfs_arc_max=4294967296"
-      "zfs.zfs_vdev_cache_bshift=18"
       "zfs.l2arc_feed_again=0"
       "zfs.zfs_compressed_arc_enable=1"
       #        "zfs.zfs_dbgmsg_enable=0"
       "l2arc_feed_again=0"
     ];
-    kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+    kernelPackages = pkgs.linuxPackages_6_12;
+    zfs.package = pkgs.zfs_2_3;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [ "r8169" ];

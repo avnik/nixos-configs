@@ -68,8 +68,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    whisperfish-nix = {
-      url = "path:/home/avn/nixos/whisperfish-nix";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
@@ -102,15 +102,11 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    crane = {
-      url = "github:ipetkov/crane";  
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-      };
-    };
+    crane.url = "github:ipetkov/crane";  
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
-    gurk = { url = "github:boxdot/gurk-rs"; flake = false; };
+    gurk = { url = "github:boxdot/gurk-rs?rev=142064844a2151c8c5ac856936ed93e7bb11950c"; flake = false; };
+    telegram-desktop-patches = { url = "github:Layerex/telegram-desktop-patches"; flake = false; };
 
     ### Theming
     stylix = {
@@ -123,8 +119,14 @@
     };
     catppuccin-nix = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.stylix.follows = "nixpkgs";
+    };
+    nix-wallpaper = {
+      url = "github:lunik1/nix-wallpaper";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+        pre-commit-hooks.follows = "blank";
+      };
     };
 
     ### EMACS, DOOM EMACS
@@ -133,14 +135,16 @@
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs-stable.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
     nix-doom-emacs = {
       #url = "github:nix-community/nix-doom-emacs/master";
-      url = "github:thiagokokada/nix-doom-emacs/bump-doom-emacs";
-      inputs.doom-emacs.follows = "doom-emacs";
-      inputs.emacs-overlay.follows = "emacs-overlay";
-      inputs.flake-utils.follows = "flake-utils";
+      #url = "github:thiagokokada/nix-doom-emacs/bump-doom-emacs";
+      url = "github:marienz/nix-doom-emacs-unstraightened";
+      #inputs.doom-emacs.follows = "doom-emacs";
+      #inputs.emacs-overlay.follows = "emacs-overlay";
+      #inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

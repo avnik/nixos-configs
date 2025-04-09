@@ -11,15 +11,18 @@ in
   boot = {
     supportedFilesystems = [ "zfs" ];
     #      zfs.enableUnstable = true;
+    extraModprobeConfig = "options zfs spa_slop_shift=6";
   };
   fileSystems = {
     "/" = {
       device = "tank/zroot";
       fsType = "zfs";
+      options = ["noatime" "nodiratime"];
     };
     "/home" = {
       device = "tank/home";
       fsType = "zfs";
+      options = ["noatime" "nodiratime"];
     };
     "/var/lib/docker" = {
       device = "tank/docker";
@@ -37,20 +40,19 @@ in
       device = "tank/games";
       fsType = "zfs";
     };
-    "/mnt/systems" = bindMount "/mnt/data/systems";
-    "/mnt/video" = {
-      device = "tank/video";
-      fsType = "zfs";
-    };
-    "/etc/nixos/nixpkgs" = bindMount "/home/avn/nixos/nixpkgs";
     "/mnt/maildir" = {
       device = "tank/maildir";
       fsType = "zfs";
     };
     "/var/buildroot" = {
-      device = "tank/buildroot";
-      fsType = "zfs";
+      device = "none";
+      fsType = "tmpfs";
+      options = [ "nosuid" "nodev" "noatime" "nodiratime" ];
     };
+#    "/var/buildroot" = {
+#      device = "tank/buildroot";
+#      fsType = "zfs";
+#    };
     "/mnt/media" = {
       device = "tank/media";
       fsType = "zfs";

@@ -36,6 +36,9 @@
       noto-fonts-extra
       droid-fonts
       powerline-fonts
+      font-awesome
+      fira-code
+      victor-mono
     ];
   };
 }

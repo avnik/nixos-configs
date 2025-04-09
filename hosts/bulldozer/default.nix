@@ -22,6 +22,9 @@ with lib;
       # Private part of config, which I won't expose
       inputs.private.nixosModules.bulldozer
 
+      # Theming
+      ../../common/style.nix
+
       ../../common/common.nix
       ../../common/pipewire.nix
       ../../roles/camera.nix
@@ -53,14 +56,26 @@ with lib;
     }];
   */
 
-  nix.distributedBuilds = true;
-  # optional, useful when the builder has a faster internet connection than yours
-  nix.extraOptions = ''
-    builders-use-substitutes = true
-  '';
-
-  nixpkgs.config = {
-    #    allowBroken = true; # Until ansible will be fixed
+  nix = {
+    distributedBuilds = true;
+    buildMachines = [{
+      hostName = "starflyer";
+      system = "aarch64-linux"; # emulated!
+      protocol = "ssh-ng";
+      maxJobs = 1;
+      speedFactor = 2;
+      supportedFeatures = [ "nixos-test" "benchmark" "kvm" ]; # No "big-parallel"
+      mandatoryFeatures = [ ];
+      sshUser = "root";
+    }];
+    # optional, useful when the builder has a faster internet connection than yours
+    extraOptions = ''
+      builders-use-substitutes = true
+    '';
+    settings = {
+      cores = lib.mkForce 16; # -j4 for subsequent make calls
+      max-jobs = lib.mkForce 3; # Parallel nix builds
+    };
   };
 
   powerManagement.cpuFreqGovernor = "ondemand";
@@ -146,7 +161,6 @@ with lib;
       enable = true;
       exports = ''
         /mnt/raid   boomer(rw,no_subtree_check) raptor(rw,no_subtree_check) starflyer(rw,no_subtree_check)
-        /mnt/video   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check)
         /mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check) 
       '';
     };
@@ -157,24 +171,15 @@ with lib;
   #  services.clamav.daemon.enable = true;
   #  services.clamav.updater.enable = true;
 
-  #  services.xserver.deviceSection = ''
-  #    Option "DRI3" "on"
-  #  '';
-  #  services.xserver.videoDrivers = [ "amdgpu" "radeon" ];
-
   environment = {
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
       neovim
       rtorrent
-      mercurial
-      pre-commit
-      gist
+      tla 
       imagemagick
-      fasd
       renameutils
-      jump
       man-pages
       man-pages-posix
       python3Full
@@ -182,7 +187,6 @@ with lib;
       docker-compose
       binutils-stuff
       remmina
-      rdesktop
       hledger
       perf-tools
       awscli
@@ -190,19 +194,14 @@ with lib;
       edac-utils
       dmidecode
       efibootmgr
-      lshw
       xsane
       ffmpeg
-      gnome.gnome-bluetooth
+      gnome-bluetooth
       qemu
-      minicom
       socat
       distrobox
-      xmage
     ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
-      hub
-      delta
       git-absorb
       git-gone
       git-machete
@@ -210,6 +209,7 @@ with lib;
       git-recent
       git-quick-stats
       git-delete-merged-branches
+      git-stack
       gh
     ]);
     sessionVariables =

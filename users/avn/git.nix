@@ -39,9 +39,16 @@ in
     ignores = [ ".envrc" ".direnv" ".shell.nix" ".avn" "*~" ".#*" "#*#" ];
     signing = {
       signByDefault = true;
-      key = "0x8FB3BA8713196CA3";
+      key = "0xB8AF18ABCA6271D2";
     };
     extraConfig = {
+      core.pager = "${pkgs.delta}/bin/delta";
+      interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
+      delta = {
+        navigate = true;
+        dark = true;
+      };
+      pack.threads = 16;
       pull.rebase = true;
       rebase.squash = true;
       merge.conflictStyle = "zdiff3";
