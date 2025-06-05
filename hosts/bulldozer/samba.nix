@@ -5,7 +5,7 @@
     enable = false;
     nmbd.enable = true;
     settings = {
-      global = {  
+      global = {
         "workgroup" = "WORKGROUP";
         "server string" = "bulldozer";
         "server role" = "standalone";

@@ -17,12 +17,12 @@ in
     "/" = {
       device = "tank/zroot";
       fsType = "zfs";
-      options = ["noatime" "nodiratime"];
+      options = [ "noatime" "nodiratime" ];
     };
     "/home" = {
       device = "tank/home";
       fsType = "zfs";
-      options = ["noatime" "nodiratime"];
+      options = [ "noatime" "nodiratime" ];
     };
     "/var/lib/docker" = {
       device = "tank/docker";
@@ -49,10 +49,10 @@ in
       fsType = "tmpfs";
       options = [ "nosuid" "nodev" "noatime" "nodiratime" ];
     };
-#    "/var/buildroot" = {
-#      device = "tank/buildroot";
-#      fsType = "zfs";
-#    };
+    #    "/var/buildroot" = {
+    #      device = "tank/buildroot";
+    #      fsType = "zfs";
+    #    };
     "/mnt/media" = {
       device = "tank/media";
       fsType = "zfs";

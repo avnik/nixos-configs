@@ -50,13 +50,13 @@ with lib;
 
       # ZFS stuff
       "elevator=cfq" # noop works bad for me
-      "zfs.zfs_arc_max=4294967296"
+      "zfs.zfs_arc_max=8589934592"
       "zfs.l2arc_feed_again=0"
       "zfs.zfs_compressed_arc_enable=1"
       #        "zfs.zfs_dbgmsg_enable=0"
       "l2arc_feed_again=0"
     ];
-    kernelPackages = pkgs.linuxPackages_6_12;
+    kernelPackages = pkgs.linuxPackages_6_14;
     zfs.package = pkgs.zfs_2_3;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;

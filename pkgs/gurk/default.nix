@@ -1,4 +1,4 @@
-{ crane, src, protobuf, perl}:
+{ crane, src, protobuf, perl }:
 
 let
   # Common arguments can be set here to avoid repeating them later
@@ -8,7 +8,7 @@ let
 
     strictDeps = true;
 
-    nativeBuildInputs = [protobuf perl];
+    nativeBuildInputs = [ protobuf perl ];
     buildInputs = [
     ];
     # Fix following error
@@ -24,8 +24,8 @@ let
 
   gurk = crane.buildPackage (commonArgs
     // {
-      cargoArtifacts = crane.buildDepsOnly commonArgs;
-      doCheck = false;
-    });
+    cargoArtifacts = crane.buildDepsOnly commonArgs;
+    doCheck = false;
+  });
 in
-  gurk
+gurk

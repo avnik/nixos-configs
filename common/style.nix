@@ -1,4 +1,4 @@
-{ config, inputs, pkgs, lib, ...}:
+{ config, inputs, pkgs, lib, ... }:
 let
   wallpaper = inputs.nix-wallpaper.packages.${pkgs.stdenv.hostPlatform.system}.default.override {
     preset = "catppuccin-mocha-rainbow";
@@ -30,7 +30,7 @@ in
       sizes = {
         desktop = 11;
         popups = 13;
-        terminal = 13; 
+        terminal = 13;
       };
     };
   };

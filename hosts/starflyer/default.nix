@@ -106,8 +106,8 @@
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
-  services.xserver.displayManager.defaultSession = "xfce";
-  services.xserver.displayManager.job.logToFile = true;
+  services.displayManager.defaultSession = "xfce";
+  services.displayManager.logToFile = true;
 
   users.extraUsers.olga.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
 

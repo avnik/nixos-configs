@@ -30,6 +30,10 @@ in
       kerbal = super.callPackage ./kerbal/default.nix { };
       openxcom-extended = super.callPackage ./openxcom/extended.nix { src = inputs.OXCE; };
       gurk = super.callPackage ./gurk { crane = inputs.crane.mkLib self; src = inputs.gurk; };
+      libmp3splt = self.callPackage ./libmp3splt/package.nix { };
+      mp3splt = self.callPackage ./mp3splt/package.nix { };
+      mp3splt-gtk = self.callPackage ./mp3splt-gtk/package.nix { };
+
     })
   ];
 }

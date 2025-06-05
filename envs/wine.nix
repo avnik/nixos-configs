@@ -10,11 +10,11 @@ let
   glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
   wineWowStaging = pkgs.wineWow64Packages.full.override {
     wineRelease = "staging";
-#    gstreamerSupport = false;
+    #    gstreamerSupport = false;
   };
   wineWowStable = pkgs.wineWowPackages.full.override {
-#    wineRelease = "stable";
-#    gstreamerSupport = false;
+    #    wineRelease = "stable";
+    #    gstreamerSupport = false;
   };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";

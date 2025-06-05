@@ -118,12 +118,14 @@ in
   };
   services.mako = {
     enable = true;
-    layer = "overlay";
-    anchor = "bottom-right";
-    icons = true;
-    maxIconSize = 96;
-    maxVisible = 3;
-    sort = "-time";
-    inherit iconPath;
+    settings = {
+      layer = "overlay";
+      anchor = "bottom-right";
+      icons = true;
+      max-icon-size = 96;
+      max-visible = 3;
+      sort = "-time";
+      icon-path = iconPath;
+    };
   };
 }

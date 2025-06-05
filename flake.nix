@@ -77,9 +77,15 @@
     nix-direnv = {
       url = "github:nix-community/nix-direnv";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
 
-    hercules-ci.url = "github:hercules-ci/hercules-ci-agent";
+    hercules-ci = {
+      url = "github:hercules-ci/hercules-ci-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-parts.follows = "flake-parts";
+    };
     flake-root.url = "github:srid/flake-root";
 
     treefmt-nix = {
@@ -102,7 +108,7 @@
         flake-parts.follows = "flake-parts";
       };
     };
-    crane.url = "github:ipetkov/crane";  
+    crane.url = "github:ipetkov/crane";
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
     gurk = { url = "github:boxdot/gurk-rs?rev=142064844a2151c8c5ac856936ed93e7bb11950c"; flake = false; };
@@ -112,6 +118,7 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
     catppuccin-base16 = {
       url = "github:catppuccin/base16";
@@ -119,6 +126,7 @@
     };
     catppuccin-nix = {
       url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";

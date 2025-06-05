@@ -177,7 +177,7 @@ with lib;
     systemPackages = with pkgs; [
       neovim
       rtorrent
-      tla 
+      tla
       imagemagick
       renameutils
       man-pages
@@ -200,6 +200,7 @@ with lib;
       qemu
       socat
       distrobox
+      openconnect
     ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
       git-absorb

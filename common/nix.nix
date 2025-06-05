@@ -32,7 +32,7 @@ in
       binary-caches-parallel-connections = 10;
       gc-keep-outputs = true;
       gc-keep-derivations = true;
-      auto-optimise-store = true ;
+      auto-optimise-store = true;
     };
     nrBuildUsers = 4;
     extraOptions = ''

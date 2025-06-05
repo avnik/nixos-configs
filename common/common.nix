@@ -29,7 +29,10 @@
   };
   i18n = {
     defaultLocale = "en_US.UTF-8";
-    #     supportedLocales = ["en_US.UTF-8/UTF-8" "ru_RU.UTF-8/UTF-8" "ru_RU.KOI8-R/KOI8-R" "ru_RU.CP1251/CP1251"];
+    extraLocales = [ "ru_RU.UTF-8" ];
+    extraLocaleSettings = {
+      LC_MESSAGES = "en_US.UTF-8";
+    };
     supportedLocales = [ "all" ];
   };
 
@@ -57,10 +60,10 @@
       '';
     };
   };
-#  system.etc.overlay = {
-#    enable = true;
-#    mutable = true;
-#  };
+  #  system.etc.overlay = {
+  #    enable = true;
+  #    mutable = true;
+  #  };
   system.switch = {
     enable = false;
     enableNg = true;

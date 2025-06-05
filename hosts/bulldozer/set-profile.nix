@@ -3,13 +3,14 @@ with lib;
 
 let
   cfg = config.set-profile;
-  script = with pkgs; substituteAll {
-    name = "set-profile";
+  script = with pkgs; replaceVarsWith {
     src = ./set-profile.py;
     dir = "bin";
     isExecutable = true;
-    python = python39;
-    inherit nix;
+    replacements = {
+      python = python3;
+      inherit nix;
+    };
   };
 in
 {
@@ -19,7 +20,7 @@ in
 
   config = mkIf cfg.enable {
     system.activationScripts.set-profile = ''
-      ${script}/bin/set-profile "$(readlink -f "$systemConfig")" 
+      ${script}/bin/set-profile.py "$(readlink -f "$systemConfig")" 
     '';
   };
 }

@@ -20,8 +20,8 @@ in
     172.16.228.3 bulldozer bulldozer.home
     172.16.228.9 boomer boomer.home
     172.16.228.7 raptor raptor.home
-    172.16.228.10 printer
-    172.16.228.5 gintaras
+    172.16.228.10 printer printer.home
+    172.16.228.5 viper viper.home
   '';
   networking.firewall = {
     enable = true;
@@ -38,13 +38,16 @@ in
   services.hostapd = {
     enable = true;
     #     package = pkgs.stable.hostapd;
-    radios.wifi1.networks.wifi1 = {
-      ssid = "froggy";
-      authentication = {
-        mode = "wpa2-sha256";
-        wpaPassword = "entropia";
-        #         enableRecommendedPairwiseCiphers = true;
-        pairwiseCiphers = [ "CCMP" "CCMP-256" "GCMP" "GCMP-256" ];
+    radios.wifi1 = {
+      channel = 1;
+      networks.wifi1 = {
+        ssid = "froggy";
+        authentication = {
+          mode = "wpa2-sha256";
+          wpaPassword = "entropia";
+          enableRecommendedPairwiseCiphers = true;
+          # pairwiseCiphers = [ "CCMP" "CCMP-256" "GCMP" "GCMP-256" ];
+        };
       };
     };
   };
@@ -81,6 +84,7 @@ in
         }];
       subnet4 = [{
         subnet = "172.16.228.0/24";
+        id = 228;
         pools = [
           { pool = "172.16.228.129 - 172.16.228.254"; }
         ];
@@ -94,9 +98,10 @@ in
             hw-address = "70:5a:0f:13:90:d2";
             ip-address = "172.16.228.10";
           }
+          # name = "viper"
           {
             ip-address = "172.16.228.5";
-            hw-address = "14:da:e9:0d:b5:0d";
+            hw-address = "1c:bf:ce:bd:f1:dd";
           }
           {
             #           name = "boomer";
@@ -112,6 +117,7 @@ in
       }
         {
           subnet = "172.16.229.0/24";
+          id = 229;
           pools = [
             { pool = "172.16.229.129 - 172.16.229.254"; }
           ];
@@ -125,61 +131,10 @@ in
           }];
         }];
     };
-  }; /*
-   services.dhcpd4 = {
-   enable = true;
-   interfaces = [ "enp3s0" "wifi1" ];
-   extraConfig = ''
-       option domain-name-servers 172.16.228.1;
-       option domain-name "home";
-       subnet 172.16.228.0 netmask 255.255.255.0 {
-         option routers 172.16.228.1;
-         pool {
-           range 172.16.228.129 172.16.228.254;
-           max-lease-time 300;
-           allow unknown-clients;
-         }
-       }
-       subnet 172.16.229.0 netmask 255.255.255.0 {
-         option routers 172.16.229.1;
-         option domain-name-servers 172.16.229.1;
-         pool {
-           range 172.16.229.129 172.16.229.254;
-           max-lease-time 300;
-           allow unknown-clients;
-         }
-       }
-   '';
-   machines = [
-       {
-           hostName = "printer";
-           ethernetAddress = "70:5a:0f:13:90:d2";
-           ipAddress = "172.16.228.10";
-       }
-       {
-           hostName = "boomer";
-           ethernetAddress = "f0:76:1c:d9:b8:06";
-           ipAddress = "172.16.228.9";
-       }
-       {
-           hostName = "raptor";
-           ethernetAddress = "00:21:86:9e:8b:74";
-           ipAddress = "172.16.228.7";
-       }
-       {
-           hostName = "mobile-olga";
-           ethernetAddress = "ac:cf:85:89:ac:f0";
-           ipAddress = "172.16.229.3";
-       }
-       {
-           hostName = "mobile-kris";
-           ethernetAddress = "14:33:65:1b:f8:24";
-           ipAddress = "172.16.229.4";
-       }
-   ];
-   }; */
+  };
+
   environment.systemPackages = with pkgs; [
-    wirelesstools
+    wirelesstools # For debugging
   ];
 
 }

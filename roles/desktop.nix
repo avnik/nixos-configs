@@ -34,7 +34,9 @@
     rawtherapee
     minder
     pavucontrol
-    pwvucontrol helvum qpwgraph
+    pwvucontrol
+    helvum
+    qpwgraph
     qastools
     mpv
     mpg123

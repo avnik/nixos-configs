@@ -15,15 +15,8 @@
       ./mail.nix
       ./openvpn.nix
       ../../roles/console.nix
-      ../../roles/desktop.nix
       ./../../common/pipewire.nix
-      #      ../../roles/camera.nix
       ../../roles/chats.nix
-      #      ../../roles/gaming.nix
-      #      ../../roles/steam.nix
-      ../../roles/printing.nix
-      ../../roles/X11.nix
-      #      ../../envs/wine.nix
       ../../modules/r8168.nix
     ];
 
@@ -58,16 +51,7 @@
   hardware.cpu.intel.updateMicrocode = true;
   hardware.custom.r8168.enable = false;
 
-  fileSystems = {
-    "/mnt/media" = {
-      device = "bulldozer:/mnt/media";
-      fsType = "nfs";
-    };
-    "/mnt/video" = {
-      device = "bulldozer:/mnt/video";
-      fsType = "nfs";
-    };
-  };
+  fileSystems = { };
 
 
   # Set your time zone.

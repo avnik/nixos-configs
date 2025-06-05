@@ -13,6 +13,7 @@ flake-parts.lib.mkFlake
     ./deploy.nix
     ./colmena.nix
     ../overlays/telegram.nix
+    ../overlays/firefox.nix
   ];
   config = {
     debug = true;

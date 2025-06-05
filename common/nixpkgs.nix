@@ -9,8 +9,7 @@
     pulseaudio = true;
     #     checkMeta = false;
     showDerivationWarnings = [ ];
-    packageOverrides = pkgs: rec {
-    };
+    packageOverrides = pkgs: rec { };
     #     allowInsecurePredicate = pkg: (pkg.pname == "qtwebkit" || pkg.name == "python-2.7.18.6");
     permittedInsecurePackages = [
     ];

@@ -68,7 +68,7 @@ in
     };
     syntaxHighlighting.enable = true;
     sessionVariables = sessionVariables // { };
-    initExtra = ''
+    initContent = ''
       autoload -Uz vcs_info
       function precmd {
                   print -nP "\033]2;[zsh@%m:%~]%#\007\033]1;[%m:%~]%#\007"

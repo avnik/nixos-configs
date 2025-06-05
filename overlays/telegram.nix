@@ -1,4 +1,4 @@
-{ inputs, lib, ...}:
+{ inputs, lib, ... }:
 let
   patches = builtins.map
     (x: "${inputs.telegram-desktop-patches}/${x}")
@@ -7,7 +7,7 @@ in
 {
   config.flake = {
     overlays = {
-        /*
+      /*
       telegram = (final: prev: {
         telegram-desktop = prev.telegram-desktop.override {
           unwrapped = prev.telegram-desktop.unwrapped.overrideAttrs (oa: {

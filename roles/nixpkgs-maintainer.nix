@@ -10,7 +10,7 @@
     deadnix
     nurl
     nix-diff
-#    nix-melt
+    #    nix-melt
     nix-tree
     nix-prefetch-scripts
     nix-update-source
@@ -21,6 +21,6 @@
     nixpkgs-review
     inputs.poetry2nix.packages.${system}.poetry2nix
     inputs.nix-fast-build.packages.${system}.nix-fast-build
-#    inputs.fast-flake-update.packages.${system}.fast-flake-update
+    #    inputs.fast-flake-update.packages.${system}.fast-flake-update
   ];
 }
