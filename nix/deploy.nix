@@ -18,7 +18,7 @@ in
         (import ./hosts.nix);
     };
     nixosConfigurations = mapAttrs
-      (n: v: mkPath n v.system)
+      (n: v: mkHost n v.system)
       (import ./hosts.nix);
   };
 

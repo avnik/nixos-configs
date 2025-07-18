@@ -64,8 +64,4 @@
   #    enable = true;
   #    mutable = true;
   #  };
-  system.switch = {
-    enable = false;
-    enableNg = true;
-  };
 }

@@ -14,6 +14,8 @@ flake-parts.lib.mkFlake
     ./colmena.nix
     ../overlays/telegram.nix
     ../overlays/firefox.nix
+    ../overlays/prismlauncher.nix
+    ../overlays/jdkfix.nix
   ];
   config = {
     debug = true;

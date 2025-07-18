@@ -23,7 +23,7 @@ in
     fallout-ce
     fallout2-ce
     #    lgogdownloader
-    # prismlauncher
+    prismlauncher
     openxcom-extended
     # rocksndiamonds
     runelite

@@ -56,8 +56,8 @@ in
     api.address = internalAddress;
     dns.allowFrom = [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "127.0.0.0/8" ];
     exportHosts = true;
-    settings = {
-      export-etc-hosts-search-suffix = "home";
+    yaml-settings = {
+      recursor.export-etc-hosts-search-suffix = "home";
     };
   };
   services.kea.dhcp4 = {

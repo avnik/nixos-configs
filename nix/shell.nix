@@ -25,19 +25,8 @@
           inputs'.colmena.packages.colmena
           sops
           ssh-to-pgp
+          wireguard-tools
         ];
-
-        #    sopsPGPKeyDirs = [
-        #      "./keys/hosts"
-        #      "./keys/users"
-        #    ];
-
-        #    SOPS_GPG_KEYSERVER = "https://keys.openpgp.org";
-
-        #    shellHook = ''
-        #      source ${pkgs.sops-pgp-hook}/nix-support/setup-hook
-        #      sopsPGPHook
-        #    '';
       };
     };
 }

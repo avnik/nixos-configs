@@ -9,5 +9,9 @@
     ../avn/direnv.nix
     #      ../avn/emacs.nix
   ];
+  programs.zsh.initContent = ''
+    bindkey '^R' history-incremental-search-backward
+    bindkey -M viins '\e.' insert-last-word
+  '';
   home.stateVersion = "22.05";
 }

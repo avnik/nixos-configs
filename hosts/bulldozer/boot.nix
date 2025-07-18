@@ -56,7 +56,7 @@ with lib;
       #        "zfs.zfs_dbgmsg_enable=0"
       "l2arc_feed_again=0"
     ];
-    kernelPackages = pkgs.linuxPackages_6_14;
+    kernelPackages = pkgs.linuxPackages_6_15;
     zfs.package = pkgs.zfs_2_3;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;

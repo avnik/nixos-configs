@@ -48,6 +48,9 @@ with lib;
       ./samba.nix
       ./portal.nix
       ./set-profile.nix
+      ./wireguard.nix
+
+      ../../secrets/bulldozer/secrets.nix
     ];
 
   /*
@@ -160,8 +163,8 @@ with lib;
     nfs.server = {
       enable = true;
       exports = ''
-        /mnt/raid   boomer(rw,no_subtree_check) raptor(rw,no_subtree_check) starflyer(rw,no_subtree_check)
-        /mnt/media   boomer(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check) 
+        /mnt/raid   viper(rw,no_subtree_check) raptor(rw,no_subtree_check) starflyer(rw,no_subtree_check)
+        /mnt/media   viper(rw,no_subtree_check) froggy(ro,no_subtree_check) starflyer(rw,no_subtree_check) 
       '';
     };
   };

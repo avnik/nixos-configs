@@ -2,11 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports =
     [
+      inputs.private.nixosModules.initial-passwords
+      inputs.disko.nixosModules.disko
+      ./disko.nix
+
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../common/common.nix
@@ -15,6 +19,7 @@
       ../../roles/console.nix
       ../../roles/desktop.nix
       ../../roles/gaming.nix
+      ../../roles/chats.nix
       ../../roles/steam.nix
       ../../roles/printing.nix
       ../../roles/X11.nix
@@ -25,15 +30,10 @@
   # Use the systemd-boot EFI boot loader.
   boot = {
     loader = {
-      systemd-boot.enable = false;
+      systemd-boot.enable = true;
       efi = {
         canTouchEfiVariables = true;
-        efiSysMountPoint = "/boot/efi";
-      };
-      grub = {
-        enable = true;
-        device = "nodev";
-        efiSupport = true;
+        efiSysMountPoint = "/boot";
       };
     };
     #kernelPackages = pkgs.linuxPackages;
@@ -47,10 +47,12 @@
     "/mnt/media" = {
       device = "bulldozer:/mnt/media";
       fsType = "nfs";
+      options = [ "nofail" "x-systemd.automount" "x-systemd.requires=network-online.target" "x-systemd.device-timeout=10s"];
     };
     "/mnt/raid" = {
       device = "bulldozer:/mnt/raid";
       fsType = "nfs";
+      options = [ "nofail" "x-systemd.automount" "x-systemd.requires=network-online.target" "x-systemd.device-timeout=10s"];
     };
   };
 
@@ -58,13 +60,14 @@
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
 
-  networking.hostName = "starflyer"; # Define your hostname.
+  networking.hostName = "viper"; # Define your hostname.
   networking.domain = "home";
   networking.search = [ "home" ];
-  networking.hostId = "2f78bb0e";
-  networking.interfaces.enp9s0.ipv4.addresses = [{ address = "172.16.228.4"; prefixLength = 24; }];
-  networking.defaultGateway = "172.16.228.1";
-  networking.nameservers = [ "172.16.228.1" ];
+  networking.hostId = "2f78bb0f";
+  networking.networkmanager.enable = true;
+  networking.wireless.networks = {
+    "free" = { };
+  };
   networking.firewall.enable = false;
 
   # List packages installed in system profile. To search by name, run:
@@ -72,11 +75,9 @@
   environment.systemPackages = with pkgs; [
     ethtool
     lm_sensors
+    gnome-bluetooth
     #claws-mail
     # obs-studio
-    tdesktop # Not include full chat role, due size constraints
-    discord # Won't have closed-source crap on all machines
-    kdePackages.dolphin
   ];
 
   powerManagement.cpuFreqGovernor = "powersave"; # FIXME: changed form "ondemand"
@@ -92,6 +93,11 @@
   services.openssh.enable = true;
   services.openssh.settings.PasswordAuthentication = false;
   services.openssh.settings.PermitRootLogin = "yes";
+
+  services.udev.extraRules = ''
+    # ACTION=="add", SUBSYSTEM=="net", DEVTYPE!="?*", ATTR{address}=="1c:bf:ce:bd:f1:dd", NAME="usbeth0"
+    ACTION=="add", SUBSYSTEM=="net", ATTR{address}=="1c:bf:ce:bd:f1:dd", NAME="usbeth0"
+  '';
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

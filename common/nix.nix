@@ -52,7 +52,4 @@ in
       options = "--max-freed 5G";
     };
   };
-  boot = {
-    readOnlyNixStore = true;
-  };
 }

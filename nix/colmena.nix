@@ -6,13 +6,14 @@
       bulldozer = ../hosts/bulldozer;
       froggy = ../hosts/froggy;
       starflyer = ../hosts/starflyer;
-      gintaras = ../hosts/gintaras;
+      viper = ../hosts/viper;
     };
     colmenaHive = inputs.colmena.lib.makeHive self.outputs.colmena;
     colmena = {
       meta = {
         nixpkgs = import inputs.nixpkgs {
           system = "x86_64-linux";
+          overlays = builtins.attrValues self.overlays; 
         };
         machinesFile = "/dev/null";
         specialArgs = {
@@ -45,9 +46,9 @@
         deployment.targetHost = "172.16.228.4";
         imports = [ self.nixos.starflyer ];
       };
-      gintaras = {
+      viper = {
         deployment.targetHost = "172.16.228.5";
-        imports = [ self.nixos.gintaras ];
+        imports = [ self.nixos.viper ];
       };
     };
   };

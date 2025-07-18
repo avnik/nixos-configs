@@ -27,8 +27,7 @@
     alock
     brewtarget
     firefox
-    gimp-with-plugins
-    # gimp
+    gimp3-with-plugins
     blender
     #krita
     rawtherapee

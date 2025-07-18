@@ -28,4 +28,10 @@
     sshUser = "root";
     sshOpts = [ "-t" "-v" ];
   };
+  viper = {
+    system = "x86_64-linux";
+    hostname = "172.16.228.5";
+    sshUser = "root";
+    sshOpts = [ "-t" "-v" ];
+  };
 }
