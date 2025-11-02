@@ -22,7 +22,7 @@
   services.speechd.enable = false;
 
   environment.systemPackages = with pkgs; [
-    anki
+    #anki
     aichat
     alock
     brewtarget

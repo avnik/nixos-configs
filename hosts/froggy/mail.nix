@@ -19,17 +19,17 @@ in
       rootAlias = "avn";
       postmasterAlias = "avn";
       origin = "avnik.info";
-      relayHost = "10.1.0.3";
       networks = [ "172.16.228.0/24" ];
-      extraConfig = ''
-        mailbox_command = ${maildropWrapper} -d ''${USER}
-        local_destination_concurrency_limit = 1
-        local_destination_recipient_limit = 1
-        soft_bounce = yes
-        smtpd_recipient_restrictions =
-          permit_mynetworks,
-          reject_unauth_destination
-      '';
+      settings = {
+        main = {
+          relayhost = ["10.1.0.3"];
+          mailbox_command = "${maildropWrapper} -d $USER";
+          local_destination_concurrency_limit = 1;
+          local_destination_recipient_limit = 1;
+          soft_bounce = "yes";
+          smtpd_recipient_restrictions = '' permit_mynetworks, reject_unauth_destination '';
+        };
+      };
       extraAliases = ''
         awm: avn
         alexawm: avn

@@ -22,13 +22,14 @@ in
     172.16.228.7 raptor raptor.home
     172.16.228.10 printer printer.home
     172.16.228.5 viper viper.home
+    172.16.228.6 carbon carbon.home
   '';
   networking.firewall = {
     enable = true;
     trustedInterfaces = [ "enp3s0" "wifi1" ];
     rejectPackets = true;
-    logRefusedPackets = false;
-    logRefusedConnections = false;
+    logRefusedPackets = true;
+    logRefusedConnections = true;
   };
   networking.nat = {
     enable = true;
@@ -57,7 +58,7 @@ in
     dns.allowFrom = [ "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "127.0.0.0/8" ];
     exportHosts = true;
     yaml-settings = {
-      recursor.export-etc-hosts-search-suffix = "home";
+      recursor.export_etc_hosts_search_suffix = "home";
     };
   };
   services.kea.dhcp4 = {
@@ -102,6 +103,11 @@ in
           {
             ip-address = "172.16.228.5";
             hw-address = "1c:bf:ce:bd:f1:dd";
+          }
+          # name = "carbon"
+          {
+            ip-address = "172.16.228.6";
+            hw-address = "00:e0:4d:78:97:ee";
           }
           {
             #           name = "boomer";

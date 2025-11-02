@@ -7,7 +7,7 @@
 , libGLU
 , zlib
 , openssl
-, libyamlcpp
+, yaml-cpp
 , boost
 , SDL
 , SDL_image
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
   inherit src;
 
   nativeBuildInputs = [ cmake pkg-config ];
-  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost libyamlcpp libGL libGLU openssl zlib ];
+  buildInputs = [ SDL SDL_gfx SDL_image SDL_mixer boost yaml-cpp libGL libGLU openssl zlib ];
 
   postInstall = ''
     mv $out/bin/openxcom $out/bin/openxcom-extended

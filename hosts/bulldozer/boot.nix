@@ -47,6 +47,7 @@ with lib;
       "cgroup_enable=memory"
       "swapaccount=1"
       "libata.force=noncq"
+      "pcie_aspm=off"
 
       # ZFS stuff
       "elevator=cfq" # noop works bad for me
@@ -56,7 +57,7 @@ with lib;
       #        "zfs.zfs_dbgmsg_enable=0"
       "l2arc_feed_again=0"
     ];
-    kernelPackages = pkgs.linuxPackages_6_15;
+    kernelPackages = pkgs.linuxPackages_6_16;
     zfs.package = pkgs.zfs_2_3;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;

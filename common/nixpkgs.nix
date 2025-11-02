@@ -12,6 +12,7 @@
     packageOverrides = pkgs: rec { };
     #     allowInsecurePredicate = pkg: (pkg.pname == "qtwebkit" || pkg.name == "python-2.7.18.6");
     permittedInsecurePackages = [
+      "olm-3.2.16" # For neochat
     ];
   };
 }

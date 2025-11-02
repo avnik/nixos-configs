@@ -76,17 +76,16 @@
     # obs-studio
     tdesktop # Not include full chat role, due size constraints
     discord # Won't have closed-source crap on all machines
-    kdePackages.dolphin
   ];
 
   powerManagement.cpuFreqGovernor = "powersave"; # FIXME: changed form "ondemand"
 
   # List services that you want to enable:
   services.dbus.implementation = "broker";
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleSuspendKey=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleSuspendKey = "ignore";
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

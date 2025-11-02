@@ -4,8 +4,6 @@
   description = "avnik's NixOS config";
 
   inputs = {
-    blank.url = "github:divnix/blank";
-
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -16,9 +14,11 @@
       inputs = {
         flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
-        stable.follows = "blank";
+        stable.follows = "";
+        nix-github-actions.follows = ""; # Unneeded, and pull own nixpkgs revision
       };
     };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs = {
@@ -63,9 +63,16 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # I use SOPS in my own personal projects and some customers'
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    # I didn't use agenix myself, but some my customers are, and I need actual cli
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
     };
 
     rust-overlay = {
@@ -108,6 +115,14 @@
         flake-parts.follows = "flake-parts";
       };
     };
+    nix-update = {
+      url = "github:Mic92/nix-update";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        treefmt-nix.follows = "treefmt-nix";
+      };
+    };
     crane.url = "github:ipetkov/crane";
 
     OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
@@ -133,13 +148,13 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-utils.follows = "flake-utils";
-        pre-commit-hooks.follows = "blank";
+        pre-commit-hooks.follows = "";
       };
     };
 
     ### EMACS, DOOM EMACS
-    doom-emacs.url = "github:doomemacs/doomemacs/master";
-    doom-emacs.flake = false;
+    #doom-emacs.url = "github:doomemacs/doomemacs/f3b4314ddaf8f7253283f4bb001432fab8459f00";
+    #doom-emacs.flake = false;
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -154,6 +169,7 @@
       #inputs.emacs-overlay.follows = "emacs-overlay";
       #inputs.flake-utils.follows = "flake-utils";
       inputs.nixpkgs.follows = "nixpkgs";
+      #inputs.doomemacs.follows = "doom-emacs";
     };
 
     disko = {

@@ -13,6 +13,11 @@ let
     [url "git@github.com:ghc/packages-"]
         insteadOf = git@github.com:ghc/packages/
   '';
+  mergiraf = pkgs.writeText "mergiraf.cfg" ''
+    [merge "mergiraf"]
+      name = mergiraf
+      driver = ${pkgs.mergiraf}/bin/mergiraf merge --git %O %A %B -s %S -x %X -y %Y -p %P -l %L
+  '';
   credentialHelpers = pkgs.writeText "credentials.cfg" ''
     [credential "https://github.com"]
         helper =
@@ -21,14 +26,10 @@ let
         helper =
         helper = ${pkgs.gh}/bin/gh auth git-credential
   '';
-  additionalUsername' = pkgs.writeText "username.cfg" ''
+  additionalUsername = pkgs.writeText "username.cfg" ''
     [user]
         name = "Alexander Nikolaev"
-        email = "alexander.nikolaev@unikie.com"
-  '';
-  additionalUsername = pkgs.writeText "username.cfg" ''
-    [includeIf "hasconfig:remote.*.url:https://github.com/tiiuae/**"]
-      path = ${additionalUsername'}
+        email = "alexander.nikolaev@tii.ae"
   '';
 in
 {
@@ -51,7 +52,7 @@ in
       pack.threads = 16;
       pull.rebase = true;
       rebase.squash = true;
-      merge.conflictStyle = "zdiff3";
+      merge.conflictStyle = "diff3";
       sendemail = {
         confirm = "never";
         assume8bitEncoding = "utf-8";
@@ -61,10 +62,16 @@ in
       format.numbered = true;
       sequence.editor = "${pkgs.git-interactive-rebase-tool}/bin/interactive-rebase-tool";
     };
+    attributes = [
+      "* merge=mergiraf"
+    ];
+
     includes = [
       { path = insteadOf; }
+      { path = mergiraf; }
       { path = credentialHelpers; }
-      { path = additionalUsername; }
+      { path = additionalUsername; condition = "hasconfig:remote.*.url:https://github.com/tiiuae/**"; }
+      { path = additionalUsername; condition = "hasconfig:remote.*.url:git@github.com:tiiuae/**"; }
     ];
   };
 }

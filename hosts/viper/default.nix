@@ -84,10 +84,10 @@
 
   # List services that you want to enable:
   services.dbus.implementation = "broker";
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore
-    HandleSuspendKey=ignore
-  '';
+  services.logind.settings.Login = {
+    HandlePowerKey = "ignore";
+    HandleSuspendKey = "ignore";
+  };
 
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;

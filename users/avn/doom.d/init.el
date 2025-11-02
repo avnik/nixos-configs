@@ -158,7 +158,7 @@
         +habit           ; Keep track of your habits
         +pandoc
         +pomodoro
-        +present         ; Emacs for presentations
+        ;;+present         ; Emacs for presentations
         +protocol)       ; Support for org-protocol:// links
        ;;perl              ; write code no one else can comprehend
        ;;php               ; perl's insecure younger brother

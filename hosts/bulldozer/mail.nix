@@ -49,23 +49,23 @@ in
     postfix = {
       enable = true;
       hostname = "bulldozer";
-      domain = "avnik.info";
       destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
       rootAlias = "avn";
       postmasterAlias = "avn";
-      origin = "avnik.info";
-      relayHost = "172.16.228.1";
       networks = [ "172.16.228.0/24" ];
-      extraConfig = ''
-        mailbox_size_limit = 512000000
-        local_destination_concurrency_limit = 1
-        local_destination_recipient_limit = 1
-        soft_bounce = yes
-        forward_path =
-          /etc/users/$user/forward
-          /home/$user/.forward
-        milter_default_action = accept  
-      '';
+      settings = {
+        main ={
+          relayhost = ["172.16.228.1:25"];
+          mydomain = "avnik.info";
+          myorigin = "avnik.info";
+          mailbox_size_limit = 512000000;
+          local_destination_concurrency_limit = 1;
+          local_destination_recipient_limit = 1;
+          soft_bounce = "yes";
+          forward_path = ''/etc/users/$user/forward /home/$user/.forward'';
+          milter_default_action = "accept";
+        };
+      };
       extraAliases = ''
         awm: avn
         alexawm: avn

@@ -62,6 +62,7 @@ in
       fsType = "ext4";
       options = [ "nofail" ];
     };
+    "/nix/var/nix/builds" = bindMount "/var/buildroot";
   };
   swapDevices = [
     { device = "/dev/bulldozer-secondary/swap"; priority = 1; }

@@ -136,10 +136,10 @@ with lib;
   set-profile.enable = true;
   services = {
     dbus.implementation = "broker";
-    logind.extraConfig = ''
-      HandlePowerKey=ignore
-      HandleSuspendKey=ignore
-    '';
+    logind.settings.Login = {
+      HandlePowerKey = "ignore";
+      HandleSuspendKey = "ignore";
+    };
 
     #  nix-serve = {
     #    enable = true;
@@ -185,7 +185,7 @@ with lib;
       renameutils
       man-pages
       man-pages-posix
-      python3Full
+      python3
       gopass
       docker-compose
       binutils-stuff
@@ -204,6 +204,7 @@ with lib;
       socat
       distrobox
       openconnect
+      inputs.agenix.packages.${pkgs.stdenv.system}.agenix
     ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
       git-absorb

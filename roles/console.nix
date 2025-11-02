@@ -9,7 +9,7 @@
     pandoc
     screen
     tmux
-    python3Full
+    python3
     rsync
     psmisc # for killall
     sysstat # for iostat
