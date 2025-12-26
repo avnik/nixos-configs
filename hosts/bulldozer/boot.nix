@@ -57,11 +57,11 @@ with lib;
       #        "zfs.zfs_dbgmsg_enable=0"
       "l2arc_feed_again=0"
     ];
-    kernelPackages = pkgs.linuxPackages_6_16;
-    zfs.package = pkgs.zfs_2_3;
+    kernelPackages = pkgs.linuxPackages_6_18;
+    zfs.package = pkgs.zfs_2_4;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "r8169" ];
+    kernelModules = [ "r8169" "ntsync" ];
   };
   fileSystems = {
     "/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };

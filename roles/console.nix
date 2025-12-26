@@ -28,7 +28,7 @@
     p7zip
     xorriso
     libxslt.bin # for xsltproc
-    gitAndTools.gitFull
+    gitFull
     whois # for whois
     fd # for super-fast `find`
     sd # better sed

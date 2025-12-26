@@ -205,7 +205,6 @@ with lib;
       distrobox
       openconnect
       inputs.agenix.packages.${pkgs.stdenv.system}.agenix
-    ] ++ (with pkgs.gitAndTools; [
       git-remote-gcrypt
       git-absorb
       git-gone
@@ -216,7 +215,7 @@ with lib;
       git-delete-merged-branches
       git-stack
       gh
-    ]);
+    ];
     sessionVariables =
       { };
 

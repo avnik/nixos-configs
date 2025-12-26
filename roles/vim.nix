@@ -5,7 +5,7 @@
 
   nixpkgs.overlays = [
     (self: super: {
-      configuredVim = super.vim_configurable.customize {
+      configuredVim = super.vim-full.customize {
         name = "vim";
         vimrcConfig.customRC = ''
           syntax on

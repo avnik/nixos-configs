@@ -4,7 +4,7 @@
 , autoreconfHook
 , pkg-config
 , libmp3splt
-, wrapGAppsHook
+, wrapGAppsHook3
 , libaudclient
 , dbus-glib
 , gtk3
@@ -25,7 +25,7 @@ stdenv.mkDerivation rec {
   hardeningDisable = [ "format" ];
   CFLAGS = "-fcommon";
 
-  nativeBuildInputs = [ autoreconfHook pkg-config which wrapGAppsHook ];
+  nativeBuildInputs = [ autoreconfHook pkg-config which wrapGAppsHook3 ];
   buildInputs = [ libaudclient dbus-glib gtk3 libmp3splt ] ++
     (with gst_all_1; [ gstreamer.dev gst-plugins-base gst-plugins-good gst-plugins-bad gst-plugins-ugly ]);
 

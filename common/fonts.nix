@@ -26,14 +26,13 @@
       dejavu_fonts
       liberation_ttf
       terminus_font
-      ubuntu_font_family
+      ubuntu-classic
       inconsolata
       inconsolata-lgc
       go-font
       corefonts
-      vistafonts
+      vista-fonts
       noto-fonts
-      noto-fonts-extra
       droid-fonts
       powerline-fonts
       font-awesome

@@ -68,7 +68,7 @@
   environment.systemPackages = with pkgs; [
     # that host too small for fit full chats and gaming roles
     irssi
-    tdesktop
+    telegram-desktop
     openxcom-extended
     i3
   ];

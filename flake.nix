@@ -133,7 +133,7 @@
     stylix = {
       url = "github:danth/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
+      inputs.flake-parts.follows = "flake-parts";
     };
     catppuccin-base16 = {
       url = "github:catppuccin/base16";

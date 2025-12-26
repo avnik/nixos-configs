@@ -7,7 +7,7 @@ let
     export __GL_SYNC_TO_VBLANK=1
   '';
   stdenv = pkgs.stdenv;
-  glxinfo32 = pkgs.pkgsi686Linux.glxinfo;
+  glxinfo32 = pkgs.pkgsi686Linux.mesa-demos;
   wineWowStaging = pkgs.wineWow64Packages.full.override {
     wineRelease = "staging";
     #    gstreamerSupport = false;
@@ -18,12 +18,12 @@ let
   };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";
-    buildInputs = with pkgs; [ wineWowStaging winetricks mesa glxinfo cabextract ];
+    buildInputs = with pkgs; [ wineWowStaging winetricks mesa mesa-demos cabextract ];
     inherit extraCmds;
   };
   wineEnvStable = pkgs.myEnvFun {
     name = "wine-stable";
-    buildInputs = with pkgs; [ wineWowStable winetricks mesa glxinfo cabextract ];
+    buildInputs = with pkgs; [ wineWowStable winetricks mesa mesa-demos cabextract ];
     inherit extraCmds;
   };
 in

@@ -74,7 +74,7 @@
     lm_sensors
     #claws-mail
     # obs-studio
-    tdesktop # Not include full chat role, due size constraints
+    telegram-desktop # Not include full chat role, due size constraints
     discord # Won't have closed-source crap on all machines
   ];
 

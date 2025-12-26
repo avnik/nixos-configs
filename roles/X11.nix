@@ -23,7 +23,6 @@
     xorg.xkill
     xorg.xdpyinfo
     xorg.xdriinfo
-    glxinfo
     xorg.xev
     xorg.xgamma
     xorg.xmodmap
