@@ -48,13 +48,13 @@ in
     };
     postfix = {
       enable = true;
-      hostname = "bulldozer";
-      destination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
       rootAlias = "avn";
       postmasterAlias = "avn";
-      networks = [ "172.16.228.0/24" ];
       settings = {
         main ={
+          myhostname = "bulldozer";
+          mydestination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
+          mynetworks = [ "172.16.228.0/24" ];
           relayhost = ["172.16.228.1:25"];
           mydomain = "avnik.info";
           myorigin = "avnik.info";
@@ -116,7 +116,6 @@ in
     };
     systemPackages = with pkgs; [
       neomutt
-      procmail
       notmuch
       maildrop
     ];

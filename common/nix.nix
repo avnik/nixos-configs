@@ -1,18 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
 let
-  binaryCaches =
-    [
-      "http://cache.nixos.org/"
-      "https://cache.iog.io"
-    ];
-  binaryCachePublicKeys =
-    [
-      "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
-      "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
-    ];
+  binaryCaches = [
+    "https://cache.nixos.org/"
+    "https://cache.iog.io"
+  ];
+  binaryCachePublicKeys = [
+    "cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY="
+    "hydra.iohk.io:f/Ea+s+dFdN+3Y/G+FDgSq+a5NEWhJGzdjvKNGv0/EQ="
+  ];
 
 in
 {
@@ -35,8 +38,7 @@ in
       auto-optimise-store = true;
     };
     nrBuildUsers = 4;
-    extraOptions = ''
-    '';
+    extraOptions = "";
     daemonCPUSchedPolicy = "idle";
     daemonIOSchedClass = "idle";
     nixPath = [
@@ -44,8 +46,8 @@ in
       "nixos=/etc/nixpkgs/nixos"
       "nixos-config=/etc/nixos/configuration.nix"
     ];
-    buildLocation = "/var/buildroot";
-  } // lib.optionalAttrs (config.networking.hostName != "bulldozer") {
+  }
+  // lib.optionalAttrs (config.networking.hostName != "bulldozer") {
     gc = {
       automatic = true;
       dates = "05:30";

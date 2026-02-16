@@ -40,8 +40,6 @@
     mpv
     mpg123
     yt-dlp # Was: youtube-dl
-    mp3splt
-    mp3splt-gtk
     desktop-file-utils
     zathura ## for pdfs
     krop ## for pdfs

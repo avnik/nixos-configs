@@ -2,23 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common/common.nix
-      ../../users.nix
-      ./network.nix
-      ./mail.nix
-      ./openvpn.nix
-      ../../roles/console.nix
-      ./../../common/pipewire.nix
-      ../../roles/chats.nix
-      ../../modules/r8168.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../common/common.nix
+    ../../users.nix
+    ./network.nix
+    ./mail.nix
+    ./openvpn.nix
+    ../../secrets/froggy/secrets.nix
+    ../../roles/console.nix
+    ./../../common/pipewire.nix
+    ../../modules/r8168.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -42,7 +46,12 @@
     '';
     kernelPackages = pkgs.linuxPackages;
     #kernelPackages = pkgs.linuxPackages_latest;
-    kernelParams = [ "intel_idle.max_cstate=1" "processor.max_cstate=1" "idle=poll" "pcie_aspm=off" ];
+    kernelParams = [
+      "intel_idle.max_cstate=1"
+      "processor.max_cstate=1"
+      "idle=poll"
+      "pcie_aspm=off"
+    ];
   };
   services.udev.extraRules = ''
     # SUBSYSTEM=="net", ACTION=="add", DEVTYPE=="wlan", ATTR{address}=="00:C0:CA:81:F3:AD", NAME="wifi1"
@@ -52,7 +61,6 @@
   hardware.custom.r8168.enable = false;
 
   fileSystems = { };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
@@ -64,6 +72,8 @@
     vim
     ethtool
     lm_sensors
+    gnupg
+    inputs.sops-nix.packages.${pkgs.stdenv.hostPlatform.system}.ssh-to-pgp
   ];
 
   # List services that you want to enable:
@@ -83,7 +93,7 @@
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
-  services.xserver.displayManager.defaultSession = "xfce";
+  services.displayManager.defaultSession = "xfce";
   services.system-config-printer.enable = false;
 
   # The NixOS release to be compatible with for stateful data such as databases.

@@ -1,7 +1,13 @@
-{ lib, pkgs, config, inputs, ... }:
-{ ... }:
+{
+  lib,
+  pkgs,
+  inputs,
+  nixosConfig,
+  ...
+}:
 
 let
+  hostName = nixosConfig.networking.hostName;
   sessionVariables = {
     ###### Packaging (legacy) ##########
     DEBEMAIL = "avn@daemon.hole.ru";
@@ -26,12 +32,12 @@ in
     ../common/xkb.nix
     ./x11.nix
     ./direnv.nix
-    ./emacs.nix
     ./sway.nix
     ./i3status.nix
     ./gpg.nix
     ./git.nix
-  ];
+  ]
+  ++ lib.optionals (hostName == "bulldozer") [ ./emacs.nix ];
 
   catppuccin.flavor = "mocha";
 
@@ -51,7 +57,16 @@ in
   ];
   programs.powerline-go = {
     enable = true;
-    modules = [ "host" "ssh" "cwd" "gitlite" "jobs" "exit" "direnv" "nix-shell" ];
+    modules = [
+      "host"
+      "ssh"
+      "cwd"
+      "gitlite"
+      "jobs"
+      "exit"
+      "direnv"
+      "nix-shell"
+    ];
     settings = {
       numeric-exit-codes = true;
       condensed = true;
@@ -61,10 +76,17 @@ in
 
   programs.zsh = {
     enable = true;
-    cdpath = [ "/home/avn" "/home/avn/work" ];
+    dotDir = "/home/avn";
+    cdpath = [
+      "/home/avn"
+      "/home/avn/work"
+    ];
     history = {
       path = "$HOME/.zsh_history";
-      ignorePatterns = [ "rm *" "pkill *" ];
+      ignorePatterns = [
+        "rm *"
+        "pkill *"
+      ];
     };
     syntaxHighlighting.enable = true;
     sessionVariables = sessionVariables // { };

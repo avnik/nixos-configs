@@ -1,4 +1,10 @@
-{ config, pkgs, inputs, system, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 {
   programs = {
     nh = {
@@ -15,7 +21,7 @@
     nix-prefetch-scripts
     nix-prefetch
     nixpkgs-fmt
-    nixfmt-rfc-style
+    nixfmt
     nixpkgs-review
     inputs.poetry2nix.packages.${system}.poetry2nix
     inputs.nix-fast-build.packages.${system}.nix-fast-build

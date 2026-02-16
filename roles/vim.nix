@@ -35,28 +35,21 @@
           vnoremap <silent> * :call VisualSelection('f')<CR>
           vnoremap <silent> # :call VisualSelection('b')<CR>
         '';
-        vimrcConfig.vam.knownPlugins = pkgs.vimPlugins;
-        vimrcConfig.vam.pluginDictionaries = [
-          { name = "vim-addon-nix"; }
-          {
-            names = [
-              #"airline"
-              "ctrlp"
-              "easy-align"
-              #                    "ghcmod"
-              "haskell-vim"
-              "quickfixstatus"
-              "rainbow_parentheses"
-              "syntastic"
-              "vim-autoformat"
-              "vim-go"
-              #                    "vim-stylish-haskell"
-              "vim-signify"
-              #"vim-xkbswitch"
-              "undotree"
-            ];
-          }
-        ];
+        vimrcConfig.packages.default = with pkgs.vimPlugins; {
+          start = [
+            vim-addon-nix
+            ctrlp-vim
+            vim-easy-align
+            haskell-vim
+            quickfixstatus
+            rainbow_parentheses-vim
+            syntastic
+            vim-autoformat
+            vim-go
+            vim-signify
+            undotree
+          ];
+        };
       };
       configuredVi = super.runCommand "configured-vi" { } ''
         #!${super.stdenv.shell}

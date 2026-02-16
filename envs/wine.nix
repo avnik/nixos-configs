@@ -1,4 +1,9 @@
-{ lib, config, pkgs, ... }:
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   extraCmds = ''
@@ -12,21 +17,36 @@ let
     wineRelease = "staging";
     #    gstreamerSupport = false;
   };
-  wineWowStable = pkgs.wineWowPackages.full.override {
+  wineWowStable = pkgs.wineWow64Packages.full.override {
     #    wineRelease = "stable";
     #    gstreamerSupport = false;
   };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";
-    buildInputs = with pkgs; [ wineWowStaging winetricks mesa mesa-demos cabextract ];
+    buildInputs = with pkgs; [
+      wineWowStaging
+      winetricks
+      mesa
+      mesa-demos
+      cabextract
+    ];
     inherit extraCmds;
   };
   wineEnvStable = pkgs.myEnvFun {
     name = "wine-stable";
-    buildInputs = with pkgs; [ wineWowStable winetricks mesa mesa-demos cabextract ];
+    buildInputs = with pkgs; [
+      wineWowStable
+      winetricks
+      mesa
+      mesa-demos
+      cabextract
+    ];
     inherit extraCmds;
   };
 in
 {
-  environment.systemPackages = [ wineEnv wineEnvStable ];
+  environment.systemPackages = [
+    wineEnv
+    wineEnvStable
+  ];
 }

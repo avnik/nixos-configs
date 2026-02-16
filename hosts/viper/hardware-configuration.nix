@@ -29,7 +29,7 @@
         Group = "root";
       };
       script = ''
-        echo 150 >/sys/class/backlight/amdgpu_bl1/brightness
+        echo 170 >/sys/class/backlight/amdgpu_bl1/brightness
       '';
   };
 }

@@ -2,56 +2,61 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, inputs, pkgs, lib, ... }:
+{
+  config,
+  inputs,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 /*
-  let 
+  let
   mesa_version = "21.1.3";
   mesa_src = pkgs.fetchurl {
   url = "https://mesa.freedesktop.org/archive/mesa-${mesa_version}.tar.xz";
   sha256 = "0s8yi7y63xsyqw19ihil18fykkjxr6ibcir2fvymz1vh4ql23qnb";
-  };  
+  };
   mesa_21_1 = pkgs.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
   mesa_21_1_32 = pkgs.pkgsi686Linux.mesa.overrideAttrs (a: { src = mesa_src; version = mesa_version; patches = sublist 1 2 a.patches; });
   in
 */
 {
-  imports =
-    [
-      # Private part of config, which I won't expose
-      inputs.private.nixosModules.bulldozer
+  imports = [
+    # Private part of config, which I won't expose
+    inputs.private.nixosModules.bulldozer
 
-      # Theming
-      ../../common/style.nix
+    # Theming
+    ../../common/style.nix
 
-      ../../common/common.nix
-      ../../common/pipewire.nix
-      ../../roles/camera.nix
-      ../../roles/chats.nix
-      ../../roles/X11.nix
-      ../../roles/desktop.nix
-      ../../roles/console.nix
-      ../../roles/gaming.nix
-      ../../roles/steam.nix
-      #      ../../roles/texlive.nix
-      ../../roles/nixpkgs-maintainer.nix
-      ../../roles/wayland.nix
-      ../../roles/greetd.nix
-      ../../roles/printing.nix
-      ../../users.nix
-      ../../envs/wine.nix
-      ./boot.nix
-      ./fs.nix
-      ./mail.nix
-      ./openvpn.nix
-      ./samba.nix
-      ./portal.nix
-      ./set-profile.nix
-      ./wireguard.nix
+    ../../common/common.nix
+    ../../common/pipewire.nix
+    ../../roles/camera.nix
+    ../../roles/chats.nix
+    ../../roles/X11.nix
+    ../../roles/desktop.nix
+    ../../roles/console.nix
+    ../../roles/gaming.nix
+    ../../roles/steam.nix
+    #      ../../roles/texlive.nix
+    ../../roles/nixpkgs-maintainer.nix
+    ../../roles/wayland.nix
+    ../../roles/greetd.nix
+    ../../roles/printing.nix
+    ../../users.nix
+    ../../envs/wine.nix
+    ./boot.nix
+    ./fs.nix
+    ./mail.nix
+    ./openvpn.nix
+    ./samba.nix
+    ./portal.nix
+    ./set-profile.nix
+    ./wireguard.nix
 
-      ../../secrets/bulldozer/secrets.nix
-    ];
+    ../../secrets/bulldozer/secrets.nix
+  ];
 
   /*
     nix.buildMachines = [{
@@ -61,16 +66,22 @@ with lib;
 
   nix = {
     distributedBuilds = true;
-    buildMachines = [{
-      hostName = "starflyer";
-      system = "aarch64-linux"; # emulated!
-      protocol = "ssh-ng";
-      maxJobs = 1;
-      speedFactor = 2;
-      supportedFeatures = [ "nixos-test" "benchmark" "kvm" ]; # No "big-parallel"
-      mandatoryFeatures = [ ];
-      sshUser = "root";
-    }];
+    buildMachines = [
+      {
+        hostName = "starflyer";
+        system = "aarch64-linux"; # emulated!
+        protocol = "ssh-ng";
+        maxJobs = 1;
+        speedFactor = 2;
+        supportedFeatures = [
+          "nixos-test"
+          "benchmark"
+          "kvm"
+        ]; # No "big-parallel"
+        mandatoryFeatures = [ ];
+        sshUser = "root";
+      }
+    ];
     # optional, useful when the builder has a faster internet connection than yours
     extraOptions = ''
       builders-use-substitutes = true
@@ -88,7 +99,12 @@ with lib;
   networking.domain = "home";
   networking.search = [ "home" ];
   networking.hostId = "2f78bb0d";
-  networking.interfaces.enp6s0.ipv4.addresses = [{ address = "172.16.228.3"; prefixLength = 24; }];
+  networking.interfaces.enp6s0.ipv4.addresses = [
+    {
+      address = "172.16.228.3";
+      prefixLength = 24;
+    }
+  ];
   networking.defaultGateway = "172.16.228.1";
   networking.nameservers = [ "172.16.228.1" ];
   networking.firewall.enable = false;
@@ -157,7 +173,6 @@ with lib;
       };
     };
 
-
     smartd.enable = true;
 
     nfs.server = {
@@ -180,7 +195,6 @@ with lib;
     systemPackages = with pkgs; [
       neovim
       rtorrent
-      tla
       imagemagick
       renameutils
       man-pages
@@ -204,7 +218,7 @@ with lib;
       socat
       distrobox
       openconnect
-      inputs.agenix.packages.${pkgs.stdenv.system}.agenix
+      inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.agenix
       git-remote-gcrypt
       git-absorb
       git-gone
@@ -215,10 +229,9 @@ with lib;
       git-delete-merged-branches
       git-stack
       gh
+      inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
     ];
-    sessionVariables =
-      { };
-
+    sessionVariables = { };
 
     etc = {
       #	  "hosts".source = ../../verbatim/hosts;

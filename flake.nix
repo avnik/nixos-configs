@@ -36,9 +36,7 @@
     roleplay = {
       url = "path:/home/avn/nixos/roleplay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.deploy.follows = "deploy-rs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.home-manager.follows = "home-manager";
     };
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -78,7 +76,6 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     nix-direnv = {
@@ -125,9 +122,22 @@
     };
     crane.url = "github:ipetkov/crane";
 
-    OXCE = { url = "github:MeridianOXC/OpenXcom/oxce-plus"; flake = false; };
-    gurk = { url = "github:boxdot/gurk-rs?rev=142064844a2151c8c5ac856936ed93e7bb11950c"; flake = false; };
-    telegram-desktop-patches = { url = "github:Layerex/telegram-desktop-patches"; flake = false; };
+    OXCE = {
+      url = "github:MeridianOXC/OpenXcom/oxce-plus";
+      flake = false;
+    };
+    gurk = {
+      url = "github:boxdot/gurk-rs";
+      flake = false;
+    };
+    telegram-desktop-patches = {
+      url = "github:Layerex/telegram-desktop-patches";
+      flake = false;
+    };
+    opencode = {
+      url = "github:anomalyco/opencode";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     ### Theming
     stylix = {
@@ -141,7 +151,6 @@
     };
     catppuccin-nix = {
       url = "github:catppuccin/nix";
-      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";
@@ -159,7 +168,6 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.nixpkgs-stable.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
     nix-doom-emacs = {
       #url = "github:nix-community/nix-doom-emacs/master";

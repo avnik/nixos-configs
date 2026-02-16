@@ -65,9 +65,6 @@
   networking.search = [ "home" ];
   networking.hostId = "2f78bb0f";
   networking.networkmanager.enable = true;
-  networking.wireless.networks = {
-    "free" = { };
-  };
   networking.firewall.enable = false;
 
   # List packages installed in system profile. To search by name, run:
@@ -76,8 +73,7 @@
     ethtool
     lm_sensors
     gnome-bluetooth
-    #claws-mail
-    # obs-studio
+    simplescreenrecorder
   ];
 
   powerManagement.cpuFreqGovernor = "powersave"; # FIXME: changed form "ondemand"

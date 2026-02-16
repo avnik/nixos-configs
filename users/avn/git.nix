@@ -35,14 +35,14 @@ in
 {
   programs.git = {
     enable = true;
-    userEmail = "avn@avnik.info";
-    userName = "Alexander V. Nikolaev";
     ignores = [ ".envrc" ".direnv" ".shell.nix" ".avn" "*~" ".#*" "#*#" ];
     signing = {
       signByDefault = true;
       key = "0xB8AF18ABCA6271D2";
     };
-    extraConfig = {
+    settings = {
+      user.email = "avn@avnik.info";
+      user.name = "Alexander V. Nikolaev";
       core.pager = "${pkgs.delta}/bin/delta";
       interactive.diffFilter = "${pkgs.delta}/bin/delta --color-only";
       delta = {

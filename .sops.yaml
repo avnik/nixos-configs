@@ -1,11 +1,16 @@
 keys:
   - &avn B0B8FA16CFB715FA0FA746B3B8AF18ABCA6271D2
-  - &bulldozer aad88f241a42255dff9d94c4ef7f0d01a36662bb 
+  - &bulldozer aad88f241a42255dff9d94c4ef7f0d01a36662bb
+  - &froggy 34a80325e5d552e948b41acd79d8973fffeef541
 
 creation_rules:
   - path_regex: ^secrets/bulldozer/wireguard/.+\.wg$
-  - key_groups:
-    - pgp:
-      - *avn
-      - *bulldozer
-  
+    key_groups:
+      - pgp:
+          - *avn
+          - *bulldozer
+  - path_regex: ^secrets/froggy/wifi\.yaml$
+    key_groups:
+      - pgp:
+          - *avn
+          - *froggy

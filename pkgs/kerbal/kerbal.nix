@@ -1,4 +1,8 @@
-{ pkgs, stdenv, lib }:
+{
+  pkgs,
+  stdenv,
+  lib,
+}:
 
 with pkgs;
 
@@ -8,12 +12,12 @@ let
     libglvnd
     libGL
     libGLU
-    mesa.drivers
+    mesa
     libpulseaudio
-    xorg.libX11
-    xorg.libXext
-    xorg.libXcursor
-    xorg.libXrandr
+    libx11
+    libxext
+    libxcursor
+    libxrandr
     gtk2
     pango
     atk

@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
@@ -7,27 +12,39 @@ let
     export PATH
     ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
   '';
-  myDomains = [ "avnik.info" "mareicheva.info" "daemon.hole.ru" "alexawm.com" ];
+  myDomains = [
+    "avnik.info"
+    "mareicheva.info"
+    "daemon.hole.ru"
+    "alexawm.com"
+  ];
 in
 {
   services = {
     postfix = {
       enable = true;
-      hostname = "froggy";
-      domain = "froggy.home";
-      relayDomains = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "alexawm.com" ];
       rootAlias = "avn";
       postmasterAlias = "avn";
-      origin = "avnik.info";
-      networks = [ "172.16.228.0/24" ];
       settings = {
         main = {
-          relayhost = ["10.1.0.3"];
+          myhostname = "froggy";
+          mydomain = "froggy.home";
+          myorigin = "avnik.info";
+          mynetworks = [ "172.16.228.0/24" ];
+          relay_domains = [
+            "bulldozer.avnik.info"
+            "bulldozer.home"
+            "daemon.hole.ru"
+            "avnik.info"
+            "mareicheva.info"
+            "alexawm.com"
+          ];
+          relayhost = [ "10.1.0.3" ];
           mailbox_command = "${maildropWrapper} -d $USER";
           local_destination_concurrency_limit = 1;
           local_destination_recipient_limit = 1;
           soft_bounce = "yes";
-          smtpd_recipient_restrictions = '' permit_mynetworks, reject_unauth_destination '';
+          smtpd_recipient_restrictions = "permit_mynetworks, reject_unauth_destination ";
         };
       };
       extraAliases = ''
