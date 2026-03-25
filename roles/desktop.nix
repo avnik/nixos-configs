@@ -34,7 +34,7 @@
     minder
     pavucontrol
     pwvucontrol
-    helvum
+    crosspipe
     qpwgraph
     qastools
     mpv

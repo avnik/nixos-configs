@@ -37,7 +37,7 @@ in
         find-prev = "Control+Up";
         find-next = "Control+Down";
       };
-      colors = {
+      colors-dark = {
         foreground = toFootColor colors.primary.foreground;
         background = toFootColor colors.primary.background;
       } // toFootColors "regular" colors.normal

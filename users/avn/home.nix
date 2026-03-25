@@ -9,9 +9,6 @@
 let
   hostName = nixosConfig.networking.hostName;
   sessionVariables = {
-    ###### Packaging (legacy) ##########
-    DEBEMAIL = "avn@daemon.hole.ru";
-    DEBFULLNAME = "Alexander V. Nikolaev";
     EMAIL = "Alexander V. Nikolaev <avn@avnik.info>";
 
     ###### locales ########
@@ -29,13 +26,16 @@ in
   imports = [
     inputs.nix-doom-emacs.hmModule
     inputs.catppuccin-nix.homeManagerModules.catppuccin
+    inputs.ghaf-playground.homeManagerModules.ghaf-playground
     ../common/xkb.nix
     ./x11.nix
     ./direnv.nix
+    ./opencode.nix
     ./sway.nix
     ./i3status.nix
     ./gpg.nix
     ./git.nix
+    inputs.private.homeModules.avn
   ]
   ++ lib.optionals (hostName == "bulldozer") [ ./emacs.nix ];
 
@@ -72,7 +72,15 @@ in
       condensed = true;
     };
   };
-  programs.yazi.enable = true;
+  programs.yazi = {
+    enable = true;
+    shellWrapperName = "yy";
+  };
+
+  programs.ssh.enableDefaultConfig = false;
+  programs.ssh.matchBlocks."*".extraOptions = {
+    SendEnv = "LANG LC_* TERM";
+  };
 
   programs.zsh = {
     enable = true;

@@ -138,6 +138,9 @@
       url = "github:anomalyco/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ghaf-playground = {
+      url = "github:avnik/ghaf-playground";
+    };
 
     ### Theming
     stylix = {

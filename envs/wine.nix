@@ -15,11 +15,8 @@ let
   glxinfo32 = pkgs.pkgsi686Linux.mesa-demos;
   wineWowStaging = pkgs.wineWow64Packages.full.override {
     wineRelease = "staging";
-    #    gstreamerSupport = false;
   };
   wineWowStable = pkgs.wineWow64Packages.full.override {
-    #    wineRelease = "stable";
-    #    gstreamerSupport = false;
   };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";

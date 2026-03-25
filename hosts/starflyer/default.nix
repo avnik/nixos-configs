@@ -76,6 +76,7 @@
     # obs-studio
     telegram-desktop # Not include full chat role, due size constraints
     discord # Won't have closed-source crap on all machines
+    ayugram-desktop
   ];
 
   powerManagement.cpuFreqGovernor = "powersave"; # FIXME: changed form "ondemand"

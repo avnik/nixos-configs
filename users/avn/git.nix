@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  /* Following statements very hard to convert to ini style settings, include them bare */
+  # Following statements very hard to convert to ini style settings, include them bare
   insteadOf = pkgs.writeText "instead-of.cfg" ''
     [url "git://github.com/ghc/packages-"]
         insteadOf = git://github.com/ghc/packages/
@@ -26,16 +26,23 @@ let
         helper =
         helper = ${pkgs.gh}/bin/gh auth git-credential
   '';
-  additionalUsername = pkgs.writeText "username.cfg" ''
-    [user]
-        name = "Alexander Nikolaev"
-        email = "alexander.nikolaev@tii.ae"
-  '';
 in
 {
+  imports = [
+    ./git-identity.nix
+  ];
+
   programs.git = {
     enable = true;
-    ignores = [ ".envrc" ".direnv" ".shell.nix" ".avn" "*~" ".#*" "#*#" ];
+    ignores = [
+      ".envrc"
+      ".direnv"
+      ".shell.nix"
+      ".avn"
+      "*~"
+      ".#*"
+      "#*#"
+    ];
     signing = {
       signByDefault = true;
       key = "0xB8AF18ABCA6271D2";
@@ -70,9 +77,6 @@ in
       { path = insteadOf; }
       { path = mergiraf; }
       { path = credentialHelpers; }
-      { path = additionalUsername; condition = "hasconfig:remote.*.url:https://github.com/tiiuae/**"; }
-      { path = additionalUsername; condition = "hasconfig:remote.*.url:git@github.com:tiiuae/**"; }
     ];
   };
 }
-

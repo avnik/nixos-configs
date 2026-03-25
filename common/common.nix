@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 {
   imports = [
     ./nix.nix
@@ -8,7 +13,10 @@
   ];
   boot.blacklistedKernelModules = [ "snd_pcsp" ];
   boot.tmp.useTmpfs = true;
-  boot.kernelParams = [ "mitigations=off" "boot.shell_on_fail" ];
+  boot.kernelParams = [
+    "mitigations=off"
+    "boot.shell_on_fail"
+  ];
   boot.loader.grub.memtest86.enable = true;
   boot.initrd.systemd.enable = true;
 
@@ -19,7 +27,7 @@
 
   documentation = {
     doc.enable = false;
-    man.generateCaches = true;
+    man.cache.enable = true;
   };
 
   # Select internationalisation properties.
@@ -47,6 +55,8 @@
   programs.ssh = {
     startAgent = true;
   };
+
+  services.gnome.gcr-ssh-agent.enable = false;
 
   programs.zsh = {
     enable = true;
