@@ -42,6 +42,6 @@
     yt-dlp # Was: youtube-dl
     desktop-file-utils
     zathura ## for pdfs
-    krop ## for pdfs
+    # krop ## for pdfs
   ];
 }

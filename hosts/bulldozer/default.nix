@@ -133,6 +133,12 @@ with lib;
     #cpu.amd.updateMicrocode = true;
     cpu.intel.updateMicrocode = true;
   };
+
+  security.pki.certificateFiles = [
+    ../../verbatim/ssl/ms-edge-root.pem
+    ../../verbatim/ssl/ms-edge-intermediate.pem
+  ];
+
   #systemd.services.pulseaudio.restartIfChanged = false;
 
   # List services that you want to enable:
@@ -163,6 +169,18 @@ with lib;
     #  };
 
     avahi.enable = true;
+    _3proxy = {
+      enable = true;
+      services = [
+        {
+          type = "proxy";
+          bindAddress = "127.0.0.1";
+          bindPort = 3128;
+          auth = [ "none" ];
+          maxConnections = 256;
+        }
+      ];
+    };
     nginx = {
       enable = true;
       logError = "/var/log/nginx/error.log info";
@@ -193,6 +211,7 @@ with lib;
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
+      openssl
       neovim
       rtorrent
       imagemagick

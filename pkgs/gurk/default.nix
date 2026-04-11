@@ -1,4 +1,4 @@
-{ crane, src, protobuf, perl }:
+{ crane, src, pkg-config, protobuf, openssl, writableTmpDirAsHomeHook }:
 
 let
   # Common arguments can be set here to avoid repeating them later
@@ -8,9 +8,16 @@ let
 
     strictDeps = true;
 
-    nativeBuildInputs = [ protobuf perl ];
+    nativeBuildInputs = [ protobuf pkg-config writableTmpDirAsHomeHook ];
     buildInputs = [
+      openssl
     ];
+    # Use system OpenSSL instead of vendoring it.
+    # libsqlite3-sys still bundles SQLCipher with its own OpenSSL via
+    # the bundled-sqlcipher-vendored-openssl cargo feature.
+    OPENSSL_NO_VENDOR = "1";
+    PROTOC = "${protobuf}/bin/protoc";
+
     # Fix following error
     #  > error: failed to parse manifest at `/build/source/Cargo.toml`
     #  >
