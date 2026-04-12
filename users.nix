@@ -4,7 +4,17 @@
   users.users.avn = {
     isNormalUser = true;
     uid = 1000;
-    extraGroups = [ "audio" "docker" "pulse" "video" "render" "wheel" "vboxusers" ];
+    extraGroups = [
+      "audio"
+      "docker"
+      "pulse"
+      "video"
+      "render"
+      "wheel"
+      "vboxusers"
+      "systemd-journal"
+      "adm"
+    ];
     shell = "/run/current-system/sw/bin/zsh";
   };
   users.extraUsers.olga = {
@@ -16,6 +26,11 @@
     isNormalUser = true;
     uid = 1002;
     shell = "/run/current-system/sw/bin/zsh";
-    extraGroups = [ "docker" "pulse" "video" "render" ];
+    extraGroups = [
+      "docker"
+      "pulse"
+      "video"
+      "render"
+    ];
   };
 }

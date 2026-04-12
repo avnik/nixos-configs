@@ -46,6 +46,7 @@ in
     signing = {
       signByDefault = true;
       key = "0xB8AF18ABCA6271D2";
+      format = "openpgp";
     };
     settings = {
       user.email = "avn@avnik.info";

@@ -17,6 +17,7 @@
     "mitigations=off"
     "boot.shell_on_fail"
   ];
+  boot.kernel.sysctl."kernel.dmesg_restrict" = 0;
   boot.loader.grub.memtest86.enable = true;
   boot.initrd.systemd.enable = true;
 

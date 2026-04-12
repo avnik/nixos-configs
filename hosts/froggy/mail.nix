@@ -8,7 +8,7 @@
 let
   maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
     #!${pkgs.bash}/bin/sh -e
-    PATH="${pkgs.maildrop}/bin:${pkgs.lockfileProgs}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
+    PATH="${pkgs.maildrop}/bin:${pkgs.lockfile-progs}/bin:${pkgs.notmuch}/bin:${pkgs.coreutils}/bin:/bin:/usr/bin"
     export PATH
     ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
   '';

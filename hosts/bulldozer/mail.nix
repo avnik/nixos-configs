@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 let
   maildropWrapper = pkgs.writeScript "maildrop-wrapper" ''
@@ -8,9 +13,6 @@ let
     ${pkgs.maildrop}/bin/maildrop "$@" || exit 75
   '';
   rspamdLocalConfig = ''
-        classifier "bayes" {
-          autolearn = true;
-        }
     #    dkim_signing {
     #      path = "/var/lib/rspamd/dkim/$domain.$selector.key";
     #      selector = "default";
@@ -51,18 +53,27 @@ in
       rootAlias = "avn";
       postmasterAlias = "avn";
       settings = {
-        main ={
+        main = {
           myhostname = "bulldozer";
-          mydestination = [ "bulldozer.avnik.info" "bulldozer.home" "daemon.hole.ru" "avnik.info" "mareicheva.info" "master" "bulldozer" "alexawm.com" ];
+          mydestination = [
+            "bulldozer.avnik.info"
+            "bulldozer.home"
+            "daemon.hole.ru"
+            "avnik.info"
+            "mareicheva.info"
+            "master"
+            "bulldozer"
+            "alexawm.com"
+          ];
           mynetworks = [ "172.16.228.0/24" ];
-          relayhost = ["172.16.228.1:25"];
+          relayhost = [ "172.16.228.1:25" ];
           mydomain = "avnik.info";
           myorigin = "avnik.info";
           mailbox_size_limit = 512000000;
           local_destination_concurrency_limit = 1;
           local_destination_recipient_limit = 1;
           soft_bounce = "yes";
-          forward_path = ''/etc/users/$user/forward /home/$user/.forward'';
+          forward_path = "/etc/users/$user/forward /home/$user/.forward";
           milter_default_action = "accept";
         };
       };

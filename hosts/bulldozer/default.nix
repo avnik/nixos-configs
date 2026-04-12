@@ -48,6 +48,7 @@ with lib;
     ../../envs/wine.nix
     ./boot.nix
     ./fs.nix
+    ./zrepl.nix
     ./mail.nix
     ./openvpn.nix
     ./samba.nix
