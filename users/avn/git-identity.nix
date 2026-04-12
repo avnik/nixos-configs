@@ -105,7 +105,7 @@ in
         }
       ];
 
-      home.activation.gitIdentityChecks = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+      home.activation.gitIdentityChecks = lib.hm.dag.entryAfter [ "linkGeneration" ] ''
         echo "Running git identity checks..."
         ${mkCheck "baseRepo" cfg.baseRepo defaultEmail}
         ${additionalChecks}

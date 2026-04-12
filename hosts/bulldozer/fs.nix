@@ -15,7 +15,7 @@ in
   };
   fileSystems = {
     "/" = {
-      device = "tank/zroot";
+      device = "nvme/newroot";
       fsType = "zfs";
       options = [ "noatime" "nodiratime" ];
     };

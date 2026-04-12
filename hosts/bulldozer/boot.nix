@@ -64,7 +64,7 @@ with lib;
     kernelModules = [ "r8169" "ntsync" ];
   };
   fileSystems = {
-    "/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
+    "/efi" = { device = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B7382A52254_1-part1"; fsType = "vfat"; };
     #    "/boot/sdb/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
     #    "/boot/sda/efi" = { device = "/dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J2ZPD560-part1"; fsType = "vfat"; };
   };

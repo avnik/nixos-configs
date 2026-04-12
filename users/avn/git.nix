@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   # Following statements very hard to convert to ini style settings, include them bare
   insteadOf = pkgs.writeText "instead-of.cfg" ''
