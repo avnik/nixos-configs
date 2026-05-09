@@ -2,10 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
-let bindMount = from: { options = [ "bind" ]; fsType = "none"; device = from; };
+let
+  bindMount = from: {
+    options = [ "bind" ];
+    fsType = "none";
+    device = from;
+  };
 in
 {
   boot = {
@@ -17,12 +27,18 @@ in
     "/" = {
       device = "nvme/newroot";
       fsType = "zfs";
-      options = [ "noatime" "nodiratime" ];
+      options = [
+        "noatime"
+        "nodiratime"
+      ];
     };
     "/home" = {
       device = "tank/home";
       fsType = "zfs";
-      options = [ "noatime" "nodiratime" ];
+      options = [
+        "noatime"
+        "nodiratime"
+      ];
     };
     "/var/lib/docker" = {
       device = "tank/docker";
@@ -47,7 +63,12 @@ in
     "/var/buildroot" = {
       device = "none";
       fsType = "tmpfs";
-      options = [ "nosuid" "nodev" "noatime" "nodiratime" ];
+      options = [
+        "nosuid"
+        "nodev"
+        "noatime"
+        "nodiratime"
+      ];
     };
     #    "/var/buildroot" = {
     #      device = "tank/buildroot";
@@ -65,7 +86,13 @@ in
     "/nix/var/nix/builds" = bindMount "/var/buildroot";
   };
   swapDevices = [
-    { device = "/dev/bulldozer-secondary/swap"; priority = 1; }
-    { device = "/dev/disk/by-id/ata-Intenso_SSD_3813430-532012041-part1"; priority = 100; }
+    {
+      device = "/dev/bulldozer-secondary/swap";
+      priority = 1;
+    }
+    {
+      device = "/dev/disk/by-id/ata-Intenso_SSD_3813430-532012041-part1";
+      priority = 100;
+    }
   ];
 }

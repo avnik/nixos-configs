@@ -1,17 +1,24 @@
-{ lib, pkgs, config, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  ...
+}:
 with lib;
 
 let
   cfg = config.set-profile;
-  script = with pkgs; replaceVarsWith {
-    src = ./set-profile.py;
-    dir = "bin";
-    isExecutable = true;
-    replacements = {
-      python = python3;
-      inherit nix;
+  script =
+    with pkgs;
+    replaceVarsWith {
+      src = ./set-profile.py;
+      dir = "bin";
+      isExecutable = true;
+      replacements = {
+        python = python3;
+        inherit nix;
+      };
     };
-  };
 in
 {
   options.set-profile = {

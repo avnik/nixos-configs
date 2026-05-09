@@ -1,4 +1,8 @@
-{ pkgs, lib, stdenv }:
+{
+  pkgs,
+  lib,
+  stdenv,
+}:
 
 with pkgs;
 
@@ -25,19 +29,19 @@ let
 in
 
 #(buildDotnetPackage.override { mono=mono58; })  rec {
-  #  baseName = "kerbal-mod-admin-${version}";
-  #  version = "2.3.0.7";
-  #  src = fetchzip {
-  #    name = "kerbal-mod-admin-src-${version}";
-  #    url = "https://github.com/MacTee/KSP-Mod-Admin-aOS/archive/${version}.tar.gz";
-  #    sha256 = "0zwjs5c6g618vr7bp18w8lbrsdirb575p1pbxzn1kahgwvfnrqnk";
-  #  };
-  #  xBuildFiles = ["KSPModAdmin_mono.sln"];
-  #  buildInputs = [ HtmlAgilityPack dotnetPackages.NewtonsoftJson SharpCompress ];
-  #  FONTCONFIG_FILE = makeFontsConf {
-  #    fontDirectories = [ freefont_ttf ];
-  #  };
-  #}
+#  baseName = "kerbal-mod-admin-${version}";
+#  version = "2.3.0.7";
+#  src = fetchzip {
+#    name = "kerbal-mod-admin-src-${version}";
+#    url = "https://github.com/MacTee/KSP-Mod-Admin-aOS/archive/${version}.tar.gz";
+#    sha256 = "0zwjs5c6g618vr7bp18w8lbrsdirb575p1pbxzn1kahgwvfnrqnk";
+#  };
+#  xBuildFiles = ["KSPModAdmin_mono.sln"];
+#  buildInputs = [ HtmlAgilityPack dotnetPackages.NewtonsoftJson SharpCompress ];
+#  FONTCONFIG_FILE = makeFontsConf {
+#    fontDirectories = [ freefont_ttf ];
+#  };
+#}
 
 writeShellScriptBin "kerbal-mod-admin" ''
   export LD_LIBRARY_PATH=${libPath}

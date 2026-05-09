@@ -31,12 +31,15 @@ in
     ./x11.nix
     ./direnv.nix
     ./opencode.nix
-    ./sway.nix
     ./i3status.nix
     ./gpg.nix
     ./git.nix
     inputs.private.homeModules.avn
   ]
+  ++ lib.optionals (builtins.elem hostName [
+    "bulldozer"
+    "viper"
+  ]) [ ./sway.nix ]
   ++ lib.optionals (hostName == "bulldozer") [ ./emacs.nix ];
 
   catppuccin.flavor = "mocha";

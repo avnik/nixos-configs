@@ -5,23 +5,29 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      ./hardware-configuration.nix # Include the results of the hardware scan.
-      ../../users.nix
-      ../../common/common.nix
-      ../../common/pipewire.nix
-      ../../common/efi.nix
-      ../../roles/console.nix
-      ../../roles/chats.nix
-      ../../roles/desktop.nix
-      ../../roles/X11.nix
-      ../../roles/gaming.nix
-      ../../roles/printing.nix
-    ];
+  imports = [
+    ./hardware-configuration.nix # Include the results of the hardware scan.
+    ../../users.nix
+    ../../common/common.nix
+    ../../common/pipewire.nix
+    ../../common/efi.nix
+    ../../roles/console.nix
+    ../../roles/chats.nix
+    ../../roles/desktop.nix
+    ../../roles/X11.nix
+    ../../roles/gaming.nix
+    ../../roles/printing.nix
+  ];
 
   boot.initrd.luks = {
-    cryptoModules = [ "aes_generic" "xts" "ecb" "cbc" "sha256_generic" "sha512_generic" ];
+    cryptoModules = [
+      "aes_generic"
+      "xts"
+      "ecb"
+      "cbc"
+      "sha256_generic"
+      "sha512_generic"
+    ];
     devices = {
       cryptolvm = {
         name = "cryptolvm";
@@ -84,7 +90,6 @@
   # Enable the OpenSSH daemon.
   services.openssh.enable = true;
 
-
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
   # services.xserver.layout = "us";
@@ -94,5 +99,12 @@
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "15.09";
-  users.extraUsers.olga.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
+  users.extraUsers.olga.extraGroups = [
+    "audio"
+    "docker"
+    "video"
+    "render"
+    "wheel"
+    "pulse"
+  ];
 }

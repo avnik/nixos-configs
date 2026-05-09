@@ -45,4 +45,4 @@
     cyan = "0x66cccc";
     white = "0xdddddd";
   };
-}   
+}

@@ -47,6 +47,12 @@ in
     ];
     externalInterface = "enp2s0";
   };
+
+  systemd.services."network-addresses-enp3s0" = {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
+
   services.hostapd = {
     enable = true;
     #     package = pkgs.stable.hostapd;

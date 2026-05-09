@@ -1,5 +1,9 @@
-{ config, pkgs, inputs, ... }:
-
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   hardware = {
@@ -39,9 +43,10 @@
     qastools
     mpv
     mpg123
-    yt-dlp # Was: youtube-dl
+    # Was: youtube-dl
+    yt-dlp
     desktop-file-utils
-    zathura ## for pdfs
+    zathura # # for pdfs
     # krop ## for pdfs
   ];
 }

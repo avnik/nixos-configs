@@ -1,14 +1,17 @@
-{ inputs, ... }: {
+{ inputs, ... }:
+{
   imports = [
     inputs.devshell.flakeModule
   ];
 
   perSystem =
-    { pkgs
-    , config
-    , inputs'
-    , ...
-    }: {
+    {
+      pkgs,
+      config,
+      inputs',
+      ...
+    }:
+    {
       devshells.default = {
         devshell = {
           name = "nix-config";

@@ -1,4 +1,17 @@
-{ config, lib, pkgs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
+  swayPkg =
+    if config.programs.sway.enable && config.programs.sway.package != null then
+      config.programs.sway.package
+    else
+      pkgs.sway;
+in
+{
   environment.etc."greetd/environments".text = ''
     systemd-cat -t sway sway
     systemd-cat -t i3 startx ~/.xsession
@@ -11,8 +24,8 @@
     let
       #      theme = "${pkgs.ayu-theme-gtk}/share/themes/Ayu-Dark/gtk-3.0/gtk.css";
       greetdSwayCfg = pkgs.writeText "sway-config" ''
-        exec "${pkgs.gtkgreet}/bin/gtkgreet -l; ${pkgs.sway}/bin/swaymsg exit"
-        bindsym Mod4+shift+e exec ${pkgs.sway}/bin/swaynag \
+        exec "${pkgs.gtkgreet}/bin/gtkgreet -l; ${swayPkg}/bin/swaymsg exit"
+        bindsym Mod4+shift+e exec ${swayPkg}/bin/swaynag \
         -t warning \
         -m 'What do you want to do?' \
         -b 'Poweroff' 'systemctl poweroff' \
@@ -25,8 +38,15 @@
       enable = true;
       settings = {
         default_session = {
-          command = "${pkgs.sway}/bin/sway --config ${greetdSwayCfg}";
+          command = "${swayPkg}/bin/sway --config ${greetdSwayCfg}";
         };
       };
     };
+
+  # Keep active sessions alive during `nixos-rebuild switch`.
+  # greetd unit/config changes (e.g. sway package path updates) would otherwise restart greetd and drop the current session.
+  systemd.services.greetd = {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
 }

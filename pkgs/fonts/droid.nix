@@ -1,4 +1,8 @@
-{ lib, stdenv, fetchurl }:
+{
+  lib,
+  stdenv,
+  fetchurl,
+}:
 
 stdenv.mkDerivation rec {
   name = "font-droid-${version}";
@@ -36,7 +40,10 @@ stdenv.mkDerivation rec {
     })
   ];
 
-  phases = [ "unpackPhase" "installPhase" ];
+  phases = [
+    "unpackPhase"
+    "installPhase"
+  ];
 
   sourceRoot = "./";
 
@@ -56,7 +63,7 @@ stdenv.mkDerivation rec {
 
   meta = {
     description = "Droid Family fonts by Google Android";
-    homepage = https://github.com/google/fonts;
+    homepage = "https://github.com/google/fonts";
     license = lib.licenses.asl20;
     platforms = lib.platforms.all;
     maintainers = [ ];

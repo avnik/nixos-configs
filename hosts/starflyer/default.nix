@@ -5,22 +5,21 @@
 { config, pkgs, ... }:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common/common.nix
-      ../../common/pipewire.nix
-      ../../users.nix
-      ../../roles/console.nix
-      ../../roles/desktop.nix
-      ../../roles/gaming.nix
-      ../../roles/steam.nix
-      ../../roles/printing.nix
-      ../../roles/X11.nix
-      ../../roles/earlyoom.nix
-      ../../envs/wine.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../common/common.nix
+    ../../common/pipewire.nix
+    ../../users.nix
+    ../../roles/console.nix
+    ../../roles/desktop.nix
+    ../../roles/gaming.nix
+    ../../roles/steam.nix
+    ../../roles/printing.nix
+    ../../roles/X11.nix
+    ../../roles/earlyoom.nix
+    ../../envs/wine.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -54,7 +53,6 @@
     };
   };
 
-
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
 
@@ -62,10 +60,20 @@
   networking.domain = "home";
   networking.search = [ "home" ];
   networking.hostId = "2f78bb0e";
-  networking.interfaces.enp9s0.ipv4.addresses = [{ address = "172.16.228.4"; prefixLength = 24; }];
+  networking.interfaces.enp9s0.ipv4.addresses = [
+    {
+      address = "172.16.228.4";
+      prefixLength = 24;
+    }
+  ];
   networking.defaultGateway = "172.16.228.1";
   networking.nameservers = [ "172.16.228.1" ];
   networking.firewall.enable = false;
+
+  systemd.services."network-addresses-enp9s0" = {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
@@ -100,14 +108,26 @@
   # networking.firewall.enable = false;
 
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" "radeon" "modesetting" "fbdev" ];
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "radeon"
+    "modesetting"
+    "fbdev"
+  ];
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
   services.displayManager.defaultSession = "xfce";
   services.displayManager.logToFile = true;
 
-  users.extraUsers.olga.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
+  users.extraUsers.olga.extraGroups = [
+    "audio"
+    "docker"
+    "video"
+    "render"
+    "wheel"
+    "pulse"
+  ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "21.09";

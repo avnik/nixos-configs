@@ -2,23 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
-  imports =
-    [
-      # Include the results of the hardware scan.
-      ../../users.nix
-      ../../common/common.nix
-      ../../roles/console.nix
-      ../../roles/desktop.nix
-      ../../roles/X11.nix
-      ../../common/pipewire.nix
-      ../../common/fonts.nix
-      ../../roles/chats.nix
-      ../../roles/gaming.nix
-      ../../roles/printing.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ../../users.nix
+    ../../common/common.nix
+    ../../roles/console.nix
+    ../../roles/desktop.nix
+    ../../roles/X11.nix
+    ../../common/pipewire.nix
+    ../../common/fonts.nix
+    ../../roles/chats.nix
+    ../../roles/gaming.nix
+    ../../roles/printing.nix
+  ];
 
   # Don't use the gummiboot efi boot loader.
   boot.loader.systemd-boot.enable = false;
@@ -36,14 +40,12 @@
   '';
 
   fileSystems = {
-    "/" =
-      {
-        device = "/dev/disk/by-label/NIXOS";
-        fsType = "ext4";
-      };
+    "/" = {
+      device = "/dev/disk/by-label/NIXOS";
+      fsType = "ext4";
+    };
   };
-  swapDevices =
-    [{ device = "/dev/disk/by-label/SWAP"; }];
+  swapDevices = [ { device = "/dev/disk/by-label/SWAP"; } ];
 
   i18n.defaultLocale = lib.mkForce "ru_RU.UTF-8";
   networking.hostName = "gintaras"; # Define your hostname.
@@ -54,7 +56,6 @@
   networking.wireless.networks = {
     "free" = { };
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
@@ -77,12 +78,26 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   services.xserver.displayManager.job.logToJournal = true;
-  services.xserver.videoDrivers = [ "intel" "amdgpu" "radeon" "nouveau" "modesetting" "fbdev" ];
+  services.xserver.videoDrivers = [
+    "intel"
+    "amdgpu"
+    "radeon"
+    "nouveau"
+    "modesetting"
+    "fbdev"
+  ];
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
 
-  users.extraUsers.kris.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
+  users.extraUsers.kris.extraGroups = [
+    "audio"
+    "docker"
+    "video"
+    "render"
+    "wheel"
+    "pulse"
+  ];
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "23.05";
 }

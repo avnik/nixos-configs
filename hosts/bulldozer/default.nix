@@ -117,6 +117,11 @@ with lib;
     172.16.228.4 starflyer
   '';
 
+  systemd.services."network-addresses-enp6s0" = {
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
+
   hardware = {
     bluetooth = {
       enable = true;
@@ -155,7 +160,6 @@ with lib;
     };
   };
 
-  programs.sway.enable = true;
   set-profile.enable = true;
   services = {
     dbus.implementation = "broker";
@@ -242,6 +246,7 @@ with lib;
       git-remote-gcrypt
       git-absorb
       git-gone
+      git-ls
       git-machete
       git-octopus
       git-recent
@@ -249,6 +254,9 @@ with lib;
       git-delete-merged-branches
       git-stack
       gh
+      gh-cherry-pick
+      aider-chat
+      (spotify-player.override { withAudioBackend = "pulseaudio"; })
       inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
     ];
     sessionVariables = { };

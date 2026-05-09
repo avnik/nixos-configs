@@ -5,7 +5,7 @@
     #    config.boot.kernelPackages.v4l2loopback
   ];
 
-  #  services.uvcvideo.dynctrl = { 
+  #  services.uvcvideo.dynctrl = {
   #    enable = true;
   #    packages = [ pkgs.tiscamera ];
   #  };

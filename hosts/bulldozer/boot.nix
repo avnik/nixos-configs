@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -14,30 +19,32 @@ with lib;
     };
     loader.systemd-boot.memtest86.enable = true;
     /*
-      loader.grub = {
-      enable = true;
-      efiSupport = true;
-      copyKernels = true; 
-      mirroredBoots = [
-        { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
-        { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
-      ];
-      memtest86.enable = true;
-    }; */
+        loader.grub = {
+        enable = true;
+        efiSupport = true;
+        copyKernels = true;
+        mirroredBoots = [
+          { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
+          { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
+        ];
+        memtest86.enable = true;
+      };
+    */
     loader.systemd-boot = {
       enable = true;
-      configurationLimit = 2;
+      configurationLimit = 20;
     };
     initrd = {
-      /*      includeDefaultModules = false;
-      availableKernelModules = [
-        "sd_mod"
-        "ahci"
-        "nvme"
-        "atkbd"
-        "hid-generic" "usbhid" "xhci_pci"
-        "zfs"
-      ];
+      /*
+        includeDefaultModules = false;
+        availableKernelModules = [
+          "sd_mod"
+          "ahci"
+          "nvme"
+          "atkbd"
+          "hid-generic" "usbhid" "xhci_pci"
+          "zfs"
+        ];
       */
     };
     kernelParams = [
@@ -58,13 +65,20 @@ with lib;
       "l2arc_feed_again=0"
     ];
     kernelPackages = pkgs.linuxPackages_6_18;
+    # kernelPackages = pkgs.linuxPackages_7_0;
     zfs.package = pkgs.zfs_2_4;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;
-    kernelModules = [ "r8169" "ntsync" ];
+    kernelModules = [
+      "r8169"
+      "ntsync"
+    ];
   };
   fileSystems = {
-    "/efi" = { device = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B7382A52254_1-part1"; fsType = "vfat"; };
+    "/efi" = {
+      device = "/dev/disk/by-id/nvme-KINGSTON_SKC3000S1024G_50026B7382A52254_1-part1";
+      fsType = "vfat";
+    };
     #    "/boot/sdb/efi" = { device = "/dev/disk/by-id/ata-WDC_WD40EFZX-68AWUN0_WD-WX32DB08YNA3-part1"; fsType = "vfat"; };
     #    "/boot/sda/efi" = { device = "/dev/disk/by-id/ata-WDC_WD10EFRX-68FYTN0_WD-WCC4J2ZPD560-part1"; fsType = "vfat"; };
   };

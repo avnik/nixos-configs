@@ -2,16 +2,26 @@
 
 let
   fetchFromDebianScm =
-    { repo
-    , rev
-    , name ? "${repo}-${rev}-src"
-    , ... # For hash agility
-    }@args: pkgs.fetchzip
-      ({
+    {
+      repo,
+      rev,
+      name ? "${repo}-${rev}-src",
+      ... # For hash agility
+    }@args:
+    pkgs.fetchzip (
+      {
         inherit name;
         url = "http://anonscm.debian.org/cgit/${repo}/${repo}.git/snapshot/${repo}-${rev}.tar.gz";
         meta.homepage = "http://git.savannah.gnu.org/cgit/${repo}/${repo}.git/";
-      } // removeAttrs args [ "repo" "rev" ]) // { inherit rev; };
+      }
+      // removeAttrs args [
+        "repo"
+        "rev"
+      ]
+    )
+    // {
+      inherit rev;
+    };
 
   debianPkgGlibc = fetchFromDebianScm {
     repo = "pkg-glibc";
@@ -62,4 +72,3 @@ in
 {
   #  i18n.glibcLocales = customLocales;
 }
-

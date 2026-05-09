@@ -2,30 +2,35 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [
-      inputs.private.nixosModules.initial-passwords
-      inputs.disko.nixosModules.disko
-      ./disko.nix
+  imports = [
+    inputs.private.nixosModules.initial-passwords
+    inputs.disko.nixosModules.disko
+    ./disko.nix
 
-      # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../common/common.nix
-      ../../common/pipewire.nix
-      ../../users.nix
-      ../../roles/console.nix
-      ../../roles/desktop.nix
-      ../../roles/gaming.nix
-      ../../roles/chats.nix
-      ../../roles/steam.nix
-      ../../roles/printing.nix
-      ../../roles/X11.nix
-      ../../roles/earlyoom.nix
-      ../../envs/wine.nix
-    ];
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../common/common.nix
+    ../../common/pipewire.nix
+    ../../users.nix
+    ../../roles/console.nix
+    ../../roles/desktop.nix
+    ../../roles/gaming.nix
+    ../../roles/chats.nix
+    ../../roles/steam.nix
+    ../../roles/wayland.nix
+    ../../roles/printing.nix
+    ../../roles/X11.nix
+    ../../roles/earlyoom.nix
+    ../../envs/wine.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
@@ -47,15 +52,24 @@
     "/mnt/media" = {
       device = "bulldozer:/mnt/media";
       fsType = "nfs";
-      options = [ "nofail" "x-systemd.automount" "x-systemd.requires=network-online.target" "x-systemd.device-timeout=10s"];
+      options = [
+        "nofail"
+        "x-systemd.automount"
+        "x-systemd.requires=network-online.target"
+        "x-systemd.device-timeout=10s"
+      ];
     };
     "/mnt/raid" = {
       device = "bulldozer:/mnt/raid";
       fsType = "nfs";
-      options = [ "nofail" "x-systemd.automount" "x-systemd.requires=network-online.target" "x-systemd.device-timeout=10s"];
+      options = [
+        "nofail"
+        "x-systemd.automount"
+        "x-systemd.requires=network-online.target"
+        "x-systemd.device-timeout=10s"
+      ];
     };
   };
-
 
   # Set your time zone.
   time.timeZone = "Europe/Vilnius";
@@ -102,14 +116,26 @@
   # networking.firewall.enable = false;
 
   services.xserver.enable = true;
-  services.xserver.videoDrivers = [ "amdgpu" "radeon" "modesetting" "fbdev" ];
+  services.xserver.videoDrivers = [
+    "amdgpu"
+    "radeon"
+    "modesetting"
+    "fbdev"
+  ];
   services.xserver.desktopManager.xfce = {
     enable = true;
   };
   services.displayManager.defaultSession = "xfce";
   services.displayManager.logToFile = true;
 
-  users.extraUsers.olga.extraGroups = [ "audio" "docker" "video" "render" "wheel" "pulse" ];
+  users.extraUsers.olga.extraGroups = [
+    "audio"
+    "docker"
+    "video"
+    "render"
+    "wheel"
+    "pulse"
+  ];
 
   # The NixOS release to be compatible with for stateful data such as databases.
   system.stateVersion = "21.09";

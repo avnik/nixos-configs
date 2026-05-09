@@ -40,12 +40,24 @@ let
   '';
 in
 {
+  systemd.services.dovecot = {
+    requires = [ "mnt-maildir.mount" ];
+    after = [ "mnt-maildir.mount" ];
+  };
+
   services = {
     dovecot2 = {
       enable = true;
-      enableImap = true;
-      enablePop3 = false;
-      mailLocation = "maildir:/mnt/maildir/%u";
+      package = pkgs.dovecot_2_4;
+      settings = {
+        dovecot_config_version = config.services.dovecot2.package.version;
+        dovecot_storage_version = config.services.dovecot2.package.version;
+        mail_path = "maildir:/mnt/maildir/%u";
+        protocols = {
+          imap = true;
+          pop3 = true;
+        };
+      };
       #modules = [ pkgs.dovecot_pigeonhole ];
     };
     postfix = {
@@ -110,12 +122,12 @@ in
   environment = {
     etc = {
       "users/kris/forward" = {
-        text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
+        text = "|${config.services.dovecot2.package}/libexec/dovecot/dovecot-lda";
         mode = "0444";
         user = "kris";
       };
       "users/olga/forward" = {
-        text = "|${pkgs.dovecot}/libexec/dovecot/dovecot-lda";
+        text = "|${config.services.dovecot2.package}/libexec/dovecot/dovecot-lda";
         mode = "0444";
         user = "olga";
       };

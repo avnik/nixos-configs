@@ -1,13 +1,26 @@
-{ mod, terminal, pkgs, lib, sway ? false }:
+{
+  mod,
+  terminal,
+  pkgs,
+  lib,
+  sway ? false,
+}:
 let
-  i3specific = if sway then { } else {
-    "${mod}+Shift+r" = "restart";
-    "${mod}+Shift+q" = "restart";
-  };
+  i3specific =
+    if sway then
+      { }
+    else
+      {
+        "${mod}+Shift+r" = "restart";
+        "${mod}+Shift+q" = "restart";
+      };
   swaySpecific =
-    if sway then {
-      "${mod}+p" = "exec tessen -p gopass -d fuzzel";
-    } else { };
+    if sway then
+      {
+        "${mod}+p" = "exec tessen -p gopass -d fuzzel";
+      }
+    else
+      { };
 in
 {
   "${mod}+1" = "workspace 1";
@@ -60,4 +73,6 @@ in
   "${mod}+c" = "kill";
 
   "${mod}+Return" = "exec ${terminal}";
-} // i3specific // swaySpecific
+}
+// i3specific
+// swaySpecific

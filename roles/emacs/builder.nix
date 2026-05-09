@@ -1,10 +1,11 @@
-/* This file taken from: https://github.com/jwiegley/nix-config/blob/master/overlays/emacs/builder.nix */
-{ stdenv
-, emacs
-, name
-, src
-, buildInputs ? [ ]
-, patches ? [ ]
+# This file taken from: https://github.com/jwiegley/nix-config/blob/master/overlays/emacs/builder.nix
+{
+  stdenv,
+  emacs,
+  name,
+  src,
+  buildInputs ? [ ],
+  patches ? [ ],
 }:
 
 stdenv.mkDerivation {
@@ -16,8 +17,9 @@ stdenv.mkDerivation {
   patches = patches;
   buildInputs = [ emacs ] ++ buildInputs;
   buildPhase = ''
-    ARGS=$(find ${stdenv.lib.concatStrings
-                  (builtins.map (arg: arg + "/share/emacs/site-lisp ") buildInputs)} \
+    ARGS=$(find ${
+      stdenv.lib.concatStrings (builtins.map (arg: arg + "/share/emacs/site-lisp ") buildInputs)
+    } \
                  -type d -exec echo -L {} \;)
     ${emacs}/bin/emacs -Q -nw -L . $ARGS --batch -f batch-byte-compile *.el
   '';
@@ -27,7 +29,7 @@ stdenv.mkDerivation {
   '';
   meta = {
     description = "Emacs projects from the Internet that just compile .el files";
-    homepage = http://www.emacswiki.org;
+    homepage = "http://www.emacswiki.org";
     platforms = stdenv.lib.platforms.all;
   };
 }

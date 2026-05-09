@@ -1,4 +1,12 @@
-{ fetchurl, stdenv, lib, autoPatchelfHook, unzip, strace, pkgs }:
+{
+  fetchurl,
+  stdenv,
+  lib,
+  autoPatchelfHook,
+  unzip,
+  strace,
+  pkgs,
+}:
 
 let
   pname = "etxt-antiplagiat-bin";
@@ -21,7 +29,10 @@ stdenv.mkDerivation {
     qt5.qtwebkit
     qt5.wrapQtAppsHook
   ];
-  nativeBuildInputs = [ autoPatchelfHook unzip ];
+  nativeBuildInputs = [
+    autoPatchelfHook
+    unzip
+  ];
   installPhase = ''
         mkdir -p $out/lib $out/bin
         cp EtxtAntiplagiat $out/bin/EtxtAntiplagiat
@@ -34,4 +45,3 @@ stdenv.mkDerivation {
     maintainers = with maintainers; [ avnik ];
   };
 }
-

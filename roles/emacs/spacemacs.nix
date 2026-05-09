@@ -1,7 +1,8 @@
-{ stdenv
-, emacs
-, fetchFromGitHub
-, buildInputs ? [ ]
+{
+  stdenv,
+  emacs,
+  fetchFromGitHub,
+  buildInputs ? [ ],
 }:
 
 stdenv.mkDerivation {
@@ -32,8 +33,7 @@ stdenv.mkDerivation {
 
       (look also for spacemacs-locals, sister-package to extract stuff bundled in layers)
     '';
-    homepage = http://spacemacs.org/;
+    homepage = "http://spacemacs.org/";
     platforms = stdenv.lib.platforms.all;
   };
 }
-

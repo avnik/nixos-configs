@@ -1,4 +1,9 @@
-{ libs, pkgs, config, ... }:
+{
+  libs,
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.i3status-rust = {
     enable = true;
@@ -15,13 +20,23 @@
           };
         };
         blocks = [
-          { block = "focused_window"; format = "$title.str(max_w:180)|Missing"; }
-          { block = "load"; format = " $icon $1m $5m $15m"; interval = 1; }
+          {
+            block = "focused_window";
+            format = "$title.str(max_w:180)|Missing";
+          }
+          {
+            block = "load";
+            format = " $icon $1m $5m $15m";
+            interval = 1;
+          }
           { block = "memory"; }
-          { block = "time"; format = "$timestamp.datetime(f:'⏰ %F %a %T', l:en_US)"; interval = 1; }
+          {
+            block = "time";
+            format = "$timestamp.datetime(f:'⏰ %F %a %T', l:en_US)";
+            interval = 1;
+          }
         ];
       };
     };
   };
 }
-

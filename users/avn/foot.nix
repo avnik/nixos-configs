@@ -1,4 +1,10 @@
-{ lib, pkgs, config, nixosConfig, ... }:
+{
+  lib,
+  pkgs,
+  config,
+  nixosConfig,
+  ...
+}:
 let
   toFootColor = c: lib.removePrefix "0x" c;
   toFootColors = section: cs: {
@@ -40,7 +46,8 @@ in
       colors-dark = {
         foreground = toFootColor colors.primary.foreground;
         background = toFootColor colors.primary.background;
-      } // toFootColors "regular" colors.normal
+      }
+      // toFootColors "regular" colors.normal
       // toFootColors "bright" colors.bright
       // toFootColors "dim" colors.dim;
     };

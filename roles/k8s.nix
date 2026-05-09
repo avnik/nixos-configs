@@ -2,6 +2,9 @@
 
 {
   services.kubernetes = {
-    roles = [ "master" "node" ];
+    roles = [
+      "master"
+      "node"
+    ];
   };
 }

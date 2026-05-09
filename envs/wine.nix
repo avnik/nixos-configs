@@ -16,8 +16,7 @@ let
   wineWowStaging = pkgs.wineWow64Packages.full.override {
     wineRelease = "staging";
   };
-  wineWowStable = pkgs.wineWow64Packages.full.override {
-  };
+  wineWowStable = pkgs.wineWow64Packages.full.override { };
   wineEnv = pkgs.myEnvFun {
     name = "wine-gaming";
     buildInputs = with pkgs; [

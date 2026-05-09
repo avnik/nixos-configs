@@ -2,7 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
@@ -16,8 +21,16 @@ with lib;
       enable = true;
       efiSupport = true;
       mirroredBoots = [
-        { devices = [ "nodev" ]; path = "/boot/sda"; efiSysMountPoint = "/boot/sda/efi"; }
-        { devices = [ "nodev" ]; path = "/boot/sdb"; efiSysMountPoint = "/boot/sdb/efi"; }
+        {
+          devices = [ "nodev" ];
+          path = "/boot/sda";
+          efiSysMountPoint = "/boot/sda/efi";
+        }
+        {
+          devices = [ "nodev" ];
+          path = "/boot/sdb";
+          efiSysMountPoint = "/boot/sdb/efi";
+        }
       ];
       memtest86.enable = true;
     };
@@ -36,6 +49,9 @@ with lib;
     kernelModules = [ "r8169" ];
   };
   fileSystems = {
-    "/boot/efi" = { device = "/dev/sda1"; fsType = "vfat"; };
+    "/boot/efi" = {
+      device = "/dev/sda1";
+      fsType = "vfat";
+    };
   };
 }

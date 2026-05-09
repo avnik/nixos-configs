@@ -1,4 +1,8 @@
-{ pkgs, buildGoPackage, fetchFromGitHub }:
+{
+  pkgs,
+  buildGoPackage,
+  fetchFromGitHub,
+}:
 
 buildGoPackage rec {
   name = "hammer-${version}";
@@ -12,4 +16,3 @@ buildGoPackage rec {
   };
   goDeps = ./deps.json;
 }
-

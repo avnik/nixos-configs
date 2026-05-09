@@ -1,4 +1,9 @@
-{ pkgs, lib, config, ... }:
+{
+  pkgs,
+  lib,
+  config,
+  ...
+}:
 let
   gnupghome = "${config.xdg.dataHome}/gnupg";
 in
@@ -18,8 +23,12 @@ in
       ];
     };
   };
-  home.sessionVariables = { GNUPGHOME = gnupghome; };
-  programs.zsh.sessionVariables = { GNUPGHOME = gnupghome; };
+  home.sessionVariables = {
+    GNUPGHOME = gnupghome;
+  };
+  programs.zsh.sessionVariables = {
+    GNUPGHOME = gnupghome;
+  };
 
   programs.gpg = {
     enable = true;

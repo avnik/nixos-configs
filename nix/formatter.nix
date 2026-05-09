@@ -5,17 +5,19 @@
     inputs.treefmt-nix.flakeModule
   ];
   perSystem =
-    { config
-    , pkgs
-    , ...
-    }: {
+    {
+      config,
+      pkgs,
+      ...
+    }:
+    {
       treefmt.config = {
         inherit (config.flake-root) projectRootFile;
         package = pkgs.treefmt;
         flakeFormatter = true;
         flakeCheck = true;
         programs = {
-          nixpkgs-fmt.enable = true;
+          nixfmt.enable = true;
           #          prettier.enable = true;
           #          statix.enable = true;
         };

@@ -1,8 +1,14 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 with lib;
 
-let cfg = config.hardware.custom.r8168;
+let
+  cfg = config.hardware.custom.r8168;
 in
 
 {

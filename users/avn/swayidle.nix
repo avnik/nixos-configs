@@ -2,6 +2,7 @@
   pkgs,
   lib,
   config,
+  nixosConfig,
   ...
 }:
 let
@@ -10,7 +11,12 @@ let
   pactl = "${pkgs.pulseaudio}/bin/pactl";
   sleep = "${pkgs.coreutils}/bin/sleep";
   hyprctl = "${config.wayland.windowManager.hyprland.package}/bin/hyprctl";
-  swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
+  swayPkg =
+    if nixosConfig.programs.sway.enable && nixosConfig.programs.sway.package != null then
+      nixosConfig.programs.sway.package
+    else
+      pkgs.sway;
+  swaymsg = "${swayPkg}/bin/swaymsg";
 
   isLocked = "${pgrep} -x ${swaylock}";
   lockTime = 15 * 60; # TODO: configurable desktop (10 min)/laptop (4 min)

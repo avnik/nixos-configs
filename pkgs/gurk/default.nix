@@ -1,4 +1,11 @@
-{ crane, src, pkg-config, protobuf, openssl, writableTmpDirAsHomeHook }:
+{
+  crane,
+  src,
+  pkg-config,
+  protobuf,
+  openssl,
+  writableTmpDirAsHomeHook,
+}:
 
 let
   # Common arguments can be set here to avoid repeating them later
@@ -8,7 +15,11 @@ let
 
     strictDeps = true;
 
-    nativeBuildInputs = [ protobuf pkg-config writableTmpDirAsHomeHook ];
+    nativeBuildInputs = [
+      protobuf
+      pkg-config
+      writableTmpDirAsHomeHook
+    ];
     buildInputs = [
       openssl
     ];
@@ -26,13 +37,15 @@ let
     #  sed -i -e '1icargo-features = [ "edition2024" ]' Cargo.toml
   };
 
-  gurk = crane.buildPackage (commonArgs
+  gurk = crane.buildPackage (
+    commonArgs
     // {
-    cargoArtifacts = crane.buildDepsOnly commonArgs;
-    postUnpack = ''
-      substituteInPlace $sourceRoot/src/storage/sql/storage.rs --replace-fail Future std::future::Future
-    '';
-    doCheck = false;
-  });
+      cargoArtifacts = crane.buildDepsOnly commonArgs;
+      postUnpack = ''
+        substituteInPlace $sourceRoot/src/storage/sql/storage.rs --replace-fail Future std::future::Future
+      '';
+      doCheck = false;
+    }
+  );
 in
 gurk

@@ -1,4 +1,6 @@
-{ pkgs ? import <nixpkgs> { } }:
+{
+  pkgs ? import <nixpkgs> { },
+}:
 
 with pkgs;
 
@@ -29,7 +31,12 @@ buildDotnetPackage_ rec {
     sha256 = "0zwjs5c6g618vr7bp18w8lbrsdirb575p1pbxzn1kahgwvfnrqnk";
   };
   xBuildFiles = [ "KSPModAdmin_mono.sln" ];
-  buildInputs = [ HtmlAgilityPack NewtonsoftJson_ SharpCompress gdb ];
+  buildInputs = [
+    HtmlAgilityPack
+    NewtonsoftJson_
+    SharpCompress
+    gdb
+  ];
   FONTCONFIG_FILE = makeFontsConf {
     fontDirectories = [ freefont_ttf ];
   };

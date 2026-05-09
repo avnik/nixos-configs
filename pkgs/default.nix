@@ -1,14 +1,26 @@
-{ config, pkgs, inputs, system, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  system,
+  ...
+}:
 
 let
-  myShellFunc = { name, buildInputs ? [ ], extraCmds ? "" }: pkgs.myEnvFun {
-    inherit name;
-    shell = "${pkgs.zsh}/bin/zsh";
-    extraCmds = ''
-      . ${builtins.getEnv "HOME"}/.zshrc
-      ${extraCmds}
-    '';
-  };
+  myShellFunc =
+    {
+      name,
+      buildInputs ? [ ],
+      extraCmds ? "",
+    }:
+    pkgs.myEnvFun {
+      inherit name;
+      shell = "${pkgs.zsh}/bin/zsh";
+      extraCmds = ''
+        . ${builtins.getEnv "HOME"}/.zshrc
+        ${extraCmds}
+      '';
+    };
 
   binutils-stuff = pkgs.runCommand "binutils-stuff" { } ''
     #!${pkgs.stdenv.shell}
@@ -29,7 +41,10 @@ in
       droid-fonts = super.callPackage ./fonts/droid.nix { };
       kerbal = super.callPackage ./kerbal/default.nix { };
       openxcom-extended = super.callPackage ./openxcom/extended.nix { src = inputs.OXCE; };
-      gurk = super.callPackage ./gurk { crane = inputs.crane.mkLib self; src = inputs.gurk; };
+      gurk = super.callPackage ./gurk {
+        crane = inputs.crane.mkLib self;
+        src = inputs.gurk;
+      };
       libmp3splt = self.callPackage ./libmp3splt/package.nix { };
       mp3splt = self.callPackage ./mp3splt/package.nix { };
       #mp3splt-gtk = self.callPackage ./mp3splt-gtk/package.nix { };
