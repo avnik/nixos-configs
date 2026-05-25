@@ -18,8 +18,8 @@ let
       pkgs.sway;
   swaymsg = "${swayPkg}/bin/swaymsg";
 
-  isLocked = "${pgrep} -x ${swaylock}";
-  lockTime = 15 * 60; # TODO: configurable desktop (10 min)/laptop (4 min)
+  isLocked = "${pgrep} -f ${lib.escapeShellArg swaylock} >/dev/null 2>&1";
+  lockTime = 10 * 60; # TODO: configurable desktop (10 min)/laptop (4 min)
 
   # Makes two timeouts: one for when the screen is not locked (lockTime+timeout) and one for when it is.
   afterLockTimeout =
@@ -62,14 +62,14 @@ in
       ++
         # Turn off displays (hyprland)
         (lib.optionals config.wayland.windowManager.hyprland.enable (afterLockTimeout {
-          timeout = 40;
+          timeout = 10 * 60;
           command = "${hyprctl} dispatch dpms off";
           resumeCommand = "${hyprctl} dispatch dpms on";
         }))
       ++
         # Turn off displays (sway)
         (lib.optionals config.wayland.windowManager.sway.enable (afterLockTimeout {
-          timeout = 40;
+          timeout = 10 * 60;
           command = "${swaymsg} 'output * dpms off' ";
           resumeCommand = "${swaymsg} 'output * dpms on' ";
         }));

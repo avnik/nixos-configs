@@ -1,19 +1,14 @@
-{ config, pkgs, ... }:
+{ config, inputs, pkgs, ... }:
 
 {
   environment.systemPackages = with pkgs; [
-    # Unused for years
-    #    discord
-    # Unused for years
-    #    irssi
     telegram-desktop
     # Unused for years
-    #    skypeforlinux
     zoom-us
     ## Matrix
     # fractal-next
 
-    gurk
+    gurk-rs
     # signal-desktop
     # element-desktop
   ];

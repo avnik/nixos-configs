@@ -30,7 +30,6 @@
     devshell = {
       url = "github:numtide/devshell";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
     };
 
     roleplay = {
@@ -128,7 +127,7 @@
     };
     gurk = {
       url = "github:boxdot/gurk-rs";
-      flake = false;
+      flake = false; 
     };
     telegram-desktop-patches = {
       url = "github:Layerex/telegram-desktop-patches";

@@ -44,6 +44,7 @@ with lib;
     ../../roles/wayland.nix
     ../../roles/greetd.nix
     ../../roles/printing.nix
+    ../../roles/dev/oci.nix
     ../../users.nix
     ../../envs/wine.nix
     ./boot.nix

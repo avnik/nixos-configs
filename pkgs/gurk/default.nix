@@ -1,24 +1,40 @@
 {
   crane,
+  lib,
   src,
   pkg-config,
   protobuf,
   openssl,
+  sqlx-cli,
   writableTmpDirAsHomeHook,
 }:
 
 let
+  unfilteredRoot = src;
   # Common arguments can be set here to avoid repeating them later
   # Note: changes here will rebuild all dependency crates
   commonArgs = {
-    inherit src;
-
+    src = lib.sources.cleanSourceWith {
+      src = unfilteredRoot;
+      filter = path: type:
+        let
+          rel = lib.removePrefix "${unfilteredRoot}/" (toString path);
+        in
+          lib.hasSuffix "Cargo.toml" rel
+          || lib.hasPrefix "Cargo.lock" rel
+          || lib.hasPrefix "src/" rel
+          || lib.hasPrefix "migrations/" rel
+          || lib.hasPrefix "xtask/" rel
+          || lib.hasPrefix "benches/" rel
+          || lib.hasPrefix ".sqlx/" rel;
+    }; 
     strictDeps = true;
 
     nativeBuildInputs = [
       protobuf
       pkg-config
       writableTmpDirAsHomeHook
+      sqlx-cli
     ];
     buildInputs = [
       openssl
@@ -30,20 +46,25 @@ let
     PROTOC = "${protobuf}/bin/protoc";
 
     # Fix following error
-    #  > error: failed to parse manifest at `/build/source/Cargo.toml`
-    #  >
-    #  > Caused by:
-    #   >   feature `edition2024` is required
-    #  sed -i -e '1icargo-features = [ "edition2024" ]' Cargo.toml
+    # xtasks behave weird with crane
+    postPatch = ''
+      substituteInPlace Cargo.toml --replace-fail '"xtask"' ' '
+    '';
+    cargoExtraArgs = "--offline";
+#    preBuild = ''
+#      export DATABASE_URL=sqlite:./db.sqlite3
+#      sqlx database create
+#      sqlx migrate run
+#    '';
   };
 
   gurk = crane.buildPackage (
     commonArgs
     // {
-      cargoArtifacts = crane.buildDepsOnly commonArgs;
-      postUnpack = ''
-        substituteInPlace $sourceRoot/src/storage/sql/storage.rs --replace-fail Future std::future::Future
-      '';
+      cargoArtifacts = null; # crane.buildDepsOnly commonArgs;
+#      postUnpack = ''
+#        substituteInPlace $sourceRoot/src/storage/sql/storage.rs --replace-fail Future std::future::Future
+#      '';
       doCheck = false;
     }
   );

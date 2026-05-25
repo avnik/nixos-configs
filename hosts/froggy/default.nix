@@ -44,8 +44,8 @@
       blacklist iwlwifi
       blacklist iwlmvm
     '';
-    kernelPackages = pkgs.linuxPackages;
-    #kernelPackages = pkgs.linuxPackages_latest;
+    #kernelPackages = pkgs.linuxPackages;
+    kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [
       "intel_idle.max_cstate=1"
       "processor.max_cstate=1"

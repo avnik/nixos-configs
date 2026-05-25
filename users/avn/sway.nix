@@ -15,6 +15,7 @@ let
   systemIcons = "/run/current-system/sw/share/icons/hicolor";
   systemPixmaps = "/run/current-system/sw/share/pixmaps";
   iconPath = "${homeIcons}:${systemIcons}:${homePixmaps}:${systemPixmaps}";
+  swaylock = "${config.programs.swaylock.package}/bin/swaylock";
 
   #  swaylock = pkgs.swaylock.overrideAttrs (oa: {
   #    src = inputs.swaylock;
@@ -84,6 +85,10 @@ in
           "${modifier}+q" = "nop"; # Do nothing on press, trigger on release
           "--release ${modifier}+q" =
             "exec systemctl kill swayidle.service --user --signal USR1 --kill-who=main";
+          "${modifier}+Shift+q" = "nop";
+          "--release ${modifier}+Shift+q" =
+            "exec ${pkgs.coreutils}/bin/sleep 1 && ${swaylock} --daemonize --color 000000 && swaymsg 'output * dpms off'";
+          "${modifier}+Shift+o" = "exec swaymsg 'output * dpms on'";
         };
       focus.wrapping = "yes";
       assigns = {
