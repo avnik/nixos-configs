@@ -45,6 +45,7 @@ with lib;
     ../../roles/greetd.nix
     ../../roles/printing.nix
     ../../roles/dev/oci.nix
+    ../../roles/dev/usb-ssd-t7.nix
     ../../users.nix
     ../../envs/wine.nix
     ./boot.nix
@@ -93,6 +94,12 @@ with lib;
       max-jobs = lib.mkForce 3; # Parallel nix builds
     };
   };
+
+  # MTK's SP FlashTool fails to by-group access, so make it world-accessible
+  # I have no other ttyACM devices, except my phone pre-bootloader
+  services.udev.extraRules = ''
+    KERNEL=="ttyACM[0-9]*", MODE="0666"
+  '';
 
   powerManagement.cpuFreqGovernor = "ondemand";
   time.timeZone = "Europe/Vilnius";
@@ -217,6 +224,7 @@ with lib;
     # List packages installed in system profile. To search by name, run:
     # $ nix-env -qaP | grep wget
     systemPackages = with pkgs; [
+      android-tools
       openssl
       neovim
       rtorrent
@@ -255,10 +263,11 @@ with lib;
       git-delete-merged-branches
       git-stack
       gh
-      gh-cherry-pick
+      ghcherry
       aider-chat
       (spotify-player.override { withAudioBackend = "pulseaudio"; })
-      inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+      #inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
+      opencode
     ];
     sessionVariables = { };
 

@@ -66,6 +66,7 @@ with lib;
     ];
     kernelPackages = pkgs.linuxPackages_7_0;
     zfs.package = pkgs.zfs_2_4;
+    zfs.forceImportRoot = false;
     #zfs.enableUnstable = true;
     #kernelPackages = pkgs.linuxPackages_latest;
     kernelModules = [

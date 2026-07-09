@@ -85,6 +85,17 @@ in
     };
     "/nix/var/nix/builds" = bindMount "/var/buildroot";
   };
+  # Keep live ZFS mounts intact across nixos-rebuild switch.
+  systemd.services = {
+    zfs-mount = {
+      restartIfChanged = false;
+      stopIfChanged = false;
+    };
+    zfs-import-tank = {
+      restartIfChanged = false;
+      stopIfChanged = false;
+    };
+  };
   swapDevices = [
     {
       device = "/dev/bulldozer-secondary/swap";

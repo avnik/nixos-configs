@@ -9,7 +9,9 @@
     ];
   };
   systemd = {
-    user.extraConfig = "DefaultOOMScoreAdjust=0";
+    user.settings.Manager = { 
+      DefaultOOMScoreAdjust = 0;
+    };
     services."user@".serviceConfig.OOMScoreAdjust = 0;
   };
 }

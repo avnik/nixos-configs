@@ -44,8 +44,15 @@ in
     };
 
   # Keep active sessions alive during `nixos-rebuild switch`.
-  # greetd unit/config changes (e.g. sway package path updates) would otherwise restart greetd and drop the current session.
+  # NixOS can operate on both greetd.service and display-manager.service aliases;
+  # guard both so unit changes do not bounce the login manager mid-session.
   systemd.services.greetd = {
+    reloadIfChanged = false;
+    restartIfChanged = false;
+    stopIfChanged = false;
+  };
+  systemd.services.display-manager = {
+    reloadIfChanged = false;
     restartIfChanged = false;
     stopIfChanged = false;
   };
