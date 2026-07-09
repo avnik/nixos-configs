@@ -115,7 +115,6 @@
       url = "github:Mic92/nix-update";
       inputs = {
         nixpkgs.follows = "nixpkgs";
-        flake-parts.follows = "flake-parts";
         treefmt-nix.follows = "treefmt-nix";
       };
     };
@@ -133,12 +132,38 @@
       url = "github:Layerex/telegram-desktop-patches";
       flake = false;
     };
-    opencode = {
-      url = "github:anomalyco/opencode";
+
+#    opencode = {
+#      url = "github:anomalyco/opencode";
+#      inputs.nixpkgs.follows = "nixpkgs";
+#    };
+
+    charmbracelet-nur = {
+      url = "github:charmbracelet/nur";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt-nix";
     };
+
+    superpowers = {
+      url = "github:obra/superpowers";
+      flake = false;
+    };
+
+    caveman = {
+      url = "github:JuliusBrussee/caveman";
+      flake = false;
+    };
+
     ghaf-playground = {
       url = "github:avnik/ghaf-playground";
+      # We use only homeModules from here, dependencies are unneeded
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        ghaf.follows = "";
+        nixos-anywhere.follows = "";
+        devshell.follows = "devshell";
+      };
     };
 
     ### Theming
