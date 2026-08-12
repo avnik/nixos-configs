@@ -20,6 +20,8 @@ let
   colors = import ./colors.nix;
 in
 {
+  catppuccin.foot.enable = false;
+
   programs.foot = {
     enable = true;
     server.enable = true;

@@ -9,7 +9,7 @@
     # fractal-next
 
     gurk-rs
-    # signal-desktop
+    signal-desktop
     # element-desktop
   ];
 }

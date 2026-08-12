@@ -163,6 +163,7 @@
         ghaf.follows = "";
         nixos-anywhere.follows = "";
         devshell.follows = "devshell";
+        gp-gui.follows = "";
       };
     };
 
@@ -178,6 +179,7 @@
     };
     catppuccin-nix = {
       url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-wallpaper = {
       url = "github:lunik1/nix-wallpaper";

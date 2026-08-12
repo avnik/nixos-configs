@@ -8,10 +8,5 @@
       "^Isolated Web Container$"
     ];
   };
-  systemd = {
-    user.settings.Manager = { 
-      DefaultOOMScoreAdjust = 0;
-    };
-    services."user@".serviceConfig.OOMScoreAdjust = 0;
-  };
+  systemd.services."user@".serviceConfig.OOMScoreAdjust = 0;
 }

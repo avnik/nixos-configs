@@ -41,6 +41,20 @@ in
     wtype
     tessen
   ];
+  services.clipcat = {
+    enable = true;
+    daemonSettings = {
+      daemonize = true;
+      synchronize_selection_with_clipboard = true;
+      watcher = {
+        enable_clipboard = true;
+        enable_primary = true;
+      };
+    };
+    menuSettings = {
+      finder = "fuzzel";
+    };
+  };
   programs = {
     chromium = {
       package = lib.mkForce (
@@ -58,7 +72,6 @@ in
     };
     fuzzel = {
       enable = true;
-      catppuccin.enable = true;
     };
     swaylock = {
       enable = true;
@@ -125,6 +138,7 @@ in
 
       # I use F12 as en/ru toggle, but chromium still trigger devtools on it (probably by scancode), so don't pass it anywhere
       bindsym --to-code --inhibited F12 nop
+      bindsym ${modifier}+Ctrl+v exec clipcat-menu insert
 
       for_window [class="^.*"] border pixel 2
       for_window [app_id="firefox" title="^Picture-in-Picture$"] floating enable
@@ -132,6 +146,8 @@ in
 
       assign [class="clientloader.exe"] workspace 4
       for_window [class="clientloader.exe"] fullscreen disable
+
+      input type:pointer accel_profile flat
     '';
     systemd.enable = true;
   };

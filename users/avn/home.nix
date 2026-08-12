@@ -34,6 +34,7 @@ in
     ./i3status.nix
     ./gpg.nix
     ./git.nix
+    ./crush.nix
     inputs.private.homeModules.avn
   ]
   ++ lib.optionals (builtins.elem hostName [
@@ -42,7 +43,21 @@ in
   ]) [ ./sway.nix ]
   ++ lib.optionals (hostName == "bulldozer") [ ./emacs.nix ];
 
-  catppuccin.flavor = "mocha";
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+  };
+
+  
+  dconf = {
+    enable = true;
+    # Enable middle-click paste in chromium, it read GNOME option for enable it
+    settings = {
+      "org/gnome/desktop/interface" = {
+        gtk-enable-primary-paste = true;
+      };
+    };
+  };
 
   gtk = {
     enable = true;
@@ -56,6 +71,9 @@ in
     enable = true;
     storePath = "$HOME/.local/share/pass-secret-service-store";
   };
+  systemd.user.tmpfiles.rules = [
+    "D %h/.local/share/gurk/files 0700 - - 14d"
+  ];
   home.packages = with pkgs; [
     seahorse # Manager for gnome-keyring
   ];
@@ -82,7 +100,7 @@ in
   };
 
   programs.ssh.enableDefaultConfig = false;
-  programs.ssh.matchBlocks."*".extraOptions = {
+  programs.ssh.settings."*" = {
     SendEnv = "LANG LC_* TERM";
   };
 

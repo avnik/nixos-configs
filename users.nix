@@ -14,6 +14,7 @@
       "vboxusers"
       "systemd-journal"
       "adm"
+      "dialout"
     ];
     shell = "/run/current-system/sw/bin/zsh";
   };
