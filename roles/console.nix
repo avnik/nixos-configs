@@ -1,8 +1,13 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 {
-  imports = [ ./vim.nix ];
+  imports = [ ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = [
+    (inputs.nvf.lib.neovimConfiguration {
+      inherit pkgs;
+      modules = [ ./neovim/base.nix ];
+    }).neovim
+  ] ++ (with pkgs; [
     enca # smart codepage recoder with detection
     jq
     yq
@@ -47,7 +52,7 @@
     flashrom # I need it on all local machines (split special local stuff to own role?)
     iana-etc
     picocom
-  ];
+  ]);
 
   programs.bash.interactiveShellInit = ''
     HISTCONTROL=ignoreboth:erasedups

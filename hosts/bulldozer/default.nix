@@ -226,7 +226,6 @@ with lib;
     systemPackages = with pkgs; [
       android-tools
       openssl
-      neovim
       rtorrent
       imagemagick
       renameutils
