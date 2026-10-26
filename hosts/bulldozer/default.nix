@@ -45,6 +45,7 @@ with lib;
     ../../roles/greetd.nix
     ../../roles/printing.nix
     ../../roles/dev/oci.nix
+    ../../roles/dev/orin-agx.nix
     ../../roles/dev/usb-ssd-t7.nix
     ../../users.nix
     ../../envs/wine.nix
@@ -55,6 +56,7 @@ with lib;
     ./openvpn.nix
     ./samba.nix
     ./portal.nix
+    ./cisco.nix
     ./set-profile.nix
     ./wireguard.nix
 
@@ -176,24 +178,7 @@ with lib;
       HandleSuspendKey = "ignore";
     };
 
-    #  nix-serve = {
-    #    enable = true;
-    #    secretKeyFile = "/etc/nixos/secrets/nix-bulldozer.key";
-    #  };
-
     avahi.enable = true;
-    _3proxy = {
-      enable = true;
-      services = [
-        {
-          type = "proxy";
-          bindAddress = "127.0.0.1";
-          bindPort = 3128;
-          auth = [ "none" ];
-          maxConnections = 256;
-        }
-      ];
-    };
     nginx = {
       enable = true;
       logError = "/var/log/nginx/error.log info";
@@ -239,7 +224,7 @@ with lib;
       remmina
       hledger
       perf-tools
-      awscli
+      # awscli
       sshpass
       edac-utils
       dmidecode
@@ -264,10 +249,7 @@ with lib;
       git-stack
       gh
       ghcherry
-      aider-chat
       (spotify-player.override { withAudioBackend = "pulseaudio"; })
-      #inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.opencode
-      opencode
     ];
     sessionVariables = { };
 

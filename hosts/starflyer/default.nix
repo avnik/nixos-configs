@@ -19,6 +19,7 @@
     ../../roles/X11.nix
     ../../roles/earlyoom.nix
     ../../envs/wine.nix
+    ./nvidia.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -78,6 +79,7 @@
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
+    mesa-demos
     ethtool
     lm_sensors
     #claws-mail

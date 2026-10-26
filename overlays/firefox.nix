@@ -4,12 +4,12 @@
       self: super: {
         firefox-unwrapped =
           (super.firefox-unwrapped.override {
-            pgoSupport = false; # It's slow!
-            ltoSupport = false; # It's slow and take about 45G of RAM
-            crashreporterSupport = false; # Remove anal probe
-            privacySupport = true;
-            webrtcSupport = true;
-            geolocationSupport = true;
+            enablePGO = false; # It's slow!
+            enableLTO = false; # It's slow and take about 45G of RAM
+            enableCrashReporter = false; # Remove anal probe
+            enableDataReporting = false;
+            enableWebRTC = true;
+            enableLocation = true;
           }).overrideAttrs
             (_: {
               # Remove anal probes

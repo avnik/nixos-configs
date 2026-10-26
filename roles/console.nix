@@ -6,6 +6,7 @@
     enca # smart codepage recoder with detection
     jq
     yq
+    nh
     pandoc
     screen
     tmux

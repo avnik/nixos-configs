@@ -19,7 +19,6 @@
   ];
   boot.kernel.sysctl."kernel.dmesg_restrict" = 0;
   boot.loader.grub.memtest86.enable = true;
-  boot.initrd.systemd.enable = true;
 
   hardware = {
     ksm.enable = true;
@@ -47,10 +46,8 @@
 
   services.timesyncd.enable = true;
 
-  services.journald = {
-    extraConfig = ''
-      MaxRetentionSec=1month
-    '';
+  services.journald.settings.Journal = {
+    MaxRetentionSec = "1month";
   };
 
   programs.ssh = {

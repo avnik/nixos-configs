@@ -27,11 +27,10 @@
 
   environment.systemPackages = with pkgs; [
     #anki
-    aichat
     alock
     brewtarget
     firefox
-    gimp3-with-plugins
+    (gimp3-with-plugins.override { plugins = []; })
     blender
     #krita
     rawtherapee

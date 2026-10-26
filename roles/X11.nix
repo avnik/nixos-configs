@@ -17,7 +17,7 @@
   services.xserver.displayManager.lightdm.enable = true;
 
   environment.systemPackages = with pkgs; [
-    rxvt-unicode
+    #rxvt-unicode
     xkbcomp
     xlsatoms
     xkill

@@ -25,10 +25,9 @@ in
 {
   imports = [
     inputs.nix-doom-emacs.hmModule
-    inputs.catppuccin-nix.homeManagerModules.catppuccin
+    inputs.catppuccin-nix.homeModules.catppuccin
     inputs.ghaf-playground.homeManagerModules.ghaf-playground
     ../common/xkb.nix
-    ./x11.nix
     ./direnv.nix
     ./opencode.nix
     ./i3status.nix

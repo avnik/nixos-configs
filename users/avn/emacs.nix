@@ -9,7 +9,7 @@
 {
   programs.doom-emacs = rec {
     enable = true;
-    emacs = pkgs.emacs30-pgtk;
+    emacs = pkgs.emacs-pgtk;
     extraPackages = epkgs: [ epkgs.vterm ];
     #      emacsPackagesOverlay = self: super: {
     #        vterm = super.vterm.overrideAttrs (oldAttrs: {

@@ -25,7 +25,8 @@
     nixpkgs-review
     inputs.poetry2nix.packages.${system}.poetry2nix
     inputs.nix-fast-build.packages.${system}.nix-fast-build
-    inputs.nix-update.packages.${system}.nix-update
+    # inputs.nix-update.packages.${system}.nix-update
+    nix-update
     #    inputs.fast-flake-update.packages.${system}.fast-flake-update
   ];
 }

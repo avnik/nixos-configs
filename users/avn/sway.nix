@@ -41,6 +41,7 @@ in
     wtype
     tessen
   ];
+  /*
   services.clipcat = {
     enable = true;
     daemonSettings = {
@@ -54,7 +55,7 @@ in
     menuSettings = {
       finder = "fuzzel";
     };
-  };
+  };*/
   programs = {
     chromium = {
       package = lib.mkForce (

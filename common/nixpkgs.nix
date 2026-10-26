@@ -11,7 +11,6 @@
   nixpkgs.config = {
     allowUnfree = true;
     allowBroken = true;
-    pulseaudio = true;
     #     checkMeta = false;
     showDerivationWarnings = [ ];
     packageOverrides = pkgs: rec { };

@@ -12,7 +12,6 @@
     colmena = {
       url = "github:zhaofengli/colmena";
       inputs = {
-        flake-utils.follows = "flake-utils";
         nixpkgs.follows = "nixpkgs";
         stable.follows = "";
         nix-github-actions.follows = ""; # Unneeded, and pull own nixpkgs revision
@@ -69,7 +68,6 @@
     agenix = {
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
     };
 
     rust-overlay = {
@@ -133,17 +131,6 @@
       flake = false;
     };
 
-#    opencode = {
-#      url = "github:anomalyco/opencode";
-#      inputs.nixpkgs.follows = "nixpkgs";
-#    };
-
-    charmbracelet-nur = {
-      url = "github:charmbracelet/nur";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.treefmt-nix.follows = "treefmt-nix";
-    };
-
     superpowers = {
       url = "github:obra/superpowers";
       flake = false;
@@ -163,7 +150,6 @@
         ghaf.follows = "";
         nixos-anywhere.follows = "";
         devshell.follows = "devshell";
-        gp-gui.follows = "";
       };
     };
 
