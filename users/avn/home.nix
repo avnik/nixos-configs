@@ -17,8 +17,8 @@ let
     LC_MESSAGES = "C";
     LC_TIME = "C";
     LESSCHARSET = "utf-8";
-    EDITOR = "vi";
-    VISUAL = "vi";
+    EDITOR = "nvim";
+    VISUAL = "nvim";
   };
 in
 
@@ -75,6 +75,14 @@ in
   ];
   home.packages = with pkgs; [
     seahorse # Manager for gnome-keyring
+  ] ++ lib.optionals (hostName == "bulldozer") [
+    (inputs.nvf.lib.neovimConfiguration {
+      inherit pkgs;
+      modules = [
+        ../../roles/neovim/base.nix
+        ../../roles/neovim/avn-bulldozer.nix
+      ];
+    }).neovim
   ];
   programs.powerline-go = {
     enable = true;
