@@ -13,8 +13,8 @@
       json.enable = true;
       yaml.enable = true;
       sql.enable = true;
-      java.enable = true;
-      kotlin.enable = true;
+      java.enable = false;
+      kotlin.enable = false;
       typescript.enable = true;
       tsx.enable = true;
       scss = {
@@ -22,7 +22,10 @@
         lsp.enable = false;
       };
       go.enable = true;
-      haskell.enable = true;
+      haskell = {
+        enable = true;
+        lsp.enable = false;
+      };
       lua.enable = true;
       zig.enable = true;
       python.enable = true;

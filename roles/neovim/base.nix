@@ -16,11 +16,16 @@
       hlsearch = true;
       history = 700;
       ruler = true;
-      nojoinspaces = true;
+      joinspaces = false;
       shiftround = true;
       backspace = "eol,indent,start";
       langmap = "ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\"ZXCVBNM<>";
     };
+    luaConfigPost = ''
+      vim.api.nvim_set_hl(0, "Normal", { bg = "#000000" })
+      vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+      vim.api.nvim_set_hl(0, "NormalNC", { bg = "#000000" })
+    '';
     mini.align.enable = true;
     languages = {
       enableTreesitter = true;
